@@ -47,13 +47,13 @@ DROP TABLE IF EXISTS `file`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `file` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `filename` varchar(20) NOT NULL,
-  `type` varchar(20) NOT NULL,
-  `size` varchar(30) NOT NULL,
+  `id` int(11) NOT NULL,
+  `filename` int(11) NOT NULL,
+  `type` int(11) NOT NULL,
+  `size` int(11) NOT NULL,
   `uploaddata` varchar(20) NOT NULL,
-  `downloadcount` varchar(20) NOT NULL,
-  `state` int(11) DEFAULT '0',
+  `downloads` int(11) NOT NULL,
+  `state` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -68,13 +68,13 @@ LOCK TABLES `file` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `repertory`
+-- Table structure for table `filebox`
 --
 
-DROP TABLE IF EXISTS `repertory`;
+DROP TABLE IF EXISTS `filebox`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `repertory` (
+CREATE TABLE `filebox` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `url` varchar(250) NOT NULL,
   PRIMARY KEY (`id`)
@@ -82,12 +82,12 @@ CREATE TABLE `repertory` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `repertory`
+-- Dumping data for table `filebox`
 --
 
-LOCK TABLES `repertory` WRITE;
-/*!40000 ALTER TABLE `repertory` DISABLE KEYS */;
-/*!40000 ALTER TABLE `repertory` ENABLE KEYS */;
+LOCK TABLES `filebox` WRITE;
+/*!40000 ALTER TABLE `filebox` DISABLE KEYS */;
+/*!40000 ALTER TABLE `filebox` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -99,7 +99,7 @@ DROP TABLE IF EXISTS `saved_file`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `saved_file` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `repertory` int(11) NOT NULL,
+  `filebox` int(11) NOT NULL,
   `file` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -150,7 +150,7 @@ CREATE TABLE `user` (
   `username` varchar(20) NOT NULL,
   `password` varchar(20) NOT NULL,
   `email` varchar(30) NOT NULL,
-  `regdata` varchar(20) NOT NULL,
+  `registerdate` varchar(20) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -173,4 +173,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-12-13 21:47:26
+-- Dump completed on 2017-12-14  8:52:06

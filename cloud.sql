@@ -16,27 +16,27 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `download`
+-- Table structure for table `admin`
 --
 
-DROP TABLE IF EXISTS `download`;
+DROP TABLE IF EXISTS `admin`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `download` (
+CREATE TABLE `admin` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user` int(11) NOT NULL,
-  `file` int(11) NOT NULL,
+  `username` varchar(20) NOT NULL,
+  `password` varchar(20) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `download`
+-- Dumping data for table `admin`
 --
 
-LOCK TABLES `download` WRITE;
-/*!40000 ALTER TABLE `download` DISABLE KEYS */;
-/*!40000 ALTER TABLE `download` ENABLE KEYS */;
+LOCK TABLES `admin` WRITE;
+/*!40000 ALTER TABLE `admin` DISABLE KEYS */;
+/*!40000 ALTER TABLE `admin` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -51,9 +51,8 @@ CREATE TABLE `file` (
   `filename` int(11) NOT NULL,
   `type` int(11) NOT NULL,
   `size` int(11) NOT NULL,
-  `uploaddata` varchar(20) NOT NULL,
   `downloads` int(11) NOT NULL,
-  `state` int(11) NOT NULL DEFAULT '0',
+  `hash` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -65,77 +64,6 @@ CREATE TABLE `file` (
 LOCK TABLES `file` WRITE;
 /*!40000 ALTER TABLE `file` DISABLE KEYS */;
 /*!40000 ALTER TABLE `file` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `filebox`
---
-
-DROP TABLE IF EXISTS `filebox`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `filebox` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `url` varchar(250) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `filebox`
---
-
-LOCK TABLES `filebox` WRITE;
-/*!40000 ALTER TABLE `filebox` DISABLE KEYS */;
-/*!40000 ALTER TABLE `filebox` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `saved_file`
---
-
-DROP TABLE IF EXISTS `saved_file`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `saved_file` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `filebox` int(11) NOT NULL,
-  `file` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `saved_file`
---
-
-LOCK TABLES `saved_file` WRITE;
-/*!40000 ALTER TABLE `saved_file` DISABLE KEYS */;
-/*!40000 ALTER TABLE `saved_file` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `upload`
---
-
-DROP TABLE IF EXISTS `upload`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `upload` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user` int(11) NOT NULL,
-  `file` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `upload`
---
-
-LOCK TABLES `upload` WRITE;
-/*!40000 ALTER TABLE `upload` DISABLE KEYS */;
-/*!40000 ALTER TABLE `upload` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -163,6 +91,31 @@ LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `user_file`
+--
+
+DROP TABLE IF EXISTS `user_file`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `user_file` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user` int(11) NOT NULL,
+  `file` int(11) NOT NULL,
+  `uploadTime` varchar(20) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user_file`
+--
+
+LOCK TABLES `user_file` WRITE;
+/*!40000 ALTER TABLE `user_file` DISABLE KEYS */;
+/*!40000 ALTER TABLE `user_file` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -173,4 +126,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-12-14  8:52:06
+-- Dump completed on 2017-12-14 20:44:23

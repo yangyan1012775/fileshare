@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/rugao-web-fullstack/fileshare.svg?branch=master)](https://travis-ci.org/rugao-web-fullstack/fileshare.svg?branch=master)
+[![Build Status](https://travis-ci.org/rugao-web-fullstack/fileshare.svg?branch=master)](https://travis-ci.org/rugao-web-fullstack/fileshare)
 [![Coverage Status](https://coveralls.io/repos/github/rugao-web-fullstack/fileshare/badge.svg?branch=master)](https://coveralls.io/github/rugao-web-fullstack/fileshare?branch=master)
 [![MIT license](http://img.shields.io/badge/license-MIT-brightgreen.svg)](http://opensource.org/licenses/MIT)
 

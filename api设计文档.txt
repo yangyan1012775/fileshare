@@ -76,7 +76,7 @@ JSON数据处理 api
 	3)删除
 	url: /files
 	method: POST
-	作用：用户点击删除按钮，获取对应文件索引，在数据库进行更改
+	作用：用户点击删除按钮，获取对应文件索引，在数据库进行更改/管理员删除指定文件
 	4)文件详情
 	url: /files/:id
 	method: GET
@@ -145,24 +145,16 @@ JSON数据处理 api
 	作用：发生请求到服务器，重置指定用户密码
 4.文件管理
 	1.分类读取
-	url：/admins/files?type=具体文件类型
+	url：/admins/files
 	method：GET 
+	query：?type=具体文件类型
 	作用：返回指定文件类型的文件列表到客户端
-	2.删除文件
-	url：/admins/files  
-	method：POST 
-	作用：发送请求到服务器，删除指定文件
-    3.待审读取
-	url：/admins/files?filter= pending
-	method：GET 
+	query：?filter= pending
 	作用：返回未审核文件列表到客户端
-    4.通过文件
-	url：/admins/files  
-	method：POST  
+	3.审核文件
+	url：/admins/files 
+	method：POST 
 	data：action=permit&id=具体文件id
 	作用：发送请求到服务器，审核通过指定文件
-    5.打回文件
-	method：POST 
-	url：/admins/pendingfiles  
 	data：action='reject'
 	作用：发送请求到服务器，打回指定文件

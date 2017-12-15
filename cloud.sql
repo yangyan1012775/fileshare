@@ -67,30 +67,29 @@ LOCK TABLES `file` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `padding_file`
+-- Table structure for table `pending_file`
 --
 
-DROP TABLE IF EXISTS `padding_file`;
+DROP TABLE IF EXISTS `pending_file`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `padding_file` (
+CREATE TABLE `pending_file` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `filename` varchar(255) NOT NULL,
   `type` varchar(20) NOT NULL,
   `size` int(11) NOT NULL,
-  `downloads` int(11) NOT NULL,
   `hash` varchar(64) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `padding_file`
+-- Dumping data for table `pending_file`
 --
 
-LOCK TABLES `padding_file` WRITE;
-/*!40000 ALTER TABLE `padding_file` DISABLE KEYS */;
-/*!40000 ALTER TABLE `padding_file` ENABLE KEYS */;
+LOCK TABLES `pending_file` WRITE;
+/*!40000 ALTER TABLE `pending_file` DISABLE KEYS */;
+/*!40000 ALTER TABLE `pending_file` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -180,4 +179,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-12-15 20:15:49
+-- Dump completed on 2017-12-15 21:12:42

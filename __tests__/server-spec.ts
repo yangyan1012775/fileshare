@@ -2,6 +2,9 @@ import { Server } from '../src/server';
 import * as Express from "express";
 import * as request from 'supertest';
 
+const app = Express();
+const server = new Server(app,3000);
+
 test('Should greet with message', () => {
   const express1 = Express();
   const express2 = Express();
@@ -12,9 +15,9 @@ test('Should greet with message', () => {
   expect(server.server).toBe(express2);
 });
 
+
+
 test('测试访问用户页面success', (done) => {
-  let app = Express();
-  let server = new Server(app,3000);
   request(app)
   .get('/user/5555')
   .expect(200, function (err, res) {
@@ -24,8 +27,6 @@ test('测试访问用户页面success', (done) => {
   });
 });
 test('测试访问用户页面fail', (done) => {
-  let app = Express();
-  let server = new Server(app,3000);
   request(app)
   .get('/user/qqq')
   .expect(200, function (err, res) {
@@ -35,8 +36,6 @@ test('测试访问用户页面fail', (done) => {
   });
 });
 test('测试访问用户管理页面', (done) => {
-  let app = Express();
-  let server = new Server(app,3000);
   request(app)
   .get('/admin/users')
   .expect(200, function (err, res) {

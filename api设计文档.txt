@@ -63,24 +63,40 @@ JSON数据处理 api
 	method: GET
 	作用：用户点击“其他”栏，在数据库查找其他文件信息并进行处理，将处理后的其他文件信息返回到“其他”栏
 3.文件
-	1)上传
+	
+	1)分类读取
+	url：/files
+	method：GET 
+	query：?type=具体文件类型
+	作用：返回指定文件类型的文件列表到管理系统客户端
+	query：?filter= pending
+	作用：返回未审核文件列表到管理系统客户端
+	2)上传
 	url: /files
 	method: POST
 	data: action = upload
 	作用：用户点击上传按钮，获取上传文件数据进行处理，然后存储进数据库
-	2)下载
+	3)下载
 	url: /files
 	method: POST
 	data: action = download
 	作用：用户点击下载按钮，获取下载文件信息，存储进数据库
-	3)删除
+	4)删除
 	url: /files
 	method: POST
+	data: action = delete
 	作用：用户点击删除按钮，获取对应文件索引，在数据库进行更改/管理员删除指定文件
-	4)文件详情
+	5)文件详情
 	url: /files/:id
 	method: GET
 	作用：返回具体文件的文件详细信息
+	6）审核文件
+	url：/files 
+	method：POST 
+	data：action=permit&id=具体文件id
+	作用：发送请求到服务器，审核通过指定文件
+	data：action='reject'
+	作用：发送请求到服务器，打回指定文件
 
 2.管理端
 HTML页面 url
@@ -143,18 +159,3 @@ JSON数据处理 api
 	method：POST 
 	data：action='reset'
 	作用：发生请求到服务器，重置指定用户密码
-4.文件管理
-	1.分类读取
-	url：/admins/files
-	method：GET 
-	query：?type=具体文件类型
-	作用：返回指定文件类型的文件列表到客户端
-	query：?filter= pending
-	作用：返回未审核文件列表到客户端
-	3.审核文件
-	url：/admins/files 
-	method：POST 
-	data：action=permit&id=具体文件id
-	作用：发送请求到服务器，审核通过指定文件
-	data：action='reject'
-	作用：发送请求到服务器，打回指定文件

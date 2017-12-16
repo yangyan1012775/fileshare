@@ -1,4 +1,4 @@
-import { Server } from './server';
 import * as Express from "express";
-let server = new Server(Express(), 3000);
+import { Server } from './server';
+const server = new Server(Express(), process.env.PORT);
 export default server.listen();

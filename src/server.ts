@@ -4,7 +4,7 @@ import * as path from 'path';
 import user from './routes/url/user';
 export class Server {
   private _server: Express;
-  private _port: Number;
+  private _port: number;
 
   constructor(server: Express, port = 8080) {
     this._server = server;
@@ -14,7 +14,7 @@ export class Server {
   }
   get server(): Express { return this._server };
   set server(server: Express) { this._server = server };
-  listen() {
+  public listen() {
     return this._server.listen(this._port);
   }
   init(app:Express){

@@ -65,7 +65,7 @@ JSON数据处理 api
 3.文件
 	
 	1)分类读取
-	url：/admins/files
+	url：/files
 	method：GET 
 	query：?type=具体文件类型
 	作用：返回指定文件类型的文件列表到管理系统客户端
@@ -84,13 +84,14 @@ JSON数据处理 api
 	4)删除
 	url: /files
 	method: POST
+	data: action = delete
 	作用：用户点击删除按钮，获取对应文件索引，在数据库进行更改/管理员删除指定文件
 	5)文件详情
 	url: /files/:id
 	method: GET
 	作用：返回具体文件的文件详细信息
 	6）审核文件
-	url：/admins/files 
+	url：/files 
 	method：POST 
 	data：action=permit&id=具体文件id
 	作用：发送请求到服务器，审核通过指定文件

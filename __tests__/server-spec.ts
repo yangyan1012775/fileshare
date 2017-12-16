@@ -34,3 +34,14 @@ test('测试访问用户页面fail', (done) => {
     done();
   });
 });
+test('测试访问用户管理页面', (done) => {
+  let app = Express();
+  let server = new Server(app,3000);
+  request(app)
+  .get('/admin/users')
+  .expect(200, function (err, res) {
+    if(err) throw err;
+    console.log(res.text);
+    done();
+  })
+});

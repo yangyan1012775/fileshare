@@ -41,7 +41,7 @@ test('测试访问用户管理页面', (done) => {
   .get('/admin/users')
   .expect(200, function (err, res) {
     if(err) throw err;
-    console.log(res.text);
+    expect((res.text).includes('支持模糊搜索')).toBeTruthy();
     done();
   })
 });

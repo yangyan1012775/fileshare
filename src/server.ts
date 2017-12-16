@@ -17,7 +17,7 @@ export class Server {
   public listen() {
     return this._server.listen(this._port);
   }
-  init(app:Express){
+  public init(app:Express){
     app.set('view engine', 'html');
     nunjucks.configure(path.resolve(__dirname,'views'), {
       autoescape: true,
@@ -25,7 +25,7 @@ export class Server {
     });
     app.use(Express.static(path.join(__dirname, 'public')));
   }
-  initRouters(app:Express){
+  public initRouters(app:Express){
     app.use('/user', user);
   }
 }

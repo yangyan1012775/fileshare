@@ -1,5 +1,5 @@
 import * as Express from "express";
-var router = Express.Router();
+const router = Express.Router();
 
 router.get('/:id', function(req:any, res:any) {
   if (!isNaN(req.params.id)) {

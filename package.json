@@ -30,7 +30,10 @@
     "watch:test": "jest --watch"
   },
   "dependencies": {
-    "express": "^4.16.2"
+    "express": "^4.16.2",
+    "express-session": "^1.15.6",
+    "nunjucks": "^3.0.1",
+    "supertest": "^3.0.0"
   },
   "devDependencies": {
     "@types/jest": "^20.0.5",

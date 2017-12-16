@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>-用户文件管理</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link href="https://cdn.bootcss.com/bootstrap/4.0.0-beta/css/bootstrap.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/bootstrap/4.0.0-beta/css/bootstrap-grid.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/bootstrap/4.0.0-beta/css/bootstrap-reboot.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/user.css">
+</head>
+<body>
+<nav class="navbar">
+    <div class="col-0 col-sm-1 col-md-1 col-lg-1 col-xl-1">
+
+    </div>
+    <div class="col-6 col-sm-5 col-md-4 col-lg-3 col-xl-2">
+        <i class="fa fa-cloud fa-2x"></i>
+        <a href="#" class="yun">云分享</a>
+    </div>
+    <div class="col-1 col-sm-1 col-md-2 col-lg-3 col-xl-5">
+
+    </div>
+    <div class="col-5 col-sm-4 col-md-4 col-lg-3 col-xl-2">
+        <a href="index.html" id="back">退出</a>
+        <a href="#" id="user"></a>
+    </div>
+    <div class="col-0 col-sm-1 col-md-1 col-lg-2 col-xl-1">
+
+    </div>
+</nav>
+<div class="container-fluid">
+    <div class="row">
+        <!--左边-->
+        <div class="col-lg-3  col-md-3 col-sm-4 col-xl-2 col-12 left">
+            <ul class="list-group">
+                <li class="active list-group-item"><i class="fa fa-file-text-o"></i>&nbsp;&nbsp;全部文件</li>
+                <li class="list-group-item"><i class="fa fa-image"></i>&nbsp;&nbsp;图片</li>
+                <li class="list-group-item"><i class="fa fa-folder-o"></i>&nbsp;&nbsp;文档</li>
+                <li class="list-group-item"><i class="fa fa-video-camera"></i>&nbsp;&nbsp;视频</li>
+                <li class="list-group-item"><i class="fa fa-music"></i>&nbsp;&nbsp;音乐</li>
+                <li class="list-group-item"><i class="fa fa-file-zip-o"></i>&nbsp;&nbsp;压缩包</li>
+                <li class="list-group-item"><i class="fa fa-code"></i>&nbsp;&nbsp;其他</li>
+            </ul>
+            <div class="bdsharebuttonbox share-type"><a href="#" class="bds_more" data-cmd="more"></a><a href="#"
+                                                                                                         class="bds_qzone"
+                                                                                                         data-cmd="qzone"
+                                                                                                         title="分享到QQ空间"></a><a
+                    href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_renren"
+                                                                                       data-cmd="renren"
+                                                                                       title="分享到人人网"></a></div>
+        </div>
+        <!--右边-->
+        <div class="col-lg-9 col-md-9 col-sm-8 col-xl-10  col-12 border-black">
+            <!--头部按钮部分-->
+            <div class="right-header">
+                <button type="button" class="btn btn-primary"><i class="fa fa-upload"></i> 上传</button>
+                <input type="file" id="files">
+                <button type="button" class="btn btn-default down"><i class="fa fa-download"></i> 离线下载</button>
+                <button type="button" class="btn btn-default delete"><i class="fa fa-trash-o"></i> 删除</button>
+                <button type="button" class="btn btn-default" id="share"><i class="fa fa-share-square-o"></i> 分享
+                </button>
+            </div>
+            <!--全部文件-->
+            <div class="dl all">
+                <table class="table table-hover  mx-0" id="table">
+                    <thead class="col-12">
+                    <tr class="row mx-0">
+                        <th class="col-1 col-xl-1 col-sm-1 text-center border-bottom-0"></th>
+                        <th class="col-4 col-xl-5 col-sm-4 border-bottom-0">文件名</th>
+                        <th class="col-3 col-xl-3 col-sm-3 border-bottom-0">文件大小</th>
+                        <th class="col-4 col-xl-3 col-sm-4 border-bottom-0">修改日期</th>
+                    </tr>
+                    </thead>
+                    <!--模板-->
+                    <thead class="col-12 all-container">
+                    <tr class="row mx-0">
+                        <th class="col-1 col-xl-1 col-sm-1 text-center border-bottom-0"><input type="checkbox"
+                                                                                               class="checkbox"></th>
+                        <th class="col-4 col-xl-5 col-sm-4 border-bottom-0 org"><a href="">movie1.mp4</a></th>
+                        <th class="col-3 col-xl-3 col-sm-3 border-bottom-0 org">866kb</th>
+                        <th class="col-4 col-xl-3 col-sm-4 border-bottom-0 org">2017-11-11 16:17:24</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+                <div class="page">
+                    <button class="btn btn-default">1</button>
+                    <button class="btn btn-default">2</button>
+                </div>
+            </div>
+            <!--图片-->
+            <div class="dl photo">
+                <div id="smImg">
+                    <div class="imgAct">
+                        <a href="#"><input class='check' type="checkbox" name=""  value=""/></a>
+                        <img src="/img/14.jpg"/>
+                    </div>
+                    <i></i>
+                </div>
+                <div class="page">
+                    <button class="btn btn-default">1</button>
+                    <button class="btn btn-default">2</button>
+                </div>
+                <div class="show">
+                    <a href="#" class='pre'><i class="fa fa-chevron-circle-left"></i></a>
+                    <a href="#" class='next'><i class="fa fa-chevron-circle-right"></i></a>
+                    <a href="#" class='close'><i class="fa fa-window-close"></i></a>
+                    <img class='bigimg' src=""/>
+                </div>
+            </div>
+            <!--文档-->
+            <div class="dl doc">
+                <table class="table table-hover  mx-0" id="table-txt">
+                    <thead class="col-12">
+                    <tr class="row mx-0">
+                        <th class="col-1 col-xl-1 col-sm-1 text-center border-bottom-0"></th>
+                        <th class="col-4 col-xl-5 col-sm-4 border-bottom-0">文件名</th>
+                        <th class="col-3 col-xl-3 col-sm-3 border-bottom-0">文件大小</th>
+                        <th class="col-4 col-xl-3 col-sm-4 border-bottom-0">修改日期</th>
+                    </tr>
+                    </thead>
+                    <!--模板-->
+                    <!--<thead class="col-12">-->
+                    <!--<tr class="row mx-0">-->
+                    <!--<th class="col-1 col-xl-1 col-sm-1 text-center border-bottom-0"><input type="checkbox"></th>-->
+                    <!--<th class="col-4 col-xl-5 col-sm-4 border-bottom-0">文件名</th>-->
+                    <!--<th class="col-3 col-xl-3 col-sm-3 border-bottom-0">文件大小</th>-->
+                    <!--<th class="col-4 col-xl-3 col-sm-4 border-bottom-0">修改日期</th>-->
+                    <!--</tr>-->
+                    <!--</thead>-->
+                </table>
+            </div>
+            <!--视频-->
+            <div class="dl video">
+                <div class="video-container">
+                    <input type="checkbox" class="checkbox"/>
+                    <label class="clearfix vdparent">
+                        <i class="fa fa-file-video-o video-tag"></i>
+                        <a href="#" class="vdname">movie0.mp4</a>
+                        <!--<i class="fa fa-trash" class="trash"></i>-->
+                    </label>
+                </div>
+                <div class="page">
+                    <button class="btn btn-default">1</button>
+                    <button class="btn btn-default">2</button>
+                </div>
+                <div class="show">
+                    <a href="#" class="close"><i class="fa fa-window-close"></i></a>
+                    <video src="data/video/movie1.mp4" controls="controls" class="vd">您的浏览器不支持 video 标签。</video>
+                </div>
+            </div>
+            <!--音乐-->
+            <div class="dl music">
+                <div class="row audio-container">
+                    <div class="col-lg-5 col-md-5 col-sm-5 col-xl-5  col-5">
+                        <input type="checkbox" class="checkbox">
+                        <i class="fa fa-music music-tag"></i>
+                        <audio src="data/audio/bigbang.mp3" class="audios"></audio>
+                        <span class="audio-name">bigbang.mp3</span>
+                    </div>
+                    <div class="col-lg-5 col-md-5 col-sm-5 col-xl-5  col-3 play">
+                        <img src="/img/play.png" alt="" class="playImg">
+                        <img src="/img/stop.png" alt="" class="stopImg">
+                    </div>
+                    <!--<div class="col-lg-2 col-md-2 col-sm-2 col-xl-2  col-2">-->
+                    <!--<a href=""><i class="fa fa-trash" class="delete"></i></a>-->
+                    <!--</div>-->
+                </div>
+                <div class="page">
+                    <button class="btn btn-default">1</button>
+                    <button class="btn btn-default">2</button>
+                </div>
+            </div>
+            <!--压缩包-->
+            <div class="dl zip">
+                <div class="zip-container">
+                    <input type="checkbox" class="checkbox"/>
+                    <label class="clearfix">
+                        <i class="fa fa-file-archive-o zip-tag"></i>
+                        <a href="#" class="zipname">网络环境下的图书馆管理系统.zip</a>
+                    </label>
+                </div>
+                <i></i>
+                <div class="page">
+                    <button class="btn btn-default">1</button>
+                    <button class="btn btn-default">2</button>
+                </div>
+            </div>
+            <!--其他-->
+            <div class="dl other">
+                <div class="other-container">
+                    <input type="checkbox" class="checkbox"/>
+                    <label class="clearfix">
+                        <i class="fa fa-file-code-o other-tag"></i>
+                        <a href="#" class="othername">1-2---window属性--frame-iframe.html</a>
+                    </label>
+                </div>
+                <div class="page">
+                    <button class="btn btn-default">1</button>
+                    <button class="btn btn-default">2</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.bootcss.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap/4.0.0-beta/js/bootstrap.js"></script>
+<script src="/js/user.js"></script>
+<!--分享-->
+<script>
+var timer = null;
+window._bd_share_config = {
+    "common": {
+        "bdSnsKey": {},
+        "bdText": "",
+        "bdMini": "1",
+        "bdMiniList": false,
+        "bdPic": "",
+        "bdStyle": "2",
+        "bdSize": "24"
+    }, "share": {}
+};
+with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];
+$('#share').on('click', function () {
+    $('.share-type').fadeIn(500);
+    timer = setTimeout(function () {
+        $('.share-type').css('border', 'none');
+    }, 1000);
+});   
+</script>
+</body>
+</html>

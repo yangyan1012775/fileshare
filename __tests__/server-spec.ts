@@ -1,6 +1,7 @@
 import { Server } from '../src/server';
 import * as Express from "express";
 import * as request from 'supertest';
+import * as assert from 'assert';
 
 test('Should greet with message', () => {
   const express1 = Express();
@@ -18,7 +19,8 @@ test('测试访问用户页面success', (done) => {
   request(app)
   .get('/user/5555')
   .expect(200, function (err, res) {
-    if(err) throw err;
+    // assert(!err === true);
+    expect(err).toBeFalsy();
     expect((res.text).includes('-用户文件管理')).toBeTruthy();
     done();
   });
@@ -31,6 +33,17 @@ test('测试访问用户页面fail', (done) => {
   .expect(200, function (err, res) {
     if(err) throw err;
     expect((res.text).includes('404')).toBeTruthy();
+    done();
+  });
+});
+test('url-register', (done) => {
+  let app = Express();
+  let server = new Server(app,3000);
+  request(app)
+  .get('/user/register')
+  .expect(200, function (err, res) {
+    if(err) throw err;
+    expect((res.text).includes('注册')).toBeTruthy();
     done();
   });
 });

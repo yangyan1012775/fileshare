@@ -1,9 +1,10 @@
-import * as index from '../src/index';
+import server from '../src/index';
+import { inspect } from 'util';
 
-test('Should have Greeter available', () => {
-  expect(index.Greeter).toBeTruthy();
+test('Should have a server', () => {
+  expect(server).toBeTruthy();
 });
 
-test('Should have Greeter available', () => {
-  expect(index.Greeter).toBeTruthy();
-});
+afterAll(function() {
+  server.close();
+})

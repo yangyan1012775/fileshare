@@ -29,7 +29,9 @@
     "watch": "npm run build -- --watch",
     "watch:test": "jest --watch"
   },
-  "dependencies": {},
+  "dependencies": {
+    "express": "^4.16.2"
+  },
   "devDependencies": {
     "@types/jest": "^20.0.5",
     "@types/node": "^8.0.0",

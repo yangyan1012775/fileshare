@@ -1,6 +1,6 @@
 import * as Express from 'express';
 const router = Express.Router();
-router.get('/register', function (req:any, res:any) {
+router.get('/register', (req:any, res:any) => {
   res.render('user/register');
 });
 

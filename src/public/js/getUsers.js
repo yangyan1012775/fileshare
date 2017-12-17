@@ -9,7 +9,7 @@ $(function(){
             for(let i = 0; i<data.length; i++) {
                 //创建元素
                 var newTr = $('<tr></tr>');
-                var newID = $('<td>' + data[i].id + '</td>');
+                var newID = $('<td class="id">' + data[i].id + '</td>');
                 var newName = $('<td>' + data[i].username + '</td>');
                 var newEmail = $('<td>' + data[i].email + '</td>');
                 var newDate = $('<td>' + data[i].created_at + '</td>');
@@ -22,7 +22,7 @@ $(function(){
                 newTr.append(newDate);
                 newTr.append(newEditor);
                 $('#lists table tbody').append(newTr);
-            }
+            }       
         },
         error:function(err){
 

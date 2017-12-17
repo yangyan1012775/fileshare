@@ -1,9 +1,9 @@
 import db from '../db/basic';
 
-export class Files {
-  private filename:string;
-  private hash:string;
-  constructor(filename:string,hash:string) {
+export class File {
+  private filename: string;
+  private hash: string;
+  constructor(filename: string, hash: string) {
     this.filename = filename;
     this.hash = hash;
   }

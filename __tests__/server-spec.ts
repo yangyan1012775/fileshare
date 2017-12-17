@@ -47,6 +47,15 @@ test('测试管理员登录success', (done) => {
       done();
     });
 });
+test('测试管理员 password modify', (done) => {
+  request(app)
+    .get('/admin/update')
+    .expect(200, function (err, res) {
+      expect(err).toBeFalsy();
+      expect((res.text).includes('管理员个人设置')).toBeTruthy();
+      done();
+    });
+});
 test('url-register', (done) => {
   request(app)
     .get('/user/register')

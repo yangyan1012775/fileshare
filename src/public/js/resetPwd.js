@@ -1,5 +1,5 @@
 $(function () {
-    $('#lists table tbody').on('click', '.edit', function (e) {
+    $('.table tbody').on('click', '.edit', function (e) {
         let id = Number($(e.target).attr('data-id'));
 
         let state = confirm('您确定要将这只id为' + id + '的用户猫的密码重置为000000吗?');

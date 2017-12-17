@@ -51,4 +51,19 @@ export class Admin {
       }));
     });
   }
+
+  public searchUser(req: any, res: any) {
+    basic('cloud').then((con) => {
+      const sql = 'select * from user where username = ?';
+      con.query(sql, req.params.name, cbFunc((result: any) => {
+        if (result.length) {
+          res.json(result);
+          con.end();
+          return;
+        }
+        res.json('none');
+        con.end();
+      }));
+    });
+  }
 }

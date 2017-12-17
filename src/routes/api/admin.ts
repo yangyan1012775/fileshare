@@ -9,6 +9,12 @@ router.get('/users', (req: any, res: any) => {
   admin1.getUsers(req, res);
 });
 
+// 获取单个用户信息
+router.get('/users/:name', (req: any, res: any) => {
+  const admin4 = new Admin(req, res);
+  admin4.searchUser(req, res);
+});
+
 // 用户操作分区
 router.post('/users', (req: any, res: any) => {
   switch (req.body.action) {

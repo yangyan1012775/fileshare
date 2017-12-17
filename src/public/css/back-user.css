@@ -36,11 +36,11 @@ footer{
 #addModal .body{
     padding:10px;
 }
-#lists .table thead tr td{
+.table thead tr td{
     font-weight: bold;
     font-size:18px;
 }
-#lists .table tbody tr td{
+.table tbody tr td{
     line-height: 40px;
     height:40px;
 }

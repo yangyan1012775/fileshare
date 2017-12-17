@@ -11,7 +11,6 @@ router.get('/users', (req: any, res: any) => {
 
 // 用户操作分区
 router.post('/users', (req: any, res: any) => {
-  // console.log(req.body.action);
   switch (req.body.action) {
     case 'delete':
       deleUser(req, res);
@@ -21,7 +20,6 @@ router.post('/users', (req: any, res: any) => {
 
 // 删除指定用户
 const deleUser = (req: any, res: any) => {
-  // console.log('inside dele');
   const admin2 = new Admin(req, res);
   admin2.deleUser(req, res);
 };

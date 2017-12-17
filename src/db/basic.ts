@@ -12,7 +12,7 @@ const init = (db: any) => {
   const con = mysql.createConnection(options);
   return new Promise((resolve, reject) => {
     con.connect(cbFunc(() => {
-            // console.log('success');
+
       resolve(con);
     }));
   });

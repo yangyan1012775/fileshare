@@ -1,3 +1,4 @@
+import * as bodyParser from 'body-parser';
 import * as Express from 'express';
 import * as nunjucks from 'nunjucks';
 import * as path from 'path';
@@ -25,6 +26,8 @@ export class Server {
       autoescape: true,
       express: app,
     });
+    app.use(bodyParser.json());
+    app.use(bodyParser.urlencoded({ extended: false }));
     app.use(Express.static(path.join(__dirname, 'public')));
   }
   public initRouters(app: Express) {

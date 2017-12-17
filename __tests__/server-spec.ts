@@ -63,15 +63,14 @@ test('测试数据库创建', (done) => {
     user: process.env.MYSQL_USERNAME,
     password: process.env.MYSQL_PASSWORD
   });
-  con.query('DROP DATABASE cloud', function (err) {
+
+  con.query('CREATE DATABASE cloud', function (err) {
     expect(err).toBeFalsy();
-    con.query('CREATE DATABASE cloud', function (err) {
-      expect(err).toBeFalsy();
-      // 断开
-      con.end();
-      done();
-    });
+    // 断开
+    con.end();
+    done();
   });
+
 
 });
 

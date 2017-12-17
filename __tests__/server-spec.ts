@@ -127,7 +127,7 @@ beforeAll(function (done) {
     user: process.env.MYSQL_USERNAME,
     password: process.env.MYSQL_PASSWORD
   });
-  con.query('DROP DATABASE cloud;', function (err) {
+  con.query('DROP DATABASE IF EXISTS cloud;', function (err) {
     expect(err).toBeFalsy();
     // 断开
     con.end();

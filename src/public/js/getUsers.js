@@ -21,7 +21,7 @@ $(function(){
                 newButton.append(newSpan);
                 var newMenu = $('<ul class="dropdown-menu" role="menu"></ul>');
                 var newDel = $('<li class="dele"><a href="###" data-id=' + data[i].id + '>删除</a></li>');
-                var newReset = $('<li class="edit"><a href="###">重置密码</a></li>');
+                var newReset = $('<li class="edit"><a href="###" data-id=' + data[i].id +'>重置密码</a></li>');
                 newMenu.append(newDel);
                 newMenu.append(newReset);
                 newDropdown.append(newButton);

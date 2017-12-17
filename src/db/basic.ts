@@ -8,11 +8,10 @@ const init = (db: any) => {
     password: process.env.MYSQL_PASSWORD,
     user: process.env.MYSQL_USERNAME,
   };
-    
+
   const con = mysql.createConnection(options);
   return new Promise((resolve, reject) => {
     con.connect(cbFunc(() => {
-
       resolve(con);
     }));
   });

@@ -37,12 +37,10 @@ test('测试访问用户页面fail', (done) => {
   });
 });
 test('url-register', (done) => {
-  let app = Express();
-  let server = new Server(app,3000);
   request(app)
   .get('/user/register')
   .expect(200, function (err, res) {
-    if(err) throw err;
+    expect(err).toBeFalsy();
     expect((res.text).includes('注册')).toBeTruthy();
     done();
   });

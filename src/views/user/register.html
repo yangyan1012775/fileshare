@@ -45,7 +45,7 @@
                     },
                     success: function (data) {
                         if (data !== 'wrong') {
-                        location.href = 'http://localhost:3000/user/:userid';
+                            location.href = data;
                         } else {
                             alert(data);
                         }

@@ -62,3 +62,6 @@ footer{
 #logout{
     cursor: pointer;
 }
+table{
+    text-align: center;    
+}

@@ -1,6 +1,7 @@
 import * as Express from "express";
 import * as nunjucks from 'nunjucks';
 import * as path from 'path';
+import api_admin from './routes/api/admin';
 import admin from './routes/url/admin';
 import user from './routes/url/user';
 export class Server {
@@ -29,5 +30,6 @@ export class Server {
   public initRouters(app:Express){
     app.use('/user', user);
     app.use('/admin', admin);
+    app.use('/api/admin', api_admin);
   }
 }

@@ -47,6 +47,16 @@ test('url-register', (done) => {
       done();
     });
 });
+test('url-login', (done) => {
+  request(app)
+    .get('/user/login')
+    .expect(200, function (err, res) {
+      console.log(err);
+      expect(err).toBeFalsy();
+      expect((res.text).includes('登录')).toBeTruthy();
+      done();
+    });
+});
 
 test('测试访问用户管理页面', (done) => {
   request(app)

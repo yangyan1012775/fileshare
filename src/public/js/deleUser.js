@@ -1,13 +1,11 @@
 $(function () {
     $('#lists table tbody').on('click', '.dele', function (e) {
         // 获取该id
-        let li_del = $(e.target).parent();
-        let dropmenu = li_del.parent();
-        let dropopen = dropmenu.parent();
-        let tr = dropopen.parent();
-        let id = Number(tr.find('.id').html());
 
-        // console.log(id);
+        let id = Number($(e.target).attr('data-id'));
+        console.log(id);
+
+        console.log(id);
         let state = confirm("你确定要删除这只id为" + id + "的用户猫吗?");
         if (!state) {
             return;

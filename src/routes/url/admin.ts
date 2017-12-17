@@ -5,6 +5,10 @@ router.get('/login', (req: any, res: any) => {
   res.render('admin/login');
 });
 
+router.get('/update', (req: any, res: any) => {
+  res.render('admin/setting');
+});
+
 router.get('/users', (req: any, res: any) => {
   res.render('admin/back-user');
 });

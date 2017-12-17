@@ -1,5 +1,6 @@
 // 引用basic
 // 引用cb
+import * as crypto from 'crypto';
 import cbFunc from '../cb/cb';
 import basic from '../db/basic';
 
@@ -28,6 +29,22 @@ export class Admin {
     basic('cloud').then((con) => {
       const sql = 'delete from user where id =?';
       const data = [req.body.id];
+      con.query(sql, data, cbFunc((result: any) => {
+        res.json('ok');
+        con.end();
+      }));
+    });
+  }
+
+  public resetPwd(req: any, res: any) {
+    basic('cloud').then((con) => {
+      // 这里将000000转为hash
+      const hash = crypto.createHash('sha256');
+      hash.update('000000');
+      const hashed = hash.digest('hex');
+
+      const sql = 'update user set password = ? where id = ?';
+      const data = [hashed, req.body.id];
       con.query(sql, data, cbFunc((result: any) => {
         res.json('ok');
         con.end();

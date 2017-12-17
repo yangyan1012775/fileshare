@@ -14,6 +14,9 @@ router.post('/users', (req: any, res: any) => {
     case 'delete':
       deleUser(req, res);
       break;
+    case 'reset':
+      resetPwd(req, res);
+      break;
   }
 });
 
@@ -21,6 +24,12 @@ router.post('/users', (req: any, res: any) => {
 const deleUser = (req: any, res: any) => {
   const admin2 = new Admin(req, res);
   admin2.deleUser(req, res);
+};
+
+// 重置指定用户的密码为000000(hash)
+const resetPwd = (req: any, res: any) => {
+  const admin3 = new Admin(req, res);
+  admin3.resetPwd(req, res);
 };
 
 export default router;

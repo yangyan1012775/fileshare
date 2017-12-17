@@ -47,6 +47,15 @@ test('测试管理员登录success', (done) => {
       done();
     });
 });
+test('测试管理员 password modify', (done) => {
+  request(app)
+    .get('/admin/update')
+    .expect(200, function (err, res) {
+      expect(err).toBeFalsy();
+      expect((res.text).includes('管理员个人设置')).toBeTruthy();
+      done();
+    });
+});
 test('url-register', (done) => {
   request(app)
     .get('/user/register')
@@ -134,6 +143,19 @@ test('测试用户所有获取', (done) => {
       expect(res.body[0].username === 'user1').toBeTruthy();
       done();
     })
+});
+
+
+test('测试用户密码重置', (done) => {
+  request(app)
+    .post('/api/admin/users')
+    .type('form')
+    .send({ action: 'reset', id: 1 })
+    .expect(200, function (err, res) {
+      expect(err).toBeFalsy();
+      expect(res.body === 'ok').toBeTruthy();
+      done();
+    });
 });
 
 test('测试用户删除', (done) => {

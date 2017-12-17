@@ -1,6 +1,7 @@
 import { Server } from '../src/server';
 import * as Express from "express";
 import * as request from 'supertest';
+import * as assert from 'assert';
 
 const app = Express();
 const server = new Server(app,3000);
@@ -35,6 +36,16 @@ test('测试访问用户页面fail', (done) => {
     done();
   });
 });
+test('url-register', (done) => {
+  request(app)
+  .get('/user/register')
+  .expect(200, function (err, res) {
+    expect(err).toBeFalsy();
+    expect((res.text).includes('注册')).toBeTruthy();
+    done();
+  });
+});
+
 test('测试访问用户管理页面', (done) => {
   request(app)
   .get('/admin/users')

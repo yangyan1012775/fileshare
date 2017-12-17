@@ -18,15 +18,15 @@ export class Server {
   public listen() {
     return this._server.listen(this._port);
   }
-  public init(app:Express) {
+  public init(app: Express) {
     app.set('view engine', 'html');
-    nunjucks.configure(path.resolve(__dirname,'views'), {
+    nunjucks.configure(path.resolve(__dirname, 'views'), {
       autoescape: true,
       express: app,
     });
     app.use(Express.static(path.join(__dirname, 'public')));
   }
-  public initRouters(app:Express) {
+  public initRouters(app: Express) {
     app.use('/user', user);
     app.use('/admin', admin);
   }

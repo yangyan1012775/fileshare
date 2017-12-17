@@ -1,5 +1,5 @@
 $(function () {
-    $('#lists table tbody').on('click', '.dele', function (e) {
+    $('.table tbody').on('click', '.dele', function (e) {
         // 获取该id
 
         let id = Number($(e.target).attr('data-id'));

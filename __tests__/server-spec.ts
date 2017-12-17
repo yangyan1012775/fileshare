@@ -145,6 +145,25 @@ test('测试用户所有获取', (done) => {
     })
 });
 
+test('测试单用户查询', (done) => {
+  request(app)
+  .get('/api/admin/users/user1')
+  .expect(200, function(err, res) {
+    expect(err).toBeFalsy();
+    expect(res.body[0].id === 1).toBeTruthy();
+    done();
+  })
+});
+
+test('测试单用户查询结果无此用户', (done) => {
+  request(app)
+  .get('/api/admin/users/user15')
+  .expect(200, function(err, res) {
+    expect(err).toBeFalsy();
+    expect(res.body === 'none').toBeTruthy();
+    done();
+  })
+});
 
 test('测试用户密码重置', (done) => {
   request(app)

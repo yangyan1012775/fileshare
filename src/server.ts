@@ -1,4 +1,4 @@
-import * as Express from "express";
+import * as Express from 'express';
 import * as nunjucks from 'nunjucks';
 import * as path from 'path';
 import api_admin from './routes/api/admin';
@@ -14,20 +14,20 @@ export class Server {
     this.init(server);
     this.initRouters(server);
   }
-  get server(): Express { return this._server };
-  set server(server: Express) { this._server = server };
+  get server(): Express { return this._server; }
+  set server(server: Express) { this._server = server; }
   public listen() {
     return this._server.listen(this._port);
   }
-  public init(app:Express){
+  public init(app: Express) {
     app.set('view engine', 'html');
-    nunjucks.configure(path.resolve(__dirname,'views'), {
+    nunjucks.configure(path.resolve(__dirname, 'views'), {
       autoescape: true,
       express: app,
     });
     app.use(Express.static(path.join(__dirname, 'public')));
   }
-  public initRouters(app:Express){
+  public initRouters(app: Express) {
     app.use('/user', user);
     app.use('/admin', admin);
     app.use('/api/admin', api_admin);

@@ -47,6 +47,16 @@ test('测试访问用户管理页面', (done) => {
     })
 });
 
+test('测试访问文件分类页面', (done) => {
+  request(app)
+    .get('/admin/file/category')
+    .expect(200, function (err, res) {
+      expect(err).toBeFalsy();
+      expect((res.text).includes('-后台内容')).toBeTruthy();
+      done();
+    })
+});
+
 test('测试数据库创建', (done) => {
   var con = mysql.createConnection({
     host: process.env.MYSQL_HOST,
@@ -57,7 +67,7 @@ test('测试数据库创建', (done) => {
     expect(err).toBeFalsy();
     con.query('CREATE DATABASE cloud', function (err) {
       expect(err).toBeFalsy();
-      //断开
+      // 断开
       con.end();
       done();
     });
@@ -67,14 +77,13 @@ test('测试数据库创建', (done) => {
 
 
 test('测试数据库链接', (done) => {
-
   var con = mysql.createConnection({
     host: process.env.MYSQL_HOST,
     user: process.env.MYSQL_USERNAME,
     password: process.env.MYSQL_PASSWORD,
     database: 'cloud'
   });
-  //创建user
+  // 创建user
   con.query('create table user (id int primary key auto_increment,username varchar(20)not null,password varchar(64)not null,email varchar(30)not null,created_at datetime not null)', function (err) {
     expect(err).toBeFalsy();
     console.log('success user');
@@ -92,7 +101,8 @@ test('测试用户所有获取', (done) => {
   request(app)
     .get('/api/admin/users')
     .expect(200, function (err, res) {
-      expect(res.body[0].username==='user1').toBeTruthy();
+      expect(err).toBeFalsy();
+      expect(res.body[0].username === 'user1').toBeTruthy();
       done();
     })
 });
@@ -102,3 +112,4 @@ test('cb错误测试覆盖', (done) => {
   expect(func(new Error('222'), '0') === undefined).toBeTruthy();
   done();
 });
+

@@ -38,6 +38,15 @@ test('测试访问用户页面fail', (done) => {
       done();
     });
 });
+test('测试管理员登录success', (done) => {
+  request(app)
+    .get('/admin/login')
+    .expect(200, function (err, res) {
+      expect(err).toBeFalsy();
+      expect((res.text).includes('-管理员登录')).toBeTruthy();
+      done();
+    });
+});
 test('url-register', (done) => {
   request(app)
     .get('/user/register')

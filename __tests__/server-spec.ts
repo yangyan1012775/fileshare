@@ -44,3 +44,12 @@ test('测试访问用户管理页面', (done) => {
     done();
   })
 });
+test('测试访问文件分类页面', (done) => {
+  request(app)
+  .get('/admin/file/category')
+  .expect(200, function (err, res) {
+    expect(err).toBeFalsy();
+    expect((res.text).includes('-后台内容')).toBeTruthy();
+    done();
+  })
+});

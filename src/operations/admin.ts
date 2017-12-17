@@ -15,7 +15,6 @@ export class Admin {
     basic('cloud').then((con) => {
       const sql = 'select * from user';
       con.query(sql, cbFunc((result: any) => {
-        // console.log(100);
         res.json(result);
         con.end();
 
@@ -30,7 +29,6 @@ export class Admin {
       const sql = 'delete from user where id =?';
       const data = [req.body.id];
       con.query(sql, data, cbFunc((result: any) => {
-        // console.log(result);
         res.json('ok');
         con.end();
       }));

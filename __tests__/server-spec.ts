@@ -74,16 +74,13 @@ test('测试数据库创建', (done) => {
     user: process.env.MYSQL_USERNAME,
     password: process.env.MYSQL_PASSWORD
   });
-  con.query('DROP DATABASE cloud', function (err) {
-    expect(err).toBeFalsy();
-    con.query('CREATE DATABASE cloud', function (err) {
-      expect(err).toBeFalsy();
-      // 断开
-      con.end();
-      done();
-    });
-  })
 
+  con.query('CREATE DATABASE cloud', function (err) {
+    expect(err).toBeFalsy();
+    // 断开
+    con.end();
+    done();
+  });
 
 
 });
@@ -122,13 +119,14 @@ test('测试用户所有获取', (done) => {
 
 test('测试用户删除', (done) => {
   request(app)
-  .post('/api/admin/users')
-  .type('form')
-  .send({ action: 'delete', id:1 })
-  .expect(200, function (err, res) {
-    expect(res.body === 'ok').toBeTruthy();
-    done();
-  });
+    .post('/api/admin/users')
+    .type('form')
+    .send({ action: 'delete', id: 1 })
+    .expect(200, function (err, res) {
+      expect(err).toBeFalsy();
+      expect(res.body === 'ok').toBeTruthy();
+      done();
+    });
 });
 
 test('cb错误测试覆盖', (done) => {
@@ -137,3 +135,16 @@ test('cb错误测试覆盖', (done) => {
   done();
 });
 
+beforeAll(function (done) {
+  var con = mysql.createConnection({
+    host: process.env.MYSQL_HOST,
+    user: process.env.MYSQL_USERNAME,
+    password: process.env.MYSQL_PASSWORD
+  });
+  con.query('DROP DATABASE IF EXISTS cloud;', function (err) {
+    expect(err).toBeFalsy();
+    // 断开
+    con.end();
+    done();
+  });
+})

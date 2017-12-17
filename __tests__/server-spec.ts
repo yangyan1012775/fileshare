@@ -40,12 +40,12 @@ test('测试访问用户页面fail', (done) => {
 });
 test('url-register', (done) => {
   request(app)
-  .get('/user/register')
-  .expect(200, function (err, res) {
-    expect(err).toBeFalsy();
-    expect((res.text).includes('注册')).toBeTruthy();
-    done();
-  });
+    .get('/user/register')
+    .expect(200, function (err, res) {
+      expect(err).toBeFalsy();
+      expect((res.text).includes('注册')).toBeTruthy();
+      done();
+    });
 });
 
 test('测试访问用户管理页面', (done) => {
@@ -81,8 +81,6 @@ test('测试数据库创建', (done) => {
     con.end();
     done();
   });
-
-
 });
 
 
@@ -123,3 +121,16 @@ test('cb错误测试覆盖', (done) => {
   done();
 });
 
+beforeAll(function (done) {
+  var con = mysql.createConnection({
+    host: process.env.MYSQL_HOST,
+    user: process.env.MYSQL_USERNAME,
+    password: process.env.MYSQL_PASSWORD
+  });
+  con.query('DROP DATABASE IF EXISTS cloud;', function (err) {
+    expect(err).toBeFalsy();
+    // 断开
+    con.end();
+    done();
+  });
+})

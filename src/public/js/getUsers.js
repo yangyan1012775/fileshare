@@ -20,7 +20,6 @@ $(function(){
                 newTr.append(newName);
                 newTr.append(newEmail);
                 newTr.append(newDate);
-                newTr.append(newState);
                 newTr.append(newEditor);
                 $('#lists table tbody').append(newTr);
             }

@@ -1,7 +1,9 @@
 import * as Express from 'express';
+import * as multer from 'multer';
 import * as nunjucks from 'nunjucks';
 import * as path from 'path';
 import api_admin from './routes/api/admin';
+import files from './routes/api/file';
 import admin from './routes/url/admin';
 import user from './routes/url/user';
 export class Server {
@@ -26,10 +28,15 @@ export class Server {
       express: app,
     });
     app.use(Express.static(path.join(__dirname, 'public')));
+    app.use(multer({
+      // 设置文件上传到的位置
+      dest: './__tests__/file',
+    }));
   }
   public initRouters(app: Express) {
     app.use('/user', user);
     app.use('/admin', admin);
     app.use('/api/admin', api_admin);
+    app.use('/files',files);
   }
 }

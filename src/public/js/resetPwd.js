@@ -1,34 +1,31 @@
 $(function () {
-    $('#lists table tbody').on('click', '.dele', function (e) {
-        // 获取该id
-
+    $('#lists table tbody').on('click', '.edit', function (e) {
         let id = Number($(e.target).attr('data-id'));
 
-        let state = confirm("你确定要删除这只id为" + id + "的用户猫吗?");
+        let state = confirm('您确定要将这只id为' + id + '的用户猫的密码重置为000000吗?');
         if (!state) {
             return;
         } else if (state) {
             $.ajax({
+                type: 'post',
                 data: {
-                    action: 'delete',
+                    action: 'reset',
                     id: id
                 },
-                type: 'post',
                 url: '/api/admin/users',
                 success: function (data) {
                     if(data==='ok') {
-                        alert('删除成功');
-                        window.location.reload();
-                    }  
-
+                        alert('重置完成');
+                    }
                     return;
                 },
                 error: function (err) {
+
                     return;
                 }
-
             });
         }
-    })
 
+
+    });
 });

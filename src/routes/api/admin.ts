@@ -11,19 +11,26 @@ router.get('/users', (req: any, res: any) => {
 
 // 用户操作分区
 router.post('/users', (req: any, res: any) => {
-  // console.log(req.body.action);
   switch (req.body.action) {
     case 'delete':
       deleUser(req, res);
+      break;
+    case 'reset':
+      resetPwd(req, res);
       break;
   }
 });
 
 // 删除指定用户
 const deleUser = (req: any, res: any) => {
-  // console.log('inside dele');
   const admin2 = new Admin(req, res);
   admin2.deleUser(req, res);
+};
+
+// 重置指定用户的密码为000000(hash)
+const resetPwd = (req: any, res: any) => {
+  const admin3 = new Admin(req, res);
+  admin3.resetPwd(req, res);
 };
 
 export default router;

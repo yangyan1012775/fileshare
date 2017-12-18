@@ -18,8 +18,20 @@ export class File {
 
   public async insert(type: string, size: number) {
     const con = await db('cloud');
-    const value = '(\'' + this.filename + '\', \'' + type + '\',\'' + size + '\',\'' + this.hash + '\')';
-    const sql = 'insert into pending_file(filename, type, size, hash) values ' + value + ';';
+    const value =
+      '(\'' +
+      this.filename +
+      '\', \'' +
+      type +
+      '\',\'' +
+      size +
+      '\',\'' +
+      this.hash +
+      '\')';
+    const sql =
+      'insert into pending_file(filename, type, size, hash) values ' +
+      value +
+      ';';
     await cb(query(sql, con));
   }
 
@@ -39,6 +51,5 @@ export class File {
 
     await this.insert(type, file.size);
     res.json('上传成功');
-
   }
 }

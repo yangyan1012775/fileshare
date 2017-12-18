@@ -10,11 +10,13 @@ router.post('/', upload, (req: any, res: any) => {
   switch (req.body.action) {
     case 'upload':
       const files = req.files._upload;
-      const file = new File(files.originalname.split('.')[0], files.name.split('.')[0]);
+      const file = new File(
+        files.originalname.split('.')[0],
+        files.name.split('.')[0],
+      );
       file.upload(req.files._upload, req, res);
       break;
   }
-
 });
 
 export default router;

@@ -11,11 +11,12 @@ const init = (db: any) => {
 
   const con = mysql.createConnection(options);
   return new Promise((resolve, reject) => {
-    con.connect(cbFunc(() => {
-      resolve(con);
-    }));
+    con.connect(
+      cbFunc(() => {
+        resolve(con);
+      }),
+    );
   });
-
 };
 
 export default init;

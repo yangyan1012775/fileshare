@@ -195,6 +195,18 @@ test('cb错误测试覆盖', (done) => {
   done();
 });
 
+test('测试文件上传成功', (done) => {
+  request(app)
+    .post('/files')
+    .type('form')
+    .field('action', 'upload')
+    .attach('_upload', '__tests__/1.txt')
+    .expect(200, (err,data) => {
+      console.log(err);
+      done();
+    })
+});
+
 beforeAll(function (done) {
   var con = mysql.createConnection({
     host: process.env.MYSQL_HOST,

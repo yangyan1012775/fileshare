@@ -103,7 +103,7 @@ test('测试数据库创建', (done) => {
     password: process.env.MYSQL_PASSWORD
   });
 
-  con.query('CREATE DATABASE cloud', function (err) {
+  con.query('CREATE DATABASE cloud character set utf8', function (err) {
     expect(err).toBeFalsy();
     // 断开
     con.end();
@@ -195,14 +195,75 @@ test('cb错误测试覆盖', (done) => {
   done();
 });
 
-test('测试文件上传成功', (done) => {
+test('创建待审文件表', (done) => {
+  var con = mysql.createConnection({
+    host: process.env.MYSQL_HOST,
+    user: process.env.MYSQL_USERNAME,
+    password: process.env.MYSQL_PASSWORD,
+    database: 'cloud'
+  });
+  // 创建pending_file
+  con.query('create table pending_file (id int auto_increment,filename varchar(255) not null,type varchar(20)not null,size int not null,hash varchar(64) not null,primary key(id));', function (err) {
+    expect(err).toBeFalsy();
+    console.log('success pending_file');
+    con.end();
+    done();
+  });
+});
+
+test('测试.txt文件上传成功', (done) => {
   request(app)
     .post('/files')
     .type('form')
     .field('action', 'upload')
     .attach('_upload', '__tests__/1.txt')
+    .expect(200, (err, res) => {
+      console.log(err, res.text)
+      // expect(data === '上传成功').toBeTruthy();
+      done();
+    })
+});
+test('测试.jpg文件上传成功', (done) => {
+  request(app)
+    .post('/files')
+    .type('form')
+    .field('action', 'upload')
+    .attach('_upload', '__tests__/1.jpg')
     .expect(200, (err,data) => {
-      console.log(err);
+      // expect(data === '上传成功').toBeTruthy();
+      done();
+    })
+});
+test('测试.avi文件上传成功', (done) => {
+  request(app)
+    .post('/files')
+    .type('form')
+    .field('action', 'upload')
+    .attach('_upload', '__tests__/1.avi')
+    .expect(200, (err,data) => {
+      // expect(data === '上传成功').toBeTruthy();
+      done();
+    })
+});
+test('测试.zip文件上传成功', (done) => {
+  request(app)
+    .post('/files')
+    .type('form')
+    .field('action', 'upload')
+    .attach('_upload', '__tests__/1.zip')
+    .expect(200, (err,data) => {
+      // expect(data === '上传成功').toBeTruthy();
+      done();
+    })
+});
+test('测试.md文件上传成功', (done) => {
+  request(app)
+    .post('/files')
+    .type('form')
+    .field('action', 'upload')
+    .attach('_upload', '__tests__/1.md')
+    .expect(200, (err,data) => {
+      // expect(data === '上传成功').toBeTruthy();
       done();
     })
 });

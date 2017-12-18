@@ -219,9 +219,10 @@ test('测试.txt文件上传成功', done => {
     .post('/files')
     .type('form')
     .field('action', 'upload')
-    .attach('_upload', 'fixtures/1.txt')
+    .attach('_upload', '__tests__/fixtures/1.txt')
     .expect(200, (err, res) => {
-      console.log(err, res.text);
+      expect(err).toBeFalsy();
+      expect(res.body === '上传成功').toBeTruthy();
       done();
     });
 });
@@ -230,8 +231,10 @@ test('测试.jpg文件上传成功', done => {
     .post('/files')
     .type('form')
     .field('action', 'upload')
-    .attach('_upload', 'fixtures/1.jpg')
-    .expect(200, (err, data) => {
+    .attach('_upload', '__tests__/fixtures/1.jpg')
+    .expect(200, (err, res) => {
+      expect(err).toBeFalsy();
+      expect(res.body === '上传成功').toBeTruthy();
       done();
     });
 });
@@ -240,8 +243,10 @@ test('测试.avi文件上传成功', done => {
     .post('/files')
     .type('form')
     .field('action', 'upload')
-    .attach('_upload', 'fixtures/1.avi')
-    .expect(200, (err, data) => {
+    .attach('_upload', '__tests__/fixtures/1.avi')
+    .expect(200, (err, res) => {
+      expect(err).toBeFalsy();
+      expect(res.body === '上传成功').toBeTruthy();
       done();
     });
 });
@@ -250,8 +255,10 @@ test('测试.zip文件上传成功', done => {
     .post('/files')
     .type('form')
     .field('action', 'upload')
-    .attach('_upload', 'fixtures/1.zip')
-    .expect(200, (err, data) => {
+    .attach('_upload', '__tests__/fixtures/1.zip')
+    .expect(200, (err, res) => {
+      expect(err).toBeFalsy();
+      expect(res.body === '上传成功').toBeTruthy();
       done();
     });
 });
@@ -260,8 +267,10 @@ test('测试.md文件上传成功', done => {
     .post('/files')
     .type('form')
     .field('action', 'upload')
-    .attach('_upload', 'fixtures/1.md')
-    .expect(200, (err, data) => {
+    .attach('_upload', '__tests__/fixtures/1.md')
+    .expect(200, (err, res) => {
+      expect(err).toBeFalsy();
+      expect(res.body === '上传成功').toBeTruthy();
       done();
     });
 });

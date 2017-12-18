@@ -25,6 +25,25 @@ export class Admin {
     });
   }
 
+  public adminLogin(req: any, res: any) {
+    basic('cloud').then((con) => {
+      const sql =
+        'SELECT username,password FROM admin WHERE username = \'' +
+        req.body.username +
+        '\' AND password = \'' +
+        req.body.password +
+        '\';';
+      const data = [req.body.id];
+      con.query(
+        sql,
+        cbFunc((result: any) => {
+          res.json('ok');
+          con.end();
+        }),
+      );
+    });
+  }
+
   public deleUser(req: any, res: any) {
     basic('cloud').then((con) => {
       const sql = 'delete from user where id =?';

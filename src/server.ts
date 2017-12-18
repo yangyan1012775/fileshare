@@ -39,6 +39,7 @@ export class Server {
     app.use('/user', user);
     app.use('/admin', admin);
     app.use('/api/admin', api_admin);
+    app.use('/admins', api_admin);
     app.use('/files', files);
   }
 }

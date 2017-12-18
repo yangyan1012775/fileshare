@@ -18,6 +18,47 @@ test('Should greet with message', () => {
   expect(server.server).toBe(express2);
 });
 
+test('测试数据库创建', done => {
+  var con = mysql.createConnection({
+    host: process.env.MYSQL_HOST,
+    user: process.env.MYSQL_USERNAME,
+    password: process.env.MYSQL_PASSWORD,
+  });
+
+  con.query('CREATE DATABASE cloud', function(err) {
+    expect(err).toBeFalsy();
+    // 断开
+    con.end();
+    done();
+  });
+});
+
+test('create admin', done => {
+  var con = mysql.createConnection({
+    host: process.env.MYSQL_HOST,
+    user: process.env.MYSQL_USERNAME,
+    password: process.env.MYSQL_PASSWORD,
+    database: 'cloud',
+  });
+  // admin
+  con.query(
+    'create table admin (id int(11) primary key auto_increment,username varchar(20) not null,password varchar(64) not null)',
+    function(err) {
+      expect(err).toBeFalsy();
+      console.log('success admin');
+      con.query(
+        "INSERT INTO admin(username, password) VALUES ('123','123')",
+        function(err) {
+          expect(err).toBeFalsy();
+          console.log('insert success');
+          con.end();
+          done();
+        }
+      );
+    }
+  );
+});
+
 test('测试访问用户页面success', done => {
   request(app)
     .get('/user/5555')
@@ -36,6 +77,7 @@ test('测试访问用户页面fail', done => {
       done();
     });
 });
+/* 管理员 url */
 test('测试管理员登录success', done => {
   request(app)
     .get('/admin/login')
@@ -51,6 +93,18 @@ test('测试管理员 password modify', done => {
     .expect(200, function(err, res) {
       expect(err).toBeFalsy();
       expect(res.text.includes('管理员个人设置')).toBeTruthy();
+      done();
+    });
+});
+/* 管理员 api */
+test('测试管理员 login', done => {
+  request(app)
+    .post('/admins')
+    .type('form')
+    .send({ action: 'login' })
+    .expect(200, function(err, res) {
+      expect(err).toBeFalsy();
+      expect(res.body === 'ok').toBeTruthy();
       done();
     });
 });
@@ -94,21 +148,6 @@ test('测试访问文件分类页面', done => {
     });
 });
 
-test('测试数据库创建', done => {
-  var con = mysql.createConnection({
-    host: process.env.MYSQL_HOST,
-    user: process.env.MYSQL_USERNAME,
-    password: process.env.MYSQL_PASSWORD,
-  });
-
-  con.query('CREATE DATABASE cloud', function(err) {
-    expect(err).toBeFalsy();
-    // 断开
-    con.end();
-    done();
-  });
-});
-
 test('测试数据库链接', done => {
   var con = mysql.createConnection({
     host: process.env.MYSQL_HOST,
@@ -145,38 +184,6 @@ test('测试用户所有获取', done => {
     });
 });
 
-test('测试单用户查询', done => {
-  request(app)
-    .get('/api/admin/users/user1')
-    .expect(200, function(err, res) {
-      expect(err).toBeFalsy();
-      expect(res.body[0].id === 1).toBeTruthy();
-      done();
-    });
-});
-
-test('测试单用户查询结果无此用户', done => {
-  request(app)
-    .get('/api/admin/users/user15')
-    .expect(200, function(err, res) {
-      expect(err).toBeFalsy();
-      expect(res.body === 'none').toBeTruthy();
-      done();
-    });
-});
-
-test('测试用户密码重置', done => {
-  request(app)
-    .post('/api/admin/users')
-    .type('form')
-    .send({ action: 'reset', id: 1 })
-    .expect(200, function(err, res) {
-      expect(err).toBeFalsy();
-      expect(res.body === 'ok').toBeTruthy();
-      done();
-    });
-});
-
 test('测试用户删除', done => {
   request(app)
     .post('/api/admin/users')
@@ -193,18 +200,6 @@ test('cb错误测试覆盖', done => {
   let func = cbFunc(() => {});
   expect(func(new Error('222'), '0') === undefined).toBeTruthy();
   done();
-});
-
-test('测试文件上传成功', done => {
-  request(app)
-    .post('/files')
-    .type('form')
-    .field('action', 'upload')
-    .attach('_upload', '__tests__/1.txt')
-    .expect(200, (err, data) => {
-      console.log(err);
-      done();
-    });
 });
 
 beforeAll(function(done) {

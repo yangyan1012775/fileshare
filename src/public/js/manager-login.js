@@ -42,7 +42,6 @@ $("#Msub").on("click", function () {
         alert('服务器访问错误！')
       },
       success: function (data) {
-        console.log(data);
         if (data === 'ok') {
           location.href = 'http://127.0.0.1:8080/admin/update';
         } else {

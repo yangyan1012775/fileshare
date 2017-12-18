@@ -45,12 +45,10 @@ test('create admin', done => {
     'create table admin (id int(11) primary key auto_increment,username varchar(20) not null,password varchar(64) not null)',
     function(err) {
       expect(err).toBeFalsy();
-      console.log('success admin');
       con.query(
         "INSERT INTO admin(username, password) VALUES ('123','123')",
         function(err) {
           expect(err).toBeFalsy();
-          console.log('insert success');
           con.end();
           done();
         }
@@ -184,6 +182,38 @@ test('测试用户所有获取', done => {
     });
 });
 
+test('测试单用户查询', done => {
+  request(app)
+    .get('/api/admin/users/user1')
+    .expect(200, function(err, res) {
+      expect(err).toBeFalsy();
+      expect(res.body[0].id === 1).toBeTruthy();
+      done();
+    });
+});
+
+test('测试单用户查询结果无此用户', done => {
+  request(app)
+    .get('/api/admin/users/user15')
+    .expect(200, function(err, res) {
+      expect(err).toBeFalsy();
+      expect(res.body === 'none').toBeTruthy();
+      done();
+    });
+});
+
+test('测试用户密码重置', done => {
+  request(app)
+    .post('/api/admin/users')
+    .type('form')
+    .send({ action: 'reset', id: 1 })
+    .expect(200, function(err, res) {
+      expect(err).toBeFalsy();
+      expect(res.body === 'ok').toBeTruthy();
+      done();
+    });
+});
+
 test('测试用户删除', done => {
   request(app)
     .post('/api/admin/users')
@@ -200,6 +230,18 @@ test('cb错误测试覆盖', done => {
   let func = cbFunc(() => {});
   expect(func(new Error('222'), '0') === undefined).toBeTruthy();
   done();
+});
+
+test('测试文件上传成功', done => {
+  request(app)
+    .post('/files')
+    .type('form')
+    .field('action', 'upload')
+    .attach('_upload', '__tests__/1.txt')
+    .expect(200, (err, data) => {
+      console.log(err);
+      done();
+    });
 });
 
 beforeAll(function(done) {

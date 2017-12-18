@@ -23,7 +23,7 @@
     "lint": "tslint --fix --format verbose \"src/**/*.ts\"",
     "prebuild": "npm run clean && npm run format && npm run lint && echo Using TypeScript && tsc --version",
     "build": "tsc --pretty",
-    "pretest": "npm run lint",
+    "pretest": "npm run clean && npm run format && npm run lint",
     "test": "jest --coverage",
     "coverage": "jest --coverage",
     "watch": "npm run build -- --watch",

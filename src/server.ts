@@ -16,8 +16,12 @@ export class Server {
     this.init(server);
     this.initRouters(server);
   }
-  get server(): Express { return this._server; }
-  set server(server: Express) { this._server = server; }
+  get server(): Express {
+    return this._server;
+  }
+  set server(server: Express) {
+    this._server = server;
+  }
   public listen() {
     return this._server.listen(this._port);
   }
@@ -35,6 +39,6 @@ export class Server {
     app.use('/user', user);
     app.use('/admin', admin);
     app.use('/api/admin', api_admin);
-    app.use('/files',files);
+    app.use('/files', files);
   }
 }

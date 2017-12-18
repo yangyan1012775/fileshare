@@ -13,8 +13,6 @@ router.post('/', upload, (req: any, res: any) => {
       file.upload(req.files, req, res);
       break;
   }
-
 });
 
 export default router;
-

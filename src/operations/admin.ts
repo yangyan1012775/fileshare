@@ -15,24 +15,28 @@ export class Admin {
   public getUsers(req: any, res: any) {
     basic('cloud').then((con) => {
       const sql = 'select * from user';
-      con.query(sql, cbFunc((result: any) => {
-        res.json(result);
-        con.end();
-
-      }));
-
+      con.query(
+        sql,
+        cbFunc((result: any) => {
+          res.json(result);
+          con.end();
+        }),
+      );
     });
-
   }
 
   public deleUser(req: any, res: any) {
     basic('cloud').then((con) => {
       const sql = 'delete from user where id =?';
       const data = [req.body.id];
-      con.query(sql, data, cbFunc((result: any) => {
-        res.json('ok');
-        con.end();
-      }));
+      con.query(
+        sql,
+        data,
+        cbFunc((result: any) => {
+          res.json('ok');
+          con.end();
+        }),
+      );
     });
   }
 
@@ -42,27 +46,35 @@ export class Admin {
       const hash = crypto.createHash('sha256');
       hash.update('000000');
       const hashed = hash.digest('hex');
-      
+
       const sql = 'update user set password = ? where id = ?';
       const data = [hashed, req.body.id];
-      con.query(sql, data, cbFunc((result: any) => {
-        res.json('ok');
-        con.end();
-      }));
+      con.query(
+        sql,
+        data,
+        cbFunc((result: any) => {
+          res.json('ok');
+          con.end();
+        }),
+      );
     });
 
   public searchUser(req: any, res: any) {
     basic('cloud').then((con) => {
       const sql = 'select * from user where username = ?';
-      con.query(sql, req.params.name, cbFunc((result: any) => {
-        if (result.length) {
-          res.json(result);
+      con.query(
+        sql,
+        req.params.name,
+        cbFunc((result: any) => {
+          if (result.length) {
+            res.json(result);
+            con.end();
+            return;
+          }
+          res.json('none');
           con.end();
-          return;
-        }
-        res.json('none');
-        con.end();
-      }));
+        }),
+      );
     });
   }
 }

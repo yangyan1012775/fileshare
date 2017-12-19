@@ -5,6 +5,6 @@ const cb = (next: any) => {
     }
     next(data);
   };
-}; 
+};
 
 export default cb;

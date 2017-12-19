@@ -18,6 +18,24 @@ test('Should greet with message', () => {
   expect(server.server).toBe(express2);
 });
 
+test('首页url测试', done => {
+  request(app)
+    .get('/')
+    .expect(200, function(err, res) {
+      expect(err).toBeFalsy();
+      expect(res.text.includes('index')).toBeTruthy();
+      done();
+    });
+});
+test('热门文件url测试', done => {
+  request(app)
+    .get('/hots/video')
+    .expect(200, function(err, res) {
+      expect(err).toBeFalsy();
+      expect(res.text.includes('video')).toBeTruthy();
+      done();
+    });
+});
 test('测试访问用户页面success', done => {
   request(app)
     .get('/user/5555')

@@ -320,24 +320,6 @@ test('测试.md文件上传成功', done => {
     });
 });
 
-// test('api-register', done => {
-//   request(app)
-//     .post('/api/users')
-//     .type('form')
-//     .send({
-//       action: 'register',
-//       email: '111@163.com',
-//       password: 'qqq111qqq',
-//       pwd2: 'qqq111qqq',
-//     })
-//     .expect(200, function(err, res) {
-//       expect(err).toBeFalsy();
-//       expect(res.text.includes('ok')).toBeTruthy();
-//       console.log(res.text);
-//       done();
-//     });
-// });
-
 beforeAll(function(done) {
   var con = mysql.createConnection({
     host: process.env.MYSQL_HOST,

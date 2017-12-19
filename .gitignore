@@ -7,3 +7,4 @@ lib_test
 package-lock.json
 .vscode
 __tests__/file/
+env

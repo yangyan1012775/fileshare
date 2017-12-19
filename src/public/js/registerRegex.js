@@ -82,12 +82,14 @@ $(function () {
                     'pwd2': $('#pwd2').val(),
                     'action': 'register'
                 },
+                async:false,
                 error: function (error) {
                     // console.log(error);
                     alert('服务器访问错误！');
                     location.href = ("/user/register");
                 },
                 success: function (data) {
+                    alert(data);
                     if (data === "ok") {
                         location.href = ("/user/login");
                     } else{

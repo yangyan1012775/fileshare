@@ -8,7 +8,7 @@ $(function () {
         $('#search .table tbody').html('');
         let username = $('#username').val();
         $.ajax({
-            url:'/api/admin/users/'+username,
+            url:'/admins/users/'+username,
             type:'get',
             data:{
 

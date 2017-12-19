@@ -14,7 +14,7 @@ $(function () {
                     id: id
                 },
                 type: 'post',
-                url: '/api/admin/users',
+                url: '/admins/users',
                 success: function (data) {
                     if (data === 'ok') {
                         alert('删除成功');

@@ -43,7 +43,7 @@ $("#Msub").on("click", function () {
       },
       success: function (data) {
         if (data === 'ok') {
-          location.href = 'http://127.0.0.1:8080/admin/update';
+          location.href = ("/admin/update");
         } else {
           alert(data);
         }

@@ -156,23 +156,6 @@ test('测试访问文件分类页面', done => {
     });
 });
 
-
-
-test('测试数据库创建', done => {
-  var con = mysql.createConnection({
-    host: process.env.MYSQL_HOST,
-    user: process.env.MYSQL_USERNAME,
-    password: process.env.MYSQL_PASSWORD,
-  });
-
-  con.query('CREATE DATABASE cloud character set utf8', function(err) {
-    expect(err).toBeFalsy();
-    // 断开
-    con.end();
-    done();
-  });
-});
-
 test('测试数据库链接', done => {
   var con = mysql.createConnection({
     host: process.env.MYSQL_HOST,
@@ -236,7 +219,7 @@ test('default', done => {
 
 test('测试用户所有获取', done => {
   request(app)
-    .get('/api/admin/users')
+    .get('/admins/users')
     .expect(200, function(err, res) {
       expect(err).toBeFalsy();
       expect(res.body[0].username === 'user1').toBeTruthy();
@@ -246,7 +229,7 @@ test('测试用户所有获取', done => {
 
 test('测试单用户查询', done => {
   request(app)
-    .get('/api/admin/users/user1')
+    .get('/admins/users/user1')
     .expect(200, function(err, res) {
       expect(err).toBeFalsy();
       expect(res.body[0].id === 1).toBeTruthy();
@@ -256,7 +239,7 @@ test('测试单用户查询', done => {
 
 test('测试单用户查询结果无此用户', done => {
   request(app)
-    .get('/api/admin/users/user15')
+    .get('/admins/users/user15')
     .expect(200, function(err, res) {
       expect(err).toBeFalsy();
       expect(res.body === 'none').toBeTruthy();
@@ -266,7 +249,7 @@ test('测试单用户查询结果无此用户', done => {
 
 test('测试用户密码重置', done => {
   request(app)
-    .post('/api/admin/users')
+    .post('/admins/users')
     .type('form')
     .send({ action: 'reset', id: 1 })
     .expect(200, function(err, res) {
@@ -278,7 +261,7 @@ test('测试用户密码重置', done => {
 
 test('测试用户删除', done => {
   request(app)
-    .post('/api/admin/users')
+    .post('/admins/users')
     .type('form')
     .send({ action: 'delete', id: 1 })
     .expect(200, function(err, res) {

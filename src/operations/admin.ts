@@ -50,7 +50,6 @@ export class Admin {
         con.end();
       }));
     });
-  }
 
   public searchUser(req: any, res: any) {
     basic('cloud').then((con) => {

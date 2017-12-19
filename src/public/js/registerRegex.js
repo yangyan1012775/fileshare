@@ -65,7 +65,7 @@ $(function () {
 
 
 
-    $('.btn').on('click', function () {
+    $('#sub').on('click', function () {
         var flag = 0;
         for (var i = 0; i < check.length; i++) {
             if (check[i] == true) {
@@ -73,19 +73,32 @@ $(function () {
             }
         }
         if (flag == 3) {
-            location.href = "changeheadimg.html";
+            $.ajax({
+                type: 'post',
+                url: "/api/users",
+                data: {
+                    'email': $('#emal').val(),
+                    'password': $('#pwd').val(),
+                    'pwd2': $('#pwd2').val(),
+                    'action': 'register'
+                },
+                error: function (error) {
+                    // console.log(error);
+                    alert('服务器访问错误！');
+                    location.href = ("/user/register");
+                },
+                success: function (data) {
+                    if (data === "ok") {
+                        location.href = ("/user/info");
+                    } else{
+                        location.href = ("/user/register");
+                    }
+                }
+            })
+        } else {
+            location.href = ("/user/register");
+            return;
         }
-        var newArr1 = {};
-        var email = $('input[class=email]').val();
-        newArr1.email = email;
-
-        var pwd1 = $('input[class=pwd1]').val();
-        newArr1.pwd1 = pwd1;
-
-        var Jsonstr1 = JSON.stringify(newArr1);
-
-        // 存储json字符串
-        window.localStorage.setItem("register", Jsonstr1);
     });
 
 });

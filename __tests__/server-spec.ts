@@ -236,7 +236,14 @@ test('测试用户删除', done => {
 
 test('cb错误测试覆盖', done => {
   let func = cbFunc(() => {});
-  expect(func(new Error('222'), '0') === undefined).toBeTruthy();
+  let entered = false;
+  try {
+    func(new Error('222'), '0');
+  } catch (e) {
+    expect(e.message === '222').toBeTruthy();
+    entered = true;
+  }
+  expect(entered).toBeTruthy();
   done();
 });
 

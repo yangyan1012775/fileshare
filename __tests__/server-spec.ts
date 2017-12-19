@@ -63,6 +63,16 @@ test('url-register', done => {
       done();
     });
 });
+test('url-info', done => {
+  request(app)
+    .get('/user/Info')
+    .expect(200, function(err, res) {
+      // console.log(err, res.text);
+      expect(err).toBeFalsy();
+      expect(res.text.includes('用户注册页面')).toBeTruthy();
+      done();
+    });
+});
 test('url-login', done => {
   request(app)
     .get('/user/login')
@@ -133,6 +143,41 @@ test('测试数据库链接', done => {
       );
     }
   );
+});
+
+test('api-register', done => {
+  request(app)
+    .post('/api/users')
+    .type('form')
+    .send({
+      action: 'register',
+      email: '111@163.com',
+      password: 'qqq111qqq',
+      pwd2: 'qqq111qqq',
+    })
+    .expect(200, function(err, res) {
+      expect(err).toBeFalsy();
+      expect(res.text.includes('ok')).toBeTruthy();
+      console.log(res.text);
+      done();
+    });
+});
+test('default', done => {
+  request(app)
+    .post('/api/users')
+    .type('form')
+    .send({
+      action: 'sb',
+      email: '111@163.com',
+      password: 'qqq111qqq',
+      pwd2: 'qqq111qqq',
+    })
+    .expect(200, function(err, res) {
+      expect(err).toBeFalsy();
+      expect(res.text.includes('sb')).toBeTruthy();
+      console.log(res.text);
+      done();
+    });
 });
 
 test('测试用户所有获取', done => {
@@ -274,6 +319,24 @@ test('测试.md文件上传成功', done => {
       done();
     });
 });
+
+// test('api-register', done => {
+//   request(app)
+//     .post('/api/users')
+//     .type('form')
+//     .send({
+//       action: 'register',
+//       email: '111@163.com',
+//       password: 'qqq111qqq',
+//       pwd2: 'qqq111qqq',
+//     })
+//     .expect(200, function(err, res) {
+//       expect(err).toBeFalsy();
+//       expect(res.text.includes('ok')).toBeTruthy();
+//       console.log(res.text);
+//       done();
+//     });
+// });
 
 beforeAll(function(done) {
   var con = mysql.createConnection({

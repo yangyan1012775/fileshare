@@ -6,11 +6,11 @@ import { User } from '../../operations/user';
 router.post('/', async (req: any, res: any) => {
   switch (req.body.action) {
     case 'register':
-      const user1 = new User(req, res);
-      await user1.register(req, res);
+      const user = new User(req, res);
+      await user.register(req, res);
       break;
     default:
-      res.send('sb');
+      res.send('error');
   }
 });
 export default router;

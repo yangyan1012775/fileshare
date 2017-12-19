@@ -167,14 +167,14 @@ test('default', done => {
     .post('/api/users')
     .type('form')
     .send({
-      action: 'sb',
+      action: 'sss',
       email: '111@163.com',
       password: 'qqq111qqq',
       pwd2: 'qqq111qqq',
     })
     .expect(200, function(err, res) {
       expect(err).toBeFalsy();
-      expect(res.text.includes('sb')).toBeTruthy();
+      expect(res.text.includes('error')).toBeTruthy();
       console.log(res.text);
       done();
     });

@@ -89,7 +89,7 @@ $(function () {
                 },
                 success: function (data) {
                     if (data === "ok") {
-                        location.href = ("/user/info");
+                        location.href = ("/user/login");
                     } else{
                         location.href = ("/user/register");
                     }

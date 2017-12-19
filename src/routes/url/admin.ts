@@ -13,6 +13,9 @@ router.get('/users', (req: any, res: any) => {
   res.render('admin/back-user');
 });
 
+router.get('/sites', (req: any, res: any) => {
+  res.render('admin/back-count');
+});
 /**
  * 文件分类
  */

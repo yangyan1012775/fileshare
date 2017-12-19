@@ -54,6 +54,15 @@ test('测试管理员 password modify', done => {
       done();
     });
 });
+test('测试登录统计数据页面', done => {
+  request(app)
+    .get('/admin/sites')
+    .expect(200, function(err, res) {
+      expect(err).toBeFalsy();
+      expect(res.text.includes('网站数据统计')).toBeTruthy();
+      done();
+    });
+});
 test('url-register', done => {
   request(app)
     .get('/user/register')

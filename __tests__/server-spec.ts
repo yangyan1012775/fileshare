@@ -65,7 +65,7 @@ test('url-register', done => {
 });
 test('url-info', done => {
   request(app)
-    .get('/user/Info')
+    .get('/user/info')
     .expect(200, function(err, res) {
       // console.log(err, res.text);
       expect(err).toBeFalsy();
@@ -153,7 +153,7 @@ test('api-register', done => {
       action: 'register',
       email: '111@163.com',
       password: 'qqq111qqq',
-      pwd2: 'qqq111qqq',
+      confirm: 'qqq111qqq',
     })
     .expect(200, function(err, res) {
       expect(err).toBeFalsy();
@@ -170,7 +170,7 @@ test('default', done => {
       action: 'sss',
       email: '111@163.com',
       password: 'qqq111qqq',
-      pwd2: 'qqq111qqq',
+      confirm: 'qqq111qqq',
     })
     .expect(200, function(err, res) {
       expect(err).toBeFalsy();

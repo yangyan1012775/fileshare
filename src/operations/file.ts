@@ -1,4 +1,3 @@
-import cb from '../cb/cb';
 import db from '../db/basic';
 import query from '../db/query';
 
@@ -32,7 +31,7 @@ export class File {
       'insert into pending_file(filename, type, size, hash) values ' +
       value +
       ';';
-    await cb(query(sql, con));
+    await query(sql, con);
   }
 
   public async upload(file: object, req: any, res: any) {

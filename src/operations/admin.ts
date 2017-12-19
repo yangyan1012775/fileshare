@@ -58,7 +58,7 @@ export class Admin {
         }),
       );
     });
-
+  }
   public searchUser(req: any, res: any) {
     basic('cloud').then((con) => {
       const sql = 'select * from user where username = ?';

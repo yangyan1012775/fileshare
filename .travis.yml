@@ -6,4 +6,4 @@ script:
 after_script:
   - 'cat coverage/lcov.info | ./node_modules/.bin/coveralls' # sends the coverage report to coveralls
 env:
-  - MYSQL_HOST=localhost MYSQL_USERNAME=root MYSQL_PASSWORD= MYSQL_PORT=330
+  - MYSQL_HOST=localhost MYSQL_USERNAME=root MYSQL_PASSWORD= MYSQL_PORT=3306 UPLOAD_DIR=./__tests__/file

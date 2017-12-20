@@ -274,6 +274,56 @@ test('api-register', done => {
     });
 });
 
+test('api-login', done => {
+  request(app)
+    .post('/api/users')
+    .type('form')
+    .send({
+      action: 'login',
+      email: '111@163.com',
+      password: 'qqq111qqq',
+    })
+    .expect(200, function(err, res) {
+      console.log(res.body);
+      expect(err).toBeFalsy();
+      expect(res.body.email.includes('111@163.com')).toBeTruthy();
+      console.log(res.body);
+      done();
+    });
+});
+
+test('api-login 密码不存在', done => {
+  request(app)
+    .post('/api/users')
+    .type('form')
+    .send({
+      action: 'login',
+      email: '111@163.com',
+      password: '1111111111a',
+    })
+    .expect(200, function(err, res) {
+      expect(err).toBeFalsy();
+      expect(res.text.includes('false')).toBeTruthy();
+      console.log(res.text);
+      done();
+    });
+});
+test('api-login 用户名不存在', done => {
+  request(app)
+    .post('/api/users')
+    .type('form')
+    .send({
+      action: 'login',
+      password: 'kkkkkkkkkkkkk2',
+    })
+    .expect(200, function(err, res) {
+      expect(err).toBeFalsy();
+      expect(res.text.includes('false')).toBeTruthy();
+      console.log(res.text);
+      done();
+    });
+});
+
 test('default', done => {
   request(app)
     .post('/api/users')
@@ -420,6 +470,98 @@ test('测试.md文件上传成功', done => {
       done();
     });
 });
+test('测试.exe文件上传成功', done => {
+  request(app)
+    .post('/api/files')
+    .type('form')
+    .field('action', 'upload')
+    .attach('_upload', '__tests__/fixtures/1.exe')
+    .expect(200, (err, res) => {
+      expect(err).toBeFalsy();
+      expect(res.body === '上传成功').toBeTruthy();
+      done();
+    });
+});
+
+test('测试文件审核通过 id=1', done => {
+  request(app)
+    .post('/api/files')
+    .type('form')
+    .send({
+      action: 'permit',
+      id: '1',
+    })
+    .expect(200, function(err, res) {
+      expect(err).toBeFalsy();
+      done();
+    });
+});
+
+test('测试文件审核通过 id=2', done => {
+  request(app)
+    .post('/api/files')
+    .type('form')
+    .send({
+      action: 'permit',
+      id: '2',
+    })
+    .expect(200, function(err, res) {
+      expect(err).toBeFalsy();
+      done();
+    });
+});
+
+test('测试文件审核通过 id=3', done => {
+  request(app)
+    .post('/api/files')
+    .type('form')
+    .send({
+      action: 'permit',
+      id: '3',
+    })
+    .expect(200, function(err, res) {
+      expect(err).toBeFalsy();
+      done();
+    });
+});
+
+test('测试文件审核通过 id=4', done => {
+  request(app)
+    .post('/api/files')
+    .type('form')
+    .send({
+      action: 'permit',
+      id: '4',
+    })
+    .expect(200, function(err, res) {
+      expect(err).toBeFalsy();
+      done();
+    });
+});
+test('测试文件审核通过 id=5', done => {
+  request(app)
+    .post('/api/files')
+    .type('form')
+    .send({
+      action: 'permit',
+      id: '5',
+    })
+    .expect(200, function(err, res) {
+      expect(err).toBeFalsy();
+      done();
+    });
+});
+
+test('测试文件审核未通过 id=6', done => {
+  request(app)
+    .post('/api/files')
+    .type('form')
+    .send({ action: 'reject', id: '6' })
+    .expect(200, (err, res) => {
+      expect(err).toBeFalsy();
+      done();
+    });
+});
 
 test('insert file', done => {
   let app = Express();
@@ -485,6 +627,75 @@ test('测试download----fail', done => {
       expect(err).toBeFalsy();
       // console.log(err);
       expect(res.text.includes('not')).toBeTruthy();
+      done();
+    });
+});
+test('测试文件分类--allFiles', done => {
+  request(app)
+    .get('/api/users/1/allFiles')
+    .expect(200, function(err, res) {
+      expect(err).toBeFalsy();
+      expect(res.text !== '').toBeTruthy();
+      done();
+    });
+});
+test('测试文件分类--image', done => {
+  request(app)
+    .get('/api/users/1/image')
+    .expect(200, function(err, res) {
+      // res.send();
+      expect(err).toBeFalsy();
+      expect(res.text !== '').toBeTruthy();
+      done();
+    });
+});
+test('测试文件分类--text', done => {
+  request(app)
+    .get('/api/users/1/text')
+    .expect(200, function(err, res) {
+      // res.send();
+      expect(err).toBeFalsy();
+      expect(res.text !== '').toBeTruthy();
+      done();
+    });
+});
+test('测试文件分类--video', done => {
+  request(app)
+    .get('/api/users/1/video')
+    .expect(200, function(err, res) {
+      // res.send();
+      expect(err).toBeFalsy();
+      expect(res.text !== '').toBeTruthy();
+      done();
+    });
+});
+test('测试文件分类--zip', done => {
+  request(app)
+    .get('/api/users/1/zip')
+    .expect(200, function(err, res) {
+      // res.send();
+      expect(err).toBeFalsy();
+      expect(res.text !== '').toBeTruthy();
+      done();
+    });
+});
+test('测试文件分类--other', done => {
+  request(app)
+    .get('/api/users/1/other')
+    .expect(200, function(err, res) {
+      // res.send();
+      expect(err).toBeFalsy();
+      expect(res.text !== '').toBeTruthy();
+      done();
+    });
+});
+test('测试文件分类--unchecked', done => {
+  request(app)
+    .get('/api/users/1/unchecked')
+    .expect(200, function(err, res) {
+      // res.send();
+      expect(err).toBeFalsy();
+      expect(res.text !== '').toBeTruthy();
       done();
     });
 });

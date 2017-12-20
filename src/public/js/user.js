@@ -21,13 +21,13 @@
                 $('.video').css('display', 'block');
                 break;
             case 4:
-                $('.music').css('display', 'block');
-                break;
-            case 5:
                 $('.zip').css('display', 'block');
                 break;
-            case 6:
+            case 5:
                 $('.other').css('display', 'block');
+                break;
+            case 6:
+                $('.unchecked').css('display', 'block');
                 break;
         }
     })

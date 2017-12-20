@@ -12,6 +12,14 @@ export class User {
     return await this.insert(data);
   }
 
+  public async login(data) {
+    const result = await this.checkPassword(data);
+    if (!result) {
+      return false;
+    }
+    return result;
+  }
+
   protected createPassword(password: string) {
     const hash = crypto.createHash('sha256');
     hash.update(password);
@@ -61,5 +69,26 @@ export class User {
     });
     con.end();
     return result.insertId;
+  }
+
+  protected async checkPassword(data) {
+    const con = await basic('cloud');
+    const sql = 'SELECT * FROM user WHERE email = \'' + data.email + '\';';
+    const results = await new Promise((resolve, reject) => {
+      con.query(
+        sql,
+        cbFunc((res: any) => {
+          resolve(res);
+        }),
+      );
+    });
+
+    if (results.length === 1) {
+      const password = this.createPassword(data.password);
+      if (password === results[0].password) {
+        return results[0];
+      }
+    }
+    return false;
   }
 }

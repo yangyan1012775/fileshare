@@ -89,15 +89,14 @@ export class File {
       }
     });
   }
-  public async getFiles(req: any, res: any) {
+  public static async getFiles(req: any, res: any, sql: string) {
     const con = await db('cloud');
-    const sql = 'select * from file where type = \'' + req.query.type + '\';';
     const result = await query(sql, con);
     con.end();
     res.json(result);
   }
 
-  public async getType(req: any, res: any, type) {
+  public async getType(req: any, res: any, type: string) {
     const con = await db('cloud');
     const sql =
       'select user.username,file.filename,file.size,file.downloads ' +
@@ -109,4 +108,5 @@ export class File {
     con.end();
     res.json(result);
   }
+
 }

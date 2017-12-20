@@ -45,8 +45,8 @@ router.post('/', (req: any, res: any) => {
 });
 
 router.get('/', async (req: any, res: any) => {
-  const userfiles = new File(req, res);
-  await userfiles.getFiles(req, res);
+  const sql = 'select * from file where type = \'' + req.query.type + '\';';
+  await File.getFiles(req, res, sql);
 });
 router.get('/hots', async (req: any, res: any) => {
   switch (req.query.type) {

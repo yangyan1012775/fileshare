@@ -5,10 +5,8 @@ import * as nunjucks from 'nunjucks';
 import * as path from 'path';
 import apiAdmin from './routes/api/admin';
 import files from './routes/api/file';
-import hot from './routes/api/hot';
 import apiUser from './routes/api/user';
 import admin from './routes/url/admin';
-import hots from './routes/url/hots';
 import main from './routes/url/main';
 import user from './routes/url/user';
 export class Server {

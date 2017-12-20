@@ -39,5 +39,16 @@ router.get('/', async (req: any, res: any) => {
   const userfiles = new File(req, res);
   await userfiles.getFiles(req, res);
 });
+router.get('/hots', async (req: any, res: any) => {
+  switch (req.query.type) {
+    case 'video':
+    case 'zip':
+    case 'image':
+    case 'doc':
+      const hot1 = new File(req, res);
+      hot1.getType(req, res, req.query.type);
+      break;
+  }
+});
 
 export default router;

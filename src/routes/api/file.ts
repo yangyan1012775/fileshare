@@ -45,6 +45,15 @@ router.post('/', (req: any, res: any) => {
   });
 });
 
+router.get('/', async (req: any, res: any, next: any) => {
+  if (req.query.filter === 'pending') {
+    const reulst = await Admin.getPendingFiles();
+    res.json(reulst);
+  } else {
+    next();
+  }
+});
+
 router.get('/', async (req: any, res: any) => {
   const userfiles = new File(req, res);
   await userfiles.getFiles(req, res);

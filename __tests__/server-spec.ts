@@ -110,6 +110,15 @@ test('测试管理员 password modify', done => {
       done();
     });
 });
+test('测试管理员 logout', done => {
+  request(app)
+    .get('/admin/logout')
+    .expect(200, function(err, res) {
+      expect(err).toBeFalsy();
+      expect(res.text.includes('-管理员登录')).toBeTruthy();
+      done();
+    });
+});
 /* 管理员 api */
 test('测试管理员 login', done => {
   request(app)
@@ -447,6 +456,15 @@ test('测试.exe文件上传成功', done => {
     .expect(200, (err, res) => {
       expect(err).toBeFalsy();
       expect(res.body === '上传成功').toBeTruthy();
+      done();
+    });
+});
+
+test('获取未审核文件', done => {
+  request(app)
+    .get('/api/files?filter=pending')
+    .expect(200, function(err, res) {
+      expect(err).toBeFalsy();
       done();
     });
 });

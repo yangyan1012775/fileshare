@@ -499,6 +499,34 @@ test('测试file-热门', done => {
     }
   );
 });
+test('测试user_file-热门', done => {
+  var con = mysql.createConnection({
+    host: process.env.MYSQL_HOST,
+    user: process.env.MYSQL_USERNAME,
+    password: process.env.MYSQL_PASSWORD,
+    database: 'cloud',
+  });
+  var data = [
+    [1, 1, '2017-12-07 00:00:00'],
+    [2, 2, '2017-12-07 00:00:00'],
+    [3, 3, '2017-12-07 00:00:00'],
+    [4, 4, '2017-12-07 00:00:00'],
+    [5, 5, '2017-12-07 00:00:00'],
+    [6, 6, '2017-12-07 00:00:00'],
+    [7, 7, '2017-12-07 00:00:00'],
+    [8, 8, '2017-12-07 00:00:00'],
+  ];
+  con.query(
+    'INSERT INTO `user_file` (`user`, `file`, `upload_at`) values ?',
+    [data],
+    function(err) {
+      expect(err).toBeFalsy();
+      console.log('insert success');
+      con.end();
+      done();
+    }
+  );
+});
 
 beforeAll(function(done) {
   var con = mysql.createConnection({

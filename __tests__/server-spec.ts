@@ -1,7 +1,9 @@
 import { Server } from '../src/server';
+import { File } from '../src/operations/file';
 import * as Express from 'express';
 import * as request from 'supertest';
 import * as mysql from 'mysql';
+import * as path from 'path';
 import cbFunc from '../src/cb/cb';
 import * as assert from 'assert';
 
@@ -16,6 +18,12 @@ test('Should greet with message', () => {
   expect(server.server).toBe(express1);
   server.server = express2;
   expect(server.server).toBe(express2);
+});
+
+test('setDir', () => {
+  const dir = path.resolve(__dirname, './file');
+  File.setDir(dir);
+  expect(dir).toBe(File.dir);
 });
 
 test('首页url测试', done => {

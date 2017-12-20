@@ -1,6 +1,7 @@
 // 引用basic
 // 引用cb
 import * as crypto from 'crypto';
+import cbFunc from '../cb/cb';
 import basic from '../db/basic';
 import Query from '../db/query';
 
@@ -20,6 +21,14 @@ export class Admin {
     const nowPage = Number(req.query.page);
     const start = nowPage * 5;
 
+    const result = await Query(
+      'SELECT * FROM user LIMIT ' + start + ',' + 5,
+      con,
+    );
+    con.end();
+    res.json({ pages, Res: result });
+  }
+
   public adminLogin(req: any, res: any) {
     basic('cloud').then((con) => {
       const sql =
@@ -38,27 +47,6 @@ export class Admin {
         }),
       );
     });
-  }
-
-  public deleUser(req: any, res: any) {
-    basic('cloud').then((con) => {
-      const sql = 'delete from user where id =?';
-      const data = [req.body.id];
-      con.query(
-        sql,
-        data,
-        cbFunc((result: any) => {
-          res.json('ok');
-          con.end();
-        }),
-      );
-    });
-    const result = await Query(
-      'SELECT * FROM user LIMIT ' + start + ',' + 5,
-      con,
-    );
-    con.end();
-    res.json({ pages, Res: result });
   }
 
   public async deleUser(req: any, res: any) {

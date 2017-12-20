@@ -27,15 +27,7 @@ test('首页url测试', done => {
       done();
     });
 });
-test('热门文件url测试', done => {
-  request(app)
-    .get('/hots/video')
-    .expect(200, function(err, res) {
-      expect(err).toBeFalsy();
-      expect(res.text.includes('video')).toBeTruthy();
-      done();
-    });
-});
+
 test('测试访问用户页面success', done => {
   request(app)
     .get('/user/5555')
@@ -85,7 +77,6 @@ test('url-info', done => {
   request(app)
     .get('/user/info')
     .expect(200, function(err, res) {
-      // console.log(err, res.text);
       expect(err).toBeFalsy();
       expect(res.text.includes('用户注册页面')).toBeTruthy();
       done();
@@ -163,44 +154,44 @@ test('测试数据库链接', done => {
   );
 });
 
-test('api-register', done => {
-  request(app)
-    .post('/api/users')
-    .type('form')
-    .send({
-      action: 'register',
-      email: '111@163.com',
-      password: 'qqq111qqq',
-      confirm: 'qqq111qqq',
-    })
-    .expect(200, function(err, res) {
-      expect(err).toBeFalsy();
-      expect(res.text.includes('ok')).toBeTruthy();
-      console.log(res.text);
-      done();
-    });
-});
-test('default', done => {
-  request(app)
-    .post('/api/users')
-    .type('form')
-    .send({
-      action: 'sss',
-      email: '111@163.com',
-      password: 'qqq111qqq',
-      confirm: 'qqq111qqq',
-    })
-    .expect(200, function(err, res) {
-      expect(err).toBeFalsy();
-      expect(res.text.includes('error')).toBeTruthy();
-      console.log(res.text);
-      done();
-    });
-});
+// test('api-register', done => {
+//   request(app)
+//     .post('/api/users')
+//     .type('form')
+//     .send({
+//       action: 'register',
+//       email: '111@163.com',
+//       password: 'qqq111qqq',
+//       confirm: 'qqq111qqq',
+//     })
+//     .expect(200, function(err, res) {
+//       expect(err).toBeFalsy();
+//       expect(res.text.includes('ok')).toBeTruthy();
+//       console.log(res.text);
+//       done();
+//     });
+// });
+// test('default', done => {
+//   request(app)
+//     .post('/api/users')
+//     .type('form')
+//     .send({
+//       action: 'sss',
+//       email: '111@163.com',
+//       password: 'qqq111qqq',
+//       confirm: 'qqq111qqq',
+//     })
+//     .expect(200, function(err, res) {
+//       expect(err).toBeFalsy();
+//       expect(res.text.includes('error')).toBeTruthy();
+//       console.log(res.text);
+//       done();
+//     });
+// });
 
 test('测试用户所有获取', done => {
   request(app)
-    .get('/api/admin/users')
+    .get('/api/admins/users')
     .expect(200, function(err, res) {
       expect(err).toBeFalsy();
       expect(res.body[0].username === 'user1').toBeTruthy();
@@ -210,7 +201,7 @@ test('测试用户所有获取', done => {
 
 test('测试单用户查询', done => {
   request(app)
-    .get('/api/admin/users/user1')
+    .get('/api/admins/users/user1')
     .expect(200, function(err, res) {
       expect(err).toBeFalsy();
       expect(res.body[0].id === 1).toBeTruthy();
@@ -220,7 +211,7 @@ test('测试单用户查询', done => {
 
 test('测试单用户查询结果无此用户', done => {
   request(app)
-    .get('/api/admin/users/user15')
+    .get('/api/admins/users/user15')
     .expect(200, function(err, res) {
       expect(err).toBeFalsy();
       expect(res.body === 'none').toBeTruthy();
@@ -230,7 +221,7 @@ test('测试单用户查询结果无此用户', done => {
 
 test('测试用户密码重置', done => {
   request(app)
-    .post('/api/admin/users')
+    .post('/api/admins/users')
     .type('form')
     .send({ action: 'reset', id: 1 })
     .expect(200, function(err, res) {
@@ -242,7 +233,7 @@ test('测试用户密码重置', done => {
 
 test('测试用户删除', done => {
   request(app)
-    .post('/api/admin/users')
+    .post('/api/admins/users')
     .type('form')
     .send({ action: 'delete', id: 1 })
     .expect(200, function(err, res) {
@@ -284,66 +275,67 @@ test('创建待审文件表', done => {
   );
 });
 
-test('测试.txt文件上传成功', done => {
-  request(app)
-    .post('/files')
-    .type('form')
-    .field('action', 'upload')
-    .attach('_upload', '__tests__/fixtures/1.txt')
-    .expect(200, (err, res) => {
-      expect(err).toBeFalsy();
-      expect(res.body === '上传成功').toBeTruthy();
-      done();
-    });
-});
-test('测试.jpg文件上传成功', done => {
-  request(app)
-    .post('/files')
-    .type('form')
-    .field('action', 'upload')
-    .attach('_upload', '__tests__/fixtures/1.jpg')
-    .expect(200, (err, res) => {
-      expect(err).toBeFalsy();
-      expect(res.body === '上传成功').toBeTruthy();
-      done();
-    });
-});
-test('测试.avi文件上传成功', done => {
-  request(app)
-    .post('/files')
-    .type('form')
-    .field('action', 'upload')
-    .attach('_upload', '__tests__/fixtures/1.avi')
-    .expect(200, (err, res) => {
-      expect(err).toBeFalsy();
-      expect(res.body === '上传成功').toBeTruthy();
-      done();
-    });
-});
-test('测试.zip文件上传成功', done => {
-  request(app)
-    .post('/files')
-    .type('form')
-    .field('action', 'upload')
-    .attach('_upload', '__tests__/fixtures/1.zip')
-    .expect(200, (err, res) => {
-      expect(err).toBeFalsy();
-      expect(res.body === '上传成功').toBeTruthy();
-      done();
-    });
-});
-test('测试.md文件上传成功', done => {
-  request(app)
-    .post('/files')
-    .type('form')
-    .field('action', 'upload')
-    .attach('_upload', '__tests__/fixtures/1.md')
-    .expect(200, (err, res) => {
-      expect(err).toBeFalsy();
-      expect(res.body === '上传成功').toBeTruthy();
-      done();
-    });
-});
+// test('测试.txt文件上传成功', done => {
+//   request(app)
+//     .post('/files')
+//     .type('form')
+//     .field('action', 'upload')
+//     .attach('_upload', '__tests__/fixtures/1.txt')
+//     .expect(200, (err, res) => {
+//       expect(err).toBeFalsy();
+//       expect(res.body === '上传成功').toBeTruthy();
+//       done();
+//     });
+// });
+
+// test('测试.jpg文件上传成功', done => {
+//   request(app)
+//     .post('/files')
+//     .type('form')
+//     .field('action', 'upload')
+//     .attach('_upload', '__tests__/fixtures/1.jpg')
+//     .expect(200, (err, res) => {
+//       expect(err).toBeFalsy();
+//       expect(res.body === '上传成功').toBeTruthy();
+//       done();
+//     });
+// });
+// test('测试.avi文件上传成功', done => {
+//   request(app)
+//     .post('/files')
+//     .type('form')
+//     .field('action', 'upload')
+//     .attach('_upload', '__tests__/fixtures/1.avi')
+//     .expect(200, (err, res) => {
+//       expect(err).toBeFalsy();
+//       expect(res.body === '上传成功').toBeTruthy();
+//       done();
+//     });
+// });
+// test('测试.zip文件上传成功', done => {
+//   request(app)
+//     .post('/files')
+//     .type('form')
+//     .field('action', 'upload')
+//     .attach('_upload', '__tests__/fixtures/1.zip')
+//     .expect(200, (err, res) => {
+//       expect(err).toBeFalsy();
+//       expect(res.body === '上传成功').toBeTruthy();
+//       done();
+//     });
+// });
+// test('测试.md文件上传成功', done => {
+//   request(app)
+//     .post('/files')
+//     .type('form')
+//     .field('action', 'upload')
+//     .attach('_upload', '__tests__/fixtures/1.md')
+//     .expect(200, (err, res) => {
+//       expect(err).toBeFalsy();
+//       expect(res.body === '上传成功').toBeTruthy();
+//       done();
+//     });
+// });
 
 test('insert file', done => {
   let app = Express();
@@ -373,40 +365,40 @@ test('insert file', done => {
   );
 });
 
-test('测试download----', done => {
-  request(app)
-    .get('/user/download?id=1')
-    .expect(200, function(err, res) {
-      done();
-    });
-});
+// test('测试download----', done => {
+//   request(app)
+//     .get('/user/download?id=1')
+//     .expect(200, function(err, res) {
+//       done();
+//     });
+// });
 
-test('测试download----fail', done => {
-  let app = Express();
-  let server = new Server(app, 3000);
-  var con = mysql.createConnection({
-    host: process.env.MYSQL_HOST,
-    user: process.env.MYSQL_USERNAME,
-    password: process.env.MYSQL_PASSWORD,
-    database: 'cloud',
-  });
-  con.query(
-    "insert into file(filename, type, size, downloads,hash) values ('girlTest.JPG','image',40,2,'asgsagasgasdaasg');",
-    function(err) {
-      expect(err).toBeFalsy();
-      console.log('insert success');
-      con.end();
-      done();
-    }
-  );
-  request(app)
-    .get('/user/download?id=2')
-    .expect(200, function(err, res) {
-      if (err) throw err;
-      expect(res.text.includes('not')).toBeTruthy();
-      done();
-    });
-});
+// test('测试download----fail', done => {
+//   let app = Express();
+//   let server = new Server(app, 3000);
+//   var con = mysql.createConnection({
+//     host: process.env.MYSQL_HOST,
+//     user: process.env.MYSQL_USERNAME,
+//     password: process.env.MYSQL_PASSWORD,
+//     database: 'cloud',
+//   });
+//   con.query(
+//     "insert into file(filename, type, size, downloads,hash) values ('girlTest.JPG','image',40,2,'asgsagasgasdaasg');",
+//     function(err) {
+//       expect(err).toBeFalsy();
+//       console.log('insert success');
+//       con.end();
+//       done();
+//     }
+//   );
+//   request(app)
+//     .get('/user/download?id=2')
+//     .expect(200, function(err, res) {
+//       if (err) throw err;
+//       expect(res.text.includes('not')).toBeTruthy();
+//       done();
+//     });
+// });
 
 beforeAll(function(done) {
   var con = mysql.createConnection({

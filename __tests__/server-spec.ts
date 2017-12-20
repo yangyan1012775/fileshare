@@ -192,6 +192,57 @@ test('api-register', done => {
     });
 });
 
+
+test('api-login', done => {
+  request(app)
+    .post('/api/users')
+    .type('form')
+    .send({
+      action: 'login',
+      email: '111@163.com',
+      password: 'qqq111qqq',
+    })
+    .expect(200, function(err, res) {
+      console.log(res.text);
+      expect(err).toBeFalsy();
+      expect(res.text.includes('ok')).toBeTruthy();
+      console.log(res.text);
+      done();
+    });
+});
+
+test('api-login 密码不存在', done => {
+  request(app)
+    .post('/api/users')
+    .type('form')
+    .send({
+      action: 'login',
+      email: '111@163.com',
+      password: '1111111111a',
+    })
+    .expect(200, function(err, res) {
+      expect(err).toBeFalsy();
+      expect(res.text.includes('false')).toBeTruthy();
+      console.log(res.text);
+      done();
+    });
+});
+test('api-login 用户名不存在', done => {
+  request(app)
+    .post('/api/users')
+    .type('form')
+    .send({
+      action: 'login',
+      password: 'kkkkkkkkkkkkk2',
+    })
+    .expect(200, function(err, res) {
+      expect(err).toBeFalsy();
+      expect(res.text.includes('false')).toBeTruthy();
+      console.log(res.text);
+      done();
+    });
+});
+
 test('default', done => {
   request(app)
     .post('/api/users')

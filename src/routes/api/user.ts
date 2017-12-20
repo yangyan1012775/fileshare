@@ -15,6 +15,15 @@ router.post('/', async (req: any, res: any) => {
       }
       res.send('ok');
       break;
+    case 'login':
+      const data2 = req.body;
+      const id2 = await user.login(data2);
+      if (!id2) {
+        res.send('false');
+        return;
+      }
+      res.send('ok');
+      break;
     default:
       res.send('error');
   }

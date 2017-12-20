@@ -20,45 +20,6 @@ test('Should greet with message', () => {
   expect(server.server).toBe(express2);
 });
 
-test('测试数据库创建', done => {
-  var con = mysql.createConnection({
-    host: process.env.MYSQL_HOST,
-    user: process.env.MYSQL_USERNAME,
-    password: process.env.MYSQL_PASSWORD,
-  });
-
-  con.query('CREATE DATABASE cloud', function(err) {
-    expect(err).toBeFalsy();
-    // 断开
-    con.end();
-    done();
-  });
-});
-
-test('create admin', done => {
-  var con = mysql.createConnection({
-    host: process.env.MYSQL_HOST,
-    user: process.env.MYSQL_USERNAME,
-    password: process.env.MYSQL_PASSWORD,
-    database: 'cloud',
-  });
-  // admin
-  con.query(
-    'create table admin (id int(11) primary key auto_increment,username varchar(20) not null,password varchar(64) not null)',
-    function(err) {
-      expect(err).toBeFalsy();
-      con.query(
-        "INSERT INTO admin(username, password) VALUES ('123','123')",
-        function(err) {
-          expect(err).toBeFalsy();
-          con.end();
-          done();
-        }
-      );
-    }
-  );
-});
-
 test('setDir', () => {
   const dir = path.resolve(__dirname, './file');
   File.setDir(dir);

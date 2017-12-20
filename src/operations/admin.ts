@@ -37,6 +37,7 @@ export class Admin {
       con.query(
         sql,
         cbFunc((result: any) => {
+          req.session.user = req.body.username;
           res.json('ok');
           con.end();
         }),

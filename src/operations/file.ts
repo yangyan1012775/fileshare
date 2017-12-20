@@ -1,6 +1,11 @@
-import cb from '../cb/cb';
+import * as Express from 'express';
+import * as fs from 'fs';
+import * as path from 'path';
+import { promisify } from 'util';
+import cbFunc from '../cb/cb';
 import db from '../db/basic';
 import query from '../db/query';
+import queryFile from '../db/queryFile';
 
 export class File {
   private filename: string;
@@ -32,7 +37,7 @@ export class File {
       'insert into pending_file(filename, type, size, hash) values ' +
       value +
       ';';
-    await cb(query(sql, con));
+    await query(sql, con);
   }
 
   public async upload(file: object, req: any, res: any) {
@@ -51,5 +56,26 @@ export class File {
 
     await this.insert(type, file.size);
     res.json('上传成功');
+  }
+
+  public download(res: any) {
+    const fsexists = promisify(fs.exists);
+    // ------------------等其他两组提交后再将file改成变量
+    const currFile = path.resolve('file/', this.filename);
+    fsexists(currFile).then((exist: any) => {
+      if (exist) {
+        const f = fs.createReadStream(currFile);
+        res.writeHead(200, {
+          'Content-Disposition':
+            'attachment; filename=' + encodeURI(this.filename),
+          'Content-Type': 'application/force-download',
+        });
+        f.pipe(res);
+      } else {
+        res.set('Content-type', 'text/html');
+        res.send('file not exist!');
+        res.end();
+      }
+    });
   }
 }

@@ -36,6 +36,42 @@ test('首页url测试', done => {
     });
 });
 
+test('热门文件url测试', done => {
+  request(app)
+    .get('/hots/video')
+    .expect(200, function(err, res) {
+      expect(err).toBeFalsy();
+      expect(res.text.includes('video')).toBeTruthy();
+      done();
+    });
+});
+test('热门音频url测试', done => {
+  request(app)
+    .get('/hots/zip')
+    .expect(200, function(err, res) {
+      expect(err).toBeFalsy();
+      expect(res.text.includes('video')).toBeTruthy();
+      done();
+    });
+});
+test('热门图片url测试', done => {
+  request(app)
+    .get('/hots/image')
+    .expect(200, function(err, res) {
+      expect(err).toBeFalsy();
+      expect(res.text.includes('video')).toBeTruthy();
+      done();
+    });
+});
+test('热门文章url测试', done => {
+  request(app)
+    .get('/hots/doc')
+    .expect(200, function(err, res) {
+      expect(err).toBeFalsy();
+      expect(res.text.includes('video')).toBeTruthy();
+      done();
+    });
+});
 test('测试访问用户页面success', done => {
   request(app)
     .get('/user/5555')
@@ -54,6 +90,7 @@ test('测试访问用户页面fail', done => {
       done();
     });
 });
+/* 管理员 url */
 test('测试管理员登录success', done => {
   request(app)
     .get('/admin/login')
@@ -69,6 +106,18 @@ test('测试管理员 password modify', done => {
     .expect(200, function(err, res) {
       expect(err).toBeFalsy();
       expect(res.text.includes('管理员个人设置')).toBeTruthy();
+      done();
+    });
+});
+/* 管理员 api */
+test('测试管理员 login', done => {
+  request(app)
+    .post('/api/admins')
+    .type('form')
+    .send({ action: 'login' })
+    .expect(200, function(err, res) {
+      expect(err).toBeFalsy();
+      expect(res.body === 'ok').toBeTruthy();
       done();
     });
 });
@@ -335,6 +384,98 @@ test('测试.md文件上传成功', done => {
     .expect(200, (err, res) => {
       expect(err).toBeFalsy();
       expect(res.body === '上传成功').toBeTruthy();
+      done();
+    });
+});
+test('测试.exe文件上传成功', done => {
+  request(app)
+    .post('/api/files')
+    .type('form')
+    .field('action', 'upload')
+    .attach('_upload', '__tests__/fixtures/1.exe')
+    .expect(200, (err, res) => {
+      expect(err).toBeFalsy();
+      expect(res.body === '上传成功').toBeTruthy();
+      done();
+    });
+});
+
+test('测试文件审核通过 id=1', done => {
+  request(app)
+    .post('/api/files')
+    .type('form')
+    .send({
+      action: 'permit',
+      id: '1',
+    })
+    .expect(200, function(err, res) {
+      expect(err).toBeFalsy();
+      done();
+    });
+});
+
+test('测试文件审核通过 id=2', done => {
+  request(app)
+    .post('/api/files')
+    .type('form')
+    .send({
+      action: 'permit',
+      id: '2',
+    })
+    .expect(200, function(err, res) {
+      expect(err).toBeFalsy();
+      done();
+    });
+});
+
+test('测试文件审核通过 id=3', done => {
+  request(app)
+    .post('/api/files')
+    .type('form')
+    .send({
+      action: 'permit',
+      id: '3',
+    })
+    .expect(200, function(err, res) {
+      expect(err).toBeFalsy();
+      done();
+    });
+});
+
+test('测试文件审核通过 id=4', done => {
+  request(app)
+    .post('/api/files')
+    .type('form')
+    .send({
+      action: 'permit',
+      id: '4',
+    })
+    .expect(200, function(err, res) {
+      expect(err).toBeFalsy();
+      done();
+    });
+});
+test('测试文件审核通过 id=5', done => {
+  request(app)
+    .post('/api/files')
+    .type('form')
+    .send({
+      action: 'permit',
+      id: '5',
+    })
+    .expect(200, function(err, res) {
+      expect(err).toBeFalsy();
+      done();
+    });
+});
+
+test('测试文件审核未通过 id=6', done => {
+  request(app)
+    .post('/api/files')
+    .type('form')
+    .send({ action: 'reject', id: '6' })
+    .expect(200, (err, res) => {
+      expect(err).toBeFalsy();
       done();
     });
 });

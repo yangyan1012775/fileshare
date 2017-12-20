@@ -72,7 +72,7 @@ export class File {
   public download(res: any) {
     const fsexists = promisify(fs.exists);
     // ------------------等其他两组提交后再将file改成变量
-    const currFile = path.resolve('file/', this.filename);
+    const currFile = path.resolve(process.env.UPLOAD_DIR, this.filename);
     fsexists(currFile).then((exist: any) => {
       if (exist) {
         const f = fs.createReadStream(currFile);
@@ -92,6 +92,19 @@ export class File {
   public async getFiles(req: any, res: any) {
     const con = await db('cloud');
     const sql = 'select * from file where type = \'' + req.query.type + '\';';
+    const result = await query(sql, con);
+    con.end();
+    res.json(result);
+  }
+
+  public async getType(req: any, res: any, type) {
+    const con = await db('cloud');
+    const sql =
+      'select user.username,file.filename,file.size,file.downloads ' +
+      'from file left join user_file on user_file.file = file.id ' +
+      'left join user on user.id = user_file.user where file.type = \'' +
+      type +
+      '\' order by file.downloads DESC';
     const result = await query(sql, con);
     con.end();
     res.json(result);

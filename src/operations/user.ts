@@ -3,7 +3,6 @@ import * as crypto from 'crypto';
 import * as moment from 'moment';
 import cbFunc from '../cb/cb';
 import basic from '../db/basic';
-
 export class User {
   public async register(data) {
     const existed = await this.checkUser(data.email);

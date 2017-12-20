@@ -7,4 +7,4 @@ test('Should have a server', () => {
 
 afterAll(function() {
   server.close();
-})
+});

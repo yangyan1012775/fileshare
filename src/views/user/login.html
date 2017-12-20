@@ -20,38 +20,13 @@
                 <input type="password" placeholder="请输入密码,字母、数字、特殊字符至少两种" class="pwd" id="pwd" />
                 <p class='tip'></p>
                 
-                <button id="sub" name="sub">登录</button>
+                <input type="button"  value="登录" id="sub" name="sub" />
             </form>
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
-    <script src="/js/registerRegex.js"></script>
-    <script>
-        $(function () {
-            $('#sub').on('click', function () {
-                $.ajax({
-                    type: 'post',
-                    url: "/user/login",
-                    data: {
-                        'email': $('#emal').val(),
-                        'password': $('#pwd').val(),
-                        'type': 'login'
-                    },
-                    async: false,
-                    error: function () {
-                        alert('服务器访问错误！')
-                    },
-                    success: function (data) {
-                        if (data !== 'wrong') {
-                            location.href = data;
-                        } else {
-                            alert(data);
-                        }
-                    }
-                })
-            })
-        })
-    </script>
+    <script src="/js/loginRegex.js"></script>
+  
 </body>
 
 

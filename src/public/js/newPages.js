@@ -7,12 +7,10 @@ $(function () {
         },
         type: 'get',
         success: function (data) {
-            console.log(data);
             // 获取数据
-            console.log(data.Res);
             newTr(data.Res, '#lists table tbody');
             // 创建页码
-            newPagination(data.Pages, '#lists');
+            newPagination(data.pages, '#lists');
             return;
         },
         error: function (err) {

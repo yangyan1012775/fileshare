@@ -1,11 +1,12 @@
 
 function newPagination(num, parent) {
-
+    
     var newUl = $('<ul class="pagination"></ul>');
     for (let i = 1; i <= num; i++) {
         var newA = $('<li><a href="###" data-page=' + (i - 1) + '>' + i + '</a></li>');
         newUl.append(newA);
     };
+    
     $(parent).append(newUl);
 
     //  添加页码函数
@@ -21,9 +22,7 @@ function newPagination(num, parent) {
             },
             type: 'get',
             success: function (data) {
-                console.log(data);
                 // 获取数据
-                console.log(data.Res);
                 newTr(data.Res, '#lists table tbody');
                 // 创建页码
                 return;

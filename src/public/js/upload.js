@@ -7,7 +7,7 @@ $(function () {
         console.log($('#files')[0].files[0].name);
         $.ajax({
             data: data,
-            url: '/files',
+            url: '/api/files',
             type:"post",
             dataType: 'JSON',
             contentType: false,    //不可缺

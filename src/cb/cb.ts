@@ -1,7 +1,7 @@
 const cb = (next: any) => {
   return (err: any, data: any) => {
     if (err) {
-      return;
+      throw err;
     }
     next(data);
   };

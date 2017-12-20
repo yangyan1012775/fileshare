@@ -45,11 +45,12 @@ export class File {
     const result = await query(sql, con);
     const date = new Date();
     const dateTime = moment(date).format('YYYY-MM-DD HH:mm:ss');
+    con.end();
     con = await db('cloud');
     value = '(\'' + result.insertId + '\', \'' + userid + '\',\'' + dateTime + '\')';
     sql = 'insert into user_file(file, user, upload_at) values ' + value + ';';
     await query(sql, con);
-    // con.end();
+    con.end();
   }
 
   public async upload(file: object, req: any, res: any) {
@@ -92,6 +93,7 @@ export class File {
     const con = await db('cloud');
     const sql = 'select * from file where type = \'' + req.query.type + '\';';
     const result = await query(sql, con);
+    con.end();
     res.json(result);
   }
 }

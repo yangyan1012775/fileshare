@@ -128,7 +128,7 @@ test('测试数据库链接', done => {
     password: process.env.MYSQL_PASSWORD,
     database: 'cloud',
   });
-  // 创建user
+  // 创建user数据
   con.query(
     "INSERT INTO user(username, password, email, created_at) VALUES ('user1','123','user1.qq','2017-10-20')",
     function(err) {
@@ -210,12 +210,12 @@ test('default', done => {
     });
 });
 
-test('测试用户所有获取', done => {
+test('测试用户分页获取', done => {
   request(app)
-    .get('/api/admins/users')
+    .get('/api/admins/users?page=0')
     .expect(200, function(err, res) {
       expect(err).toBeFalsy();
-      expect(res.body[0].username === 'user1').toBeTruthy();
+      expect(res.body.pages === 1).toBeTruthy();
       done();
     });
 });
@@ -382,8 +382,6 @@ test('测试download----', done => {
 });
 
 test('测试download----fail', done => {
-  let app = Express();
-  let server = new Server(app, 3000);
   var con = mysql.createConnection({
     host: process.env.MYSQL_HOST,
     user: process.env.MYSQL_USERNAME,
@@ -441,6 +439,7 @@ beforeAll(function(done) {
     password: process.env.MYSQL_PASSWORD,
   });
   con.query('DROP DATABASE IF EXISTS cloud;', function(err) {
+    console.log('zheli');
     expect(err).toBeFalsy();
     console.log('删除数据库cloud');
     con.query('CREATE DATABASE cloud character set utf8;', function(err) {

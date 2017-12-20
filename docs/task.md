@@ -46,6 +46,9 @@
 
 ### /users/:id/files
 方法： GET
+
+| 参数 | 说明 | | |
+| --- | --- | --- | --- | --- |
 | query | 所有用户文件 | | |
 | ?type=image | 用户图片 | | |
 | ?type=doc | 用户文档 | | |
@@ -76,11 +79,16 @@
 | action=logout |  | 管理员退出 | | |
 
 ### /admins/users
+
 方法： GET
+
+| 参数 | 说明 | | |
+| --- | --- | --- | --- | --- |
 | query | 所有用户文件 | | |
 | ?name=:username,?id=:userid | 返回用户信息 | | |
 
 方法： POST
+
 | 操作 | 参数 | 说明 |  |  | 
 | --- | --- | --- | --- | --- |
 | action=delete |  | 删除用户 | | |

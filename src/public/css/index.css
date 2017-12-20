@@ -123,6 +123,9 @@ h1,.bg h2{
     color: #333;
     background: #ccc;
 }
+.hot ul li .name{
+    margin-left: 10px;
+}
 h1{
     margin-bottom: 30px;
 }

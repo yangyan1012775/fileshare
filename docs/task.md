@@ -42,7 +42,7 @@
 | --- | --- | --- | --- | --- |
 | action=register | username, password, confirm | 用户注册 | | |
 | action=login | username, password | 用户登录 | | |
-| action=logout |  | 用户登录 | | |
+| action=logout |  | 用户退出 | | |
 
 ## /users/:id
 
@@ -64,6 +64,13 @@
 | ?type=other | 用户其它文件 | 
 
 ## /files
+
+方法： GET
+| 参数 | 说明 |
+| --- | --- |
+| ? | 所有文件 | 
+| type=(video\|image\|doc\|zip\|other) | 根据类型文件下载 | 
+
 
 方法： POST
 

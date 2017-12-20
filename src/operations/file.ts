@@ -42,6 +42,7 @@ export class File {
       value +
       ';';
     await query(sql, con);
+    con.end();
   }
 
   public async upload(file: object, req: any, res: any) {

@@ -8,6 +8,10 @@ import query from '../db/query';
 import queryFile from '../db/queryFile';
 
 export class File {
+  public static dir: string;
+  public static setDir(dir: string) {
+    File.dir = dir;
+  }
   private filename: string;
   private hash: string;
   private readonly types = {

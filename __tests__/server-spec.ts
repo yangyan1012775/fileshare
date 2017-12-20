@@ -1,7 +1,9 @@
 import { Server } from '../src/server';
+import { File } from '../src/operations/file';
 import * as Express from 'express';
 import * as request from 'supertest';
 import * as mysql from 'mysql';
+import * as path from 'path';
 import cbFunc from '../src/cb/cb';
 import * as assert from 'assert';
 
@@ -57,6 +59,12 @@ test('create admin', done => {
   );
 });
 
+test('setDir', () => {
+  const dir = path.resolve(__dirname, './file');
+  File.setDir(dir);
+  expect(dir).toBe(File.dir);
+});
+
 test('首页url测试', done => {
   request(app)
     .get('/')
@@ -66,15 +74,7 @@ test('首页url测试', done => {
       done();
     });
 });
-test('热门文件url测试', done => {
-  request(app)
-    .get('/hots/video')
-    .expect(200, function(err, res) {
-      expect(err).toBeFalsy();
-      expect(res.text.includes('video')).toBeTruthy();
-      done();
-    });
-});
+
 test('测试访问用户页面success', done => {
   request(app)
     .get('/user/5555')
@@ -137,7 +137,6 @@ test('url-info', done => {
   request(app)
     .get('/user/info')
     .expect(200, function(err, res) {
-      // console.log(err, res.text);
       expect(err).toBeFalsy();
       expect(res.text.includes('用户注册页面')).toBeTruthy();
       done();
@@ -200,6 +199,40 @@ test('测试数据库链接', done => {
   );
 });
 
+test('visit error urls', done => {
+  request(app)
+    .post('/api/users')
+    .type('form')
+    .send({
+      action: 'aaa',
+    })
+    .expect(200, function(err, res) {
+      expect(err).toBeFalsy();
+      expect(res.text.includes('error')).toBeTruthy();
+      console.log(res.text);
+      done();
+    });
+});
+
+test('api-register', done => {
+  request(app)
+    .post('/api/users')
+    .type('form')
+    .send({
+      action: 'register',
+      email: '111@163.com',
+      password: 'qqq111qqq',
+      confirm: 'qqq111qqq',
+    })
+    .expect(200, function(err, res) {
+      console.log(res.text);
+      expect(err).toBeFalsy();
+      expect(res.text.includes('ok')).toBeTruthy();
+      console.log(res.text);
+      done();
+    });
+});
+
 test('api-register', done => {
   request(app)
     .post('/api/users')
@@ -212,11 +245,12 @@ test('api-register', done => {
     })
     .expect(200, function(err, res) {
       expect(err).toBeFalsy();
-      expect(res.text.includes('ok')).toBeTruthy();
+      expect(res.text.includes('false')).toBeTruthy();
       console.log(res.text);
       done();
     });
 });
+
 test('default', done => {
   request(app)
     .post('/api/users')
@@ -323,7 +357,7 @@ test('创建待审文件表', done => {
 
 test('测试.txt文件上传成功', done => {
   request(app)
-    .post('/files')
+    .post('/api/files')
     .type('form')
     .field('action', 'upload')
     .attach('_upload', '__tests__/fixtures/1.txt')
@@ -333,9 +367,10 @@ test('测试.txt文件上传成功', done => {
       done();
     });
 });
+
 test('测试.jpg文件上传成功', done => {
   request(app)
-    .post('/files')
+    .post('/api/files')
     .type('form')
     .field('action', 'upload')
     .attach('_upload', '__tests__/fixtures/1.jpg')
@@ -347,7 +382,7 @@ test('测试.jpg文件上传成功', done => {
 });
 test('测试.avi文件上传成功', done => {
   request(app)
-    .post('/files')
+    .post('/api/files')
     .type('form')
     .field('action', 'upload')
     .attach('_upload', '__tests__/fixtures/1.avi')
@@ -359,7 +394,7 @@ test('测试.avi文件上传成功', done => {
 });
 test('测试.zip文件上传成功', done => {
   request(app)
-    .post('/files')
+    .post('/api/files')
     .type('form')
     .field('action', 'upload')
     .attach('_upload', '__tests__/fixtures/1.zip')
@@ -371,7 +406,7 @@ test('测试.zip文件上传成功', done => {
 });
 test('测试.md文件上传成功', done => {
   request(app)
-    .post('/files')
+    .post('/api/files')
     .type('form')
     .field('action', 'upload')
     .attach('_upload', '__tests__/fixtures/1.md')

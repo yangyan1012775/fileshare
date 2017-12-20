@@ -72,7 +72,7 @@ export class File {
   public download(res: any) {
     const fsexists = promisify(fs.exists);
     // ------------------等其他两组提交后再将file改成变量
-    const currFile = path.resolve('file/', this.filename);
+    const currFile = path.resolve(process.env.UPLOAD_DIR, this.filename);
     fsexists(currFile).then((exist: any) => {
       if (exist) {
         const f = fs.createReadStream(currFile);

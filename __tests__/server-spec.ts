@@ -417,8 +417,6 @@ test('测试download----', done => {
 });
 
 test('测试download----fail', done => {
-  let app = Express();
-  let server = new Server(app, 3000);
   var con = mysql.createConnection({
     host: process.env.MYSQL_HOST,
     user: process.env.MYSQL_USERNAME,

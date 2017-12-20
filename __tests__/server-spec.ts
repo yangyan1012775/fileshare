@@ -408,6 +408,18 @@ test('insert file', done => {
   );
 });
 
+test('测试获取分类文件', done => {
+  request(app)
+    .get('/api/files?type=image')
+    .expect(200, function(err, res) {
+      expect(err).toBeFalsy();
+      console.log(err);
+      console.log(res.body);
+      expect(res.body).toBeTruthy();
+      done();
+    });
+});
+
 test('测试download----', done => {
   request(app)
     .get('/user/download?id=1')
@@ -437,7 +449,8 @@ test('测试download----fail', done => {
   request(app)
     .get('/user/download?id=2')
     .expect(200, function(err, res) {
-      if (err) throw err;
+      expect(err).toBeFalsy();
+      // console.log(err);
       expect(res.text.includes('not')).toBeTruthy();
       done();
     });

@@ -182,19 +182,12 @@ test('测试数据库链接', done => {
   });
   // 创建user
   con.query(
-    'create table user (id int primary key auto_increment,username varchar(20)not null,password varchar(64)not null,email varchar(30)not null,created_at datetime not null)',
+    "INSERT INTO user(username, password, email, created_at) VALUES ('user1','123','user1.qq','2017-10-20')",
     function(err) {
       expect(err).toBeFalsy();
-      console.log('success user');
-      con.query(
-        "INSERT INTO user(username, password, email, created_at) VALUES ('user1','123','user1.qq','2017-10-20')",
-        function(err) {
-          expect(err).toBeFalsy();
-          console.log('insert success');
-          con.end();
-          done();
-        }
-      );
+      console.log('insert success');
+      con.end();
+      done();
     }
   );
 });
@@ -336,25 +329,6 @@ test('cb错误测试覆盖', done => {
   done();
 });
 
-test('创建待审文件表', done => {
-  var con = mysql.createConnection({
-    host: process.env.MYSQL_HOST,
-    user: process.env.MYSQL_USERNAME,
-    password: process.env.MYSQL_PASSWORD,
-    database: 'cloud',
-  });
-  // 创建pending_file
-  con.query(
-    'create table pending_file (id int auto_increment,filename varchar(255) not null,type varchar(20)not null,size int not null,hash varchar(64) not null,primary key(id));',
-    function(err) {
-      expect(err).toBeFalsy();
-      console.log('success pending_file');
-      con.end();
-      done();
-    }
-  );
-});
-
 test('测试.txt文件上传成功', done => {
   request(app)
     .post('/api/files')
@@ -427,22 +401,28 @@ test('insert file', done => {
     database: 'cloud',
   });
   // 创建file
+
   con.query(
-    'create table file (id int primary key auto_increment,filename varchar(255)not null,type varchar(20)not null,size int(11)not null,downloads int(11) not null,hash varchar(64)not null)',
+    "insert into file(filename, type, size, downloads,hash) values ('girl.JPG','image',40,2,'asgsagasgasdaasg');",
     function(err) {
       expect(err).toBeFalsy();
-      console.log('success user');
-      con.query(
-        "insert into file(filename, type, size, downloads,hash) values ('girl.JPG','image',40,2,'asgsagasgasdaasg');",
-        function(err) {
-          expect(err).toBeFalsy();
-          console.log('insert success');
-          con.end();
-          done();
-        }
-      );
+      console.log('insert success');
+      con.end();
+      done();
     }
   );
+});
+
+test('测试获取分类文件', done => {
+  request(app)
+    .get('/api/files?type=image')
+    .expect(200, function(err, res) {
+      expect(err).toBeFalsy();
+      console.log(err);
+      console.log(res.body);
+      expect(res.body).toBeTruthy();
+      done();
+    });
 });
 
 test('测试download----', done => {
@@ -474,7 +454,8 @@ test('测试download----fail', done => {
   request(app)
     .get('/user/download?id=2')
     .expect(200, function(err, res) {
-      if (err) throw err;
+      expect(err).toBeFalsy();
+      // console.log(err);
       expect(res.text.includes('not')).toBeTruthy();
       done();
     });
@@ -488,8 +469,62 @@ beforeAll(function(done) {
   });
   con.query('DROP DATABASE IF EXISTS cloud;', function(err) {
     expect(err).toBeFalsy();
-    // 断开
-    con.end();
-    done();
+    console.log('删除数据库cloud');
+    con.query('CREATE DATABASE cloud character set utf8;', function(err) {
+      expect(err).toBeFalsy();
+      console.log('创建数据库cloud');
+      con.end();
+      con = mysql.createConnection({
+        host: process.env.MYSQL_HOST,
+        user: process.env.MYSQL_USERNAME,
+        password: process.env.MYSQL_PASSWORD,
+        database: 'cloud',
+      });
+      con.query(
+        'create table user (id int primary key auto_increment,username varchar(20)not null,password varchar(64)not null,email varchar(30)not null,created_at datetime not null)',
+        function(err) {
+          expect(err).toBeFalsy();
+          console.log('success user');
+          con.query(
+            'create table pending_file (id int auto_increment,filename varchar(255) not null,type varchar(20) not null,size int not null,hash varchar(64) not null,primary key(id));',
+            function(err) {
+              expect(err).toBeFalsy();
+              console.log('success pending_file');
+              con.query(
+                'create table user_file (id int auto_increment,file int not null,user int not null,upload_at datetime not null,primary key(id));',
+                function(err) {
+                  expect(err).toBeFalsy();
+                  console.log('success user_file');
+                  con.query(
+                    'create table file (id int auto_increment,filename varchar(255) not null,type varchar(20) not null,size int not null,hash varchar(64) not null,downloads int not null,primary key(id));',
+                    function(err) {
+                      expect(err).toBeFalsy();
+                      console.log('success file');
+                      con.query(
+                        'create table admin (id int primary key auto_increment,username varchar(20)not null,password varchar(64)not null,created_at datetime not null);',
+                        function(err) {
+                          expect(err).toBeFalsy();
+                          console.log('success admin');
+                          con.query(
+                            'create table website_statistics (id int primary key auto_increment,registers int not null,downloads int not null,uploads int not null,visits int not null,date date not null);',
+                            function(err) {
+                              expect(err).toBeFalsy();
+                              console.log('website_statistics');
+                              //建立完成后断开
+                              con.end();
+                              done();
+                            }
+                          );
+                        }
+                      );
+                    }
+                  );
+                }
+              );
+            }
+          );
+        }
+      );
+    });
   });
 });

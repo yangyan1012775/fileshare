@@ -96,4 +96,17 @@ export class File {
     con.end();
     res.json(result);
   }
+
+  public async getType(req: any, res: any, type) {
+    const con = await db('cloud');
+    const sql =
+      'select user.username,file.filename,file.size,file.downloads ' +
+      'from file left join user_file on user_file.file = file.id ' +
+      'left join user on user.id = user_file.user where file.type = \'' +
+      type +
+      '\' order by file.downloads DESC';
+    const result = await query(sql, con);
+    con.end();
+    res.json(result);
+  }
 }

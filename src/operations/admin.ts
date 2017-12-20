@@ -1,6 +1,7 @@
 // 引用basic
 // 引用cb
 import * as crypto from 'crypto';
+import cbFunc from '../cb/cb';
 import basic from '../db/basic';
 import Query from '../db/query';
 
@@ -28,6 +29,26 @@ export class Admin {
     );
     con.end();
     res.json({ pages, Res: result });
+  }
+
+  public adminLogin(req: any, res: any) {
+    basic('cloud').then((con) => {
+      const sql =
+        'SELECT username,password FROM admin WHERE username = \'' +
+        req.body.username +
+        '\' AND password = \'' +
+        req.body.password +
+        '\';';
+      const data = [req.body.id];
+      con.query(
+        sql,
+        cbFunc((result: any) => {
+          req.session.user = req.body.username;
+          res.json('ok');
+          con.end();
+        }),
+      );
+    });
   }
 
   public async deleUser(req: any, res: any) {

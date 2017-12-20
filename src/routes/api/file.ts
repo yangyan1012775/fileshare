@@ -16,6 +16,7 @@ router.post('/', (req: any, res: any) => {
       case 'upload':
         const files = req.files._upload;
         const oldpath = path.resolve(process.env.UPLOAD_DIR, files.name);
+
         fs.readFile(
           oldpath,
           cb((data: any) => {
@@ -42,6 +43,15 @@ router.post('/', (req: any, res: any) => {
         break;
     }
   });
+});
+
+router.get('/', async (req: any, res: any, next: any) => {
+  if (req.query.filter === 'pending') {
+    const reulst = await Admin.getPendingFiles();
+    res.json(reulst);
+  } else {
+    next();
+  }
 });
 
 router.get('/', async (req: any, res: any) => {

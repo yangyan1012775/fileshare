@@ -6,6 +6,8 @@ import basic from '../db/basic';
 import Query from '../db/query';
 
 export class Admin {
+  public static permitFile: (fileId: string) => Promise<boolean>;
+  public static rejectFile: (fileId: string) => Promise<boolean>;
   private _req: any;
   private _res: any;
   constructor(req: any, res: any) {
@@ -82,3 +84,23 @@ export class Admin {
     res.json('none');
   }
 }
+
+Admin.permitFile = async function permitFile(fileId: string): Promise<boolean> {
+  const con = await basic('cloud');
+  const sql = `select * from pending_file where id=${fileId}`;
+  const result = await Query(sql, con);
+  const delSql = `delete from pending_file where id=${fileId}`;
+  await Query(delSql, con);
+  const addSql = `insert into file(id,filename,type,size,downloads,hash) values(${
+    result[0].id
+  },'${result[0].filename}','${result[0].type}',${result[0].size},${0},'${
+    result[0].hash
+  }')`;
+  await Query(addSql, con);
+};
+
+Admin.rejectFile = async function permitFile(fileId: string): Promise<boolean> {
+  const con = await basic('cloud');
+  const delSql = `delete from pending_file where id=${fileId}`;
+  await Query(delSql, con);
+};

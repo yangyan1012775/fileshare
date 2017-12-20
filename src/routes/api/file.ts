@@ -4,13 +4,14 @@ import * as fs from 'fs';
 import * as multer from 'multer';
 import * as path from 'path';
 import cb from '../../cb/cb';
+import { Admin } from '../../operations/admin';
 import { File } from '../../operations/file';
 const router = Express.Router();
 // 文件操作
 router.post('/', (req: any, res: any) => {
   File.setDir(process.env.UPLOAD_DIR);
   const upload = multer({ dest: File.dir });
-  upload(req, res, () => {
+  upload(req, res, async () => {
     switch (req.body.action) {
       case 'upload':
         const files = req.files._upload;
@@ -31,6 +32,14 @@ router.post('/', (req: any, res: any) => {
             file.upload(req.files._upload, req, res);
           }),
         );
+        break;
+      case 'permit':
+        await Admin.permitFile(req.body.id);
+        res.json('审核通过');
+        break;
+      case 'reject':
+        await Admin.rejectFile(req.body.id);
+        res.json('审核未通过');
         break;
     }
   });

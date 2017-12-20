@@ -22,7 +22,9 @@
 # 管理后台
 
 ## 管理员
+
 方法： GET
+
 | URL | 说明 |  |  | 
 | --- | --- | --- | --- |
 | /admin/login | 管理员登录 | | |
@@ -33,7 +35,9 @@
 
 # api
 ## /users
+
 方法： POST
+
 | 操作 | 参数 | 说明 | | | 
 | --- | --- | --- | --- | --- |
 | action=register | username, password, confirm | 用户注册 | | |
@@ -41,10 +45,13 @@
 | action=logout |  | 用户登录 | | |
 
 ## /users/:id
+
 方法： GET
+
 获取用户列表
 
 ### /users/:id/files
+
 方法： GET
 
 | 参数 | 说明 | | |
@@ -57,7 +64,9 @@
 | ?type=other | 用户其它文件 | | |
 
 ## /files
+
 方法： POST
+
 | 操作 | 参数 | 说明 | | | 
 | --- | --- | --- | --- | --- |
 | action=upload |  | 文件上传 | | |
@@ -67,7 +76,9 @@
 | action=reject |  | 文件拒绝 | | |
 
 ## /sites
+
 方法：GET
+
 获取注册用户数，访问量，文件上传，下载信息
 
 ## /admins

@@ -72,6 +72,7 @@ test('热门文章url测试', done => {
       done();
     });
 });
+
 test('测试访问用户页面success', done => {
   request(app)
     .get('/user/5555')
@@ -441,6 +442,34 @@ test('测试download----fail', done => {
       expect(res.text.includes('not')).toBeTruthy();
       done();
     });
+});
+test('测试user-热门', done => {
+  var con = mysql.createConnection({
+    host: process.env.MYSQL_HOST,
+    user: process.env.MYSQL_USERNAME,
+    password: process.env.MYSQL_PASSWORD,
+    database: 'cloud',
+  });
+  var data = [
+    ['user1', '123', 'user1.qq', '2017-10-20'],
+    ['user2', '123', 'user1.qq', '2017-10-20'],
+    ['user3', '123', 'user1.qq', '2017-10-20'],
+    ['user4', '123', 'user1.qq', '2017-10-20'],
+    ['user5', '123', 'user1.qq', '2017-10-20'],
+    ['user6', '123', 'user1.qq', '2017-10-20'],
+    ['user7', '123', 'user1.qq', '2017-10-20'],
+    ['user8', '123', 'user1.qq', '2017-10-20'],
+  ];
+  con.query(
+    'INSERT INTO user(username, password, email, created_at) VALUES ?',
+    [data],
+    function(err) {
+      expect(err).toBeFalsy();
+      console.log('insert success');
+      con.end();
+      done();
+    }
+  );
 });
 
 beforeAll(function(done) {

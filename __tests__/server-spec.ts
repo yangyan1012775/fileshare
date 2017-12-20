@@ -549,28 +549,6 @@ test('测试文件审核未通过 id=6', done => {
     });
 });
 
-test('insert file', done => {
-  let app = Express();
-  let server = new Server(app, 3000);
-  var con = mysql.createConnection({
-    host: process.env.MYSQL_HOST,
-    user: process.env.MYSQL_USERNAME,
-    password: process.env.MYSQL_PASSWORD,
-    database: 'cloud',
-  });
-  // 创建file
-
-  con.query(
-    "insert into file(filename, type, size, downloads,hash) values ('girl.JPG','image',40,2,'asgsagasgasdaasg');",
-    function(err) {
-      expect(err).toBeFalsy();
-      console.log('insert success');
-      con.end();
-      done();
-    }
-  );
-});
-
 test('测试获取分类文件', done => {
   request(app)
     .get('/api/files?type=image')
@@ -591,31 +569,6 @@ test('测试download----', done => {
     });
 });
 
-test('测试download----fail', done => {
-  var con = mysql.createConnection({
-    host: process.env.MYSQL_HOST,
-    user: process.env.MYSQL_USERNAME,
-    password: process.env.MYSQL_PASSWORD,
-    database: 'cloud',
-  });
-  con.query(
-    "insert into file(filename, type, size, downloads,hash) values ('girlTest.JPG','image',40,2,'asgsagasgasdaasg');",
-    function(err) {
-      expect(err).toBeFalsy();
-      console.log('insert success');
-      con.end();
-      done();
-    }
-  );
-  request(app)
-    .get('/user/download?id=2')
-    .expect(200, function(err, res) {
-      expect(err).toBeFalsy();
-      // console.log(err);
-      expect(res.text.includes('not')).toBeTruthy();
-      done();
-    });
-});
 test('测试user-热门', done => {
   var con = mysql.createConnection({
     host: process.env.MYSQL_HOST,

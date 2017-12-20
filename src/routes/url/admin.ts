@@ -6,7 +6,7 @@ router.get('/login', (req: any, res: any) => {
 });
 
 router.get('/update', (req: any, res: any) => {
-  res.render('admin/setting');
+  res.render('admin/setting', { admin: req.session.user });
 });
 
 router.get('/users', (req: any, res: any) => {

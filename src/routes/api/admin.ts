@@ -2,6 +2,17 @@ import * as Express from 'express';
 import { Admin } from '../../operations/admin';
 const router = Express.Router();
 
+/* 管理员 */
+
+router.post('/', (req: any, res: any) => {
+  switch (req.body.action) {
+    case 'login':
+      const admin2 = new Admin(req, res);
+      admin2.adminLogin(req, res);
+      break;
+  }
+});
+
 // 获取所有用户信息
 router.get('/users', (req: any, res: any) => {
   // const admin1 = new Admin(req, res);

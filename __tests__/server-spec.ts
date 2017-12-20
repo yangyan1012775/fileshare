@@ -54,6 +54,7 @@ test('测试访问用户页面fail', done => {
       done();
     });
 });
+/* 管理员 url */
 test('测试管理员登录success', done => {
   request(app)
     .get('/admin/login')
@@ -69,6 +70,18 @@ test('测试管理员 password modify', done => {
     .expect(200, function(err, res) {
       expect(err).toBeFalsy();
       expect(res.text.includes('管理员个人设置')).toBeTruthy();
+      done();
+    });
+});
+/* 管理员 api */
+test('测试管理员 login', done => {
+  request(app)
+    .post('/api/admins')
+    .type('form')
+    .send({ action: 'login' })
+    .expect(200, function(err, res) {
+      expect(err).toBeFalsy();
+      expect(res.body === 'ok').toBeTruthy();
       done();
     });
 });

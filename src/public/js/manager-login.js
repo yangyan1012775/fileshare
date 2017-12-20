@@ -22,44 +22,30 @@ $("#Msub").on("click", function () {
   var Mconfirm = document.getElementById("Mconfirm");
   var content = Mconfirm.innerHTML;
   if (ck.value.toUpperCase() == content.toUpperCase() && ck.value.toUpperCase() != '') {
-    //      alert("验证码输入正确！");
+    alert("验证码输入正确！");
     $('.msg').css({
       display: 'none'
     })
     Musername = $("#username").val();
-    Mpassword = $("#pwd").val();
+    Mpassword = $("#password").val();
+    alert('------'+Musername+'------'+Mpassword);
     $.ajax({
-      url: "data/Mpassword.json",
-      type: "get",
-      dataType: "json",
+      url: "/api/admins",
+      type: "post",
+      data: {
+        'action': 'login',
+        'username': Musername,
+        'password': Mpassword
+      },
+      async: false,
+      error: function () {
+        alert('服务器访问错误！')
+      },
       success: function (data) {
-        for (var i = 0; i < data.length; i++) {
-          console.log(Musername);
-          console.log(data[i].Musername);
-          if (Musername == data[i].Musername) {
-            if (Mpassword == data[i].Mpassword) {
-              //          				alert('登录成功！');
-              i++;
-              setCookie('username', Musername, 1);
-              window.location = 'back-count.html';
-            } else {
-              //          				alert('密码不正确，请重新输入！');
-              $('.msg').eq(1).css({
-                display: 'inline-block'
-              });
-              $("#pwd").val('');
-              return 0;
-            }
-          }
-        }
-        console.log(i);
-        if (i == 2) {
-          //  				alert('账号不存在，请重新输入！');
-          $('.msg').eq(0).css({
-            display: 'inline-block'
-          });
-          $("#pwd").val('');
-          $("#username").val('');
+        if (data === 'ok') {
+          location.href = ("/admin/update");
+        } else {
+          alert(data);
         }
       }
     })

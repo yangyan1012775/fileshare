@@ -42,7 +42,7 @@
 | --- | --- | --- | --- | --- |
 | action=register | username, password, confirm | 用户注册 | | |
 | action=login | username, password | 用户登录 | | |
-| action=logout |  | 用户登录 | | |
+| action=logout |  | 用户退出 | | |
 
 ## /users/:id
 
@@ -54,16 +54,23 @@
 
 方法： GET
 
-| 参数 | 说明 | | | |
-| --- | --- | --- | --- | --- | --- |
-| query | 所有用户文件 | | |
-| ?type=image | 用户图片 | | |
-| ?type=doc | 用户文档 | | |
-| ?type=video | 用户视频 | | |
-| ?type=zip | 用户压缩文件 | | |
-| ?type=other | 用户其它文件 | | |
+| 参数 | 说明 |
+| --- | --- | 
+| query | 所有用户文件 |
+| ?type=image | 用户图片 | 
+| ?type=doc | 用户文档 | 
+| ?type=video | 用户视频 | 
+| ?type=zip | 用户压缩文件 | 
+| ?type=other | 用户其它文件 | 
 
 ## /files
+
+方法： GET
+| 参数 | 说明 |
+| --- | --- |
+| ? | 所有文件 | 
+| type=(video\|image\|doc\|zip\|other) | 根据类型文件下载 | 
+
 
 方法： POST
 
@@ -93,10 +100,10 @@
 
 方法： GET
 
-| 参数 | 说明 | | | |
-| --- | --- | --- | --- | --- | --- |
-| query | 所有用户文件 | | |
-| ?name=:username,?id=:userid | 返回用户信息 | | |
+| 参数 | 说明 |
+| --- | --- |
+| query | 所有用户文件 | 
+| ?name=:username,?id=:userid | 返回用户信息 | 
 
 方法： POST
 

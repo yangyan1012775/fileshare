@@ -338,6 +338,98 @@ test('测试.md文件上传成功', done => {
       done();
     });
 });
+test('测试.exe文件上传成功', done => {
+  request(app)
+    .post('/api/files')
+    .type('form')
+    .field('action', 'upload')
+    .attach('_upload', '__tests__/fixtures/1.exe')
+    .expect(200, (err, res) => {
+      expect(err).toBeFalsy();
+      expect(res.body === '上传成功').toBeTruthy();
+      done();
+    });
+});
+
+test('测试文件审核通过 id=1', done => {
+  request(app)
+    .post('/api/files')
+    .type('form')
+    .send({
+      action: 'permit',
+      id: '1',
+    })
+    .expect(200, function(err, res) {
+      expect(err).toBeFalsy();
+      done();
+    });
+});
+
+test('测试文件审核通过 id=2', done => {
+  request(app)
+    .post('/api/files')
+    .type('form')
+    .send({
+      action: 'permit',
+      id: '2',
+    })
+    .expect(200, function(err, res) {
+      expect(err).toBeFalsy();
+      done();
+    });
+});
+
+test('测试文件审核通过 id=3', done => {
+  request(app)
+    .post('/api/files')
+    .type('form')
+    .send({
+      action: 'permit',
+      id: '3',
+    })
+    .expect(200, function(err, res) {
+      expect(err).toBeFalsy();
+      done();
+    });
+});
+
+test('测试文件审核通过 id=4', done => {
+  request(app)
+    .post('/api/files')
+    .type('form')
+    .send({
+      action: 'permit',
+      id: '4',
+    })
+    .expect(200, function(err, res) {
+      expect(err).toBeFalsy();
+      done();
+    });
+});
+test('测试文件审核通过 id=5', done => {
+  request(app)
+    .post('/api/files')
+    .type('form')
+    .send({
+      action: 'permit',
+      id: '5',
+    })
+    .expect(200, function(err, res) {
+      expect(err).toBeFalsy();
+      done();
+    });
+});
+
+test('测试文件审核未通过 id=6', done => {
+  request(app)
+    .post('/api/files')
+    .type('form')
+    .send({ action: 'reject', id: '6' })
+    .expect(200, (err, res) => {
+      expect(err).toBeFalsy();
+      done();
+    });
+});
 
 test('insert file', done => {
   let app = Express();
@@ -403,31 +495,6 @@ test('测试download----fail', done => {
       expect(err).toBeFalsy();
       // console.log(err);
       expect(res.text.includes('not')).toBeTruthy();
-      done();
-    });
-});
-
-test('测试文件审核通过', done => {
-  request(app)
-    .post('/api/files')
-    .type('form')
-    .send({
-      action: 'permit',
-      id: '3',
-    })
-    .expect(200, function(err, res) {
-      expect(err).toBeFalsy();
-      done();
-    });
-});
-
-test('测试文件审核未通过', done => {
-  request(app)
-    .post('/api/files')
-    .type('form')
-    .send({ action: 'reject', id: '3' })
-    .expect(200, (err, res) => {
-      expect(err).toBeFalsy();
       done();
     });
 });

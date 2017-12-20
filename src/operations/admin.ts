@@ -53,11 +53,11 @@ export class Admin {
     const sql = 'select * from user where username = \'' + req.params.name + '\'';
     const searchResult = await Query(sql, con);
     if (searchResult.length) {
-      res.json(searchResult);
       con.end();
+      res.json(searchResult);
       return;
     }
-    res.json('none');
     con.end();
+    res.json('none');
   }
 }

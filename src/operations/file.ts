@@ -1,5 +1,6 @@
 import * as Express from 'express';
 import * as fs from 'fs';
+import * as moment from 'moment';
 import * as path from 'path';
 import { promisify } from 'util';
 import cbFunc from '../cb/cb';
@@ -8,6 +9,10 @@ import query from '../db/query';
 import queryFile from '../db/queryFile';
 
 export class File {
+  public static dir: string;
+  public static setDir(dir: string) {
+    File.dir = dir;
+  }
   private filename: string;
   private hash: string;
   private readonly types = {
@@ -21,9 +26,9 @@ export class File {
     this.hash = hash;
   }
 
-  public async insert(type: string, size: number) {
-    const con = await db('cloud');
-    const value =
+  public async insert(type: string, size: number, userid: number) {
+    let con = await db('cloud');
+    let value =
       '(\'' +
       this.filename +
       '\', \'' +
@@ -33,16 +38,23 @@ export class File {
       '\',\'' +
       this.hash +
       '\')';
-    const sql =
+    let sql =
       'insert into pending_file(filename, type, size, hash) values ' +
       value +
       ';';
+    const result = await query(sql, con);
+    const date = new Date();
+    const dateTime = moment(date).format('YYYY-MM-DD HH:mm:ss');
+    con.end();
+    con = await db('cloud');
+    value = '(\'' + result.insertId + '\', \'' + userid + '\',\'' + dateTime + '\')';
+    sql = 'insert into user_file(file, user, upload_at) values ' + value + ';';
     await query(sql, con);
+    con.end();
   }
 
   public async upload(file: object, req: any, res: any) {
     let type = '';
-
     // 根据文件名后缀获取文件格式
     for (const k in this.types) {
       if (this.types[k].includes(file.extension.toLowerCase())) {
@@ -53,8 +65,7 @@ export class File {
     if (type === '') {
       type = 'other';
     }
-
-    await this.insert(type, file.size);
+    await this.insert(type, file.size, req.session.userid || 0);
     res.json('上传成功');
   }
 
@@ -77,5 +88,25 @@ export class File {
         res.end();
       }
     });
+  }
+  public async getFiles(req: any, res: any) {
+    const con = await db('cloud');
+    const sql = 'select * from file where type = \'' + req.query.type + '\';';
+    const result = await query(sql, con);
+    con.end();
+    res.json(result);
+  }
+
+  public async getType(req: any, res: any, type) {
+    const con = await db('cloud');
+    const sql =
+      'select user.username,file.filename,file.size,file.downloads ' +
+      'from file left join user_file on user_file.file = file.id ' +
+      'left join user on user.id = user_file.user where file.type = \'' +
+      type +
+      '\' order by file.downloads DESC';
+    const result = await query(sql, con);
+    con.end();
+    res.json(result);
   }
 }

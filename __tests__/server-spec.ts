@@ -115,6 +115,8 @@ test('测试登录统计数据页面', done => {
     .expect(200, function(err, res) {
       expect(err).toBeFalsy();
       expect(res.text.includes('网站数据统计')).toBeTruthy();
+    });
+});
 /* 管理员 api */
 test('测试管理员 login', done => {
   request(app)
@@ -126,6 +128,31 @@ test('测试管理员 login', done => {
       expect(res.body === 'ok').toBeTruthy();
       done();
     });
+});
+test('测试管理员 sites api', done => {
+  request(app)
+    .get('/api/admins/sites')
+    .expect(200, function(err, res) {
+      expect(err).toBeFalsy();
+      console.log(res.text);
+      // expect(res.body[0].registers === 2).toBeTruthy();
+      done();
+    });
+  var con = mysql.createConnection({
+    host: process.env.MYSQL_HOST,
+    user: process.env.MYSQL_USERNAME,
+    password: process.env.MYSQL_PASSWORD,
+    database: 'cloud',
+  });
+  con.query(
+    'INSERT INTO website_statistics(registers, downloads, uploads, visits, date) VALUES (2, 4, 5, 1, "2017-11-11")',
+    function(err) {
+      expect(err).toBeFalsy();
+      console.log('insert success');
+      con.end();
+      done();
+    }
+  );
 });
 test('url-register', done => {
   request(app)
@@ -184,15 +211,15 @@ test('测试数据库链接', done => {
     database: 'cloud',
   });
   // 创建user数据
-  con.query(
-    "INSERT INTO user(username, password, email, created_at) VALUES ('user1','123','user1.qq','2017-10-20')",
-    function(err) {
-      expect(err).toBeFalsy();
-      console.log('insert success');
-      con.end();
-      done();
-    }
-  );
+  // con.query(
+  //   "INSERT INTO user(username, password, email, created_at) VALUES ('user1','123','user1.qq','2017-10-20')",
+  //   function(err) {
+  //     expect(err).toBeFalsy();
+  //     console.log('insert success');
+  //     con.end();
+  //     done();
+  //   }
+  // );
 });
 
 test('visit error urls', done => {

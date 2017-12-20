@@ -8,6 +8,7 @@ import Query from '../db/query';
 export class Admin {
   public static permitFile: (fileId: string) => Promise<boolean>;
   public static rejectFile: (fileId: string) => Promise<boolean>;
+  public static getPendingFiles: () => Promise<{}>;
   private _req: any;
   private _res: any;
   constructor(req: any, res: any) {
@@ -97,10 +98,19 @@ Admin.permitFile = async function permitFile(fileId: string): Promise<boolean> {
     result[0].hash
   }')`;
   await Query(addSql, con);
+  return true;
 };
 
 Admin.rejectFile = async function permitFile(fileId: string): Promise<boolean> {
   const con = await basic('cloud');
   const delSql = `delete from pending_file where id=${fileId}`;
   await Query(delSql, con);
+  return true;
+};
+
+Admin.getPendingFiles = async function getPermitFiles() {
+  const con = await basic('cloud');
+  const sql = `select * from pending_file`;
+  const result = await Query(sql, con);
+  return result;
 };

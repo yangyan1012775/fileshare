@@ -58,24 +58,24 @@ export class File {
     res.json('上传成功');
   }
 
-  // public download(res: any) {
-  //   const fsexists = promisify(fs.exists);
-  //   // ------------------等其他两组提交后再将file改成变量
-  //   const currFile = path.resolve('file/', this.filename);
-  //   fsexists(currFile).then((exist: any) => {
-  //     if (exist) {
-  //       const f = fs.createReadStream(currFile);
-  //       res.writeHead(200, {
-  //         'Content-Disposition':
-  //           'attachment; filename=' + encodeURI(this.filename),
-  //         'Content-Type': 'application/force-download',
-  //       });
-  //       f.pipe(res);
-  //     } else {
-  //       res.set('Content-type', 'text/html');
-  //       res.send('file not exist!');
-  //       res.end();
-  //     }
-  //   });
-  // }
+  public download(res: any) {
+    const fsexists = promisify(fs.exists);
+    // ------------------等其他两组提交后再将file改成变量
+    const currFile = path.resolve('file/', this.filename);
+    fsexists(currFile).then((exist: any) => {
+      if (exist) {
+        const f = fs.createReadStream(currFile);
+        res.writeHead(200, {
+          'Content-Disposition':
+            'attachment; filename=' + encodeURI(this.filename),
+          'Content-Type': 'application/force-download',
+        });
+        f.pipe(res);
+      } else {
+        res.set('Content-type', 'text/html');
+        res.send('file not exist!');
+        res.end();
+      }
+    });
+  }
 }

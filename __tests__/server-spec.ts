@@ -408,32 +408,32 @@ test('测试download----', done => {
     });
 });
 
-// test('测试download----fail', done => {
-//   let app = Express();
-//   let server = new Server(app, 3000);
-//   var con = mysql.createConnection({
-//     host: process.env.MYSQL_HOST,
-//     user: process.env.MYSQL_USERNAME,
-//     password: process.env.MYSQL_PASSWORD,
-//     database: 'cloud',
-//   });
-//   con.query(
-//     "insert into file(filename, type, size, downloads,hash) values ('girlTest.JPG','image',40,2,'asgsagasgasdaasg');",
-//     function(err) {
-//       expect(err).toBeFalsy();
-//       console.log('insert success');
-//       con.end();
-//       done();
-//     }
-//   );
-//   request(app)
-//     .get('/user/download?id=2')
-//     .expect(200, function(err, res) {
-//       if (err) throw err;
-//       expect(res.text.includes('not')).toBeTruthy();
-//       done();
-//     });
-// });
+test('测试download----fail', done => {
+  let app = Express();
+  let server = new Server(app, 3000);
+  var con = mysql.createConnection({
+    host: process.env.MYSQL_HOST,
+    user: process.env.MYSQL_USERNAME,
+    password: process.env.MYSQL_PASSWORD,
+    database: 'cloud',
+  });
+  con.query(
+    "insert into file(filename, type, size, downloads,hash) values ('girlTest.JPG','image',40,2,'asgsagasgasdaasg');",
+    function(err) {
+      expect(err).toBeFalsy();
+      console.log('insert success');
+      con.end();
+      done();
+    }
+  );
+  request(app)
+    .get('/user/download?id=2')
+    .expect(200, function(err, res) {
+      if (err) throw err;
+      expect(res.text.includes('not')).toBeTruthy();
+      done();
+    });
+});
 
 beforeAll(function(done) {
   var con = mysql.createConnection({

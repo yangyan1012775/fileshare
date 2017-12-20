@@ -39,7 +39,7 @@ export class Server {
   public initRouters(app: Express) {
     app.use('/user', user);
     app.use('/admin', admin);
-    app.use('/api/admin', api_admin);
+    app.use('/api/admins', api_admin);
     app.use('/files', files);
     app.use('/api/users', users);
   }

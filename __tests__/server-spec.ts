@@ -192,7 +192,6 @@ test('api-register', done => {
     });
 });
 
-
 test('api-login', done => {
   request(app)
     .post('/api/users')
@@ -203,10 +202,10 @@ test('api-login', done => {
       password: 'qqq111qqq',
     })
     .expect(200, function(err, res) {
-      console.log(res.text);
+      console.log(res.body);
       expect(err).toBeFalsy();
-      expect(res.text.includes('ok')).toBeTruthy();
-      console.log(res.text);
+      expect(res.body.email.includes('111@163.com')).toBeTruthy();
+      console.log(res.body);
       done();
     });
 });

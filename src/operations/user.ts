@@ -74,8 +74,7 @@ export class User {
 
   protected async checkPassword(data) {
     const con = await basic('cloud');
-    const sql =
-      'SELECT id,password FROM user WHERE email = \'' + data.email + '\';';
+    const sql = 'SELECT * FROM user WHERE email = \'' + data.email + '\';';
     const results = await new Promise((resolve, reject) => {
       con.query(
         sql,
@@ -84,11 +83,11 @@ export class User {
         }),
       );
     });
-    
+
     if (results.length === 1) {
       const password = this.createPassword(data.password);
       if (password === results[0].password) {
-        return results[0].id;
+        return results[0];
       }
     }
     return false;

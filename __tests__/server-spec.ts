@@ -406,6 +406,75 @@ test('测试download----fail', done => {
       done();
     });
 });
+test('测试文件分类--allFiles', done => {
+  request(app)
+    .get('/api/users/1/allFiles')
+    .expect(200, function(err, res) {
+      expect(err).toBeFalsy();
+      expect(res.text !== '').toBeTruthy();
+      done();
+    });
+});
+test('测试文件分类--image', done => {
+  request(app)
+    .get('/api/users/1/image')
+    .expect(200, function(err, res) {
+      // res.send();
+      expect(err).toBeFalsy();
+      expect(res.text !== '').toBeTruthy();
+      done();
+    });
+});
+test('测试文件分类--text', done => {
+  request(app)
+    .get('/api/users/1/text')
+    .expect(200, function(err, res) {
+      // res.send();
+      expect(err).toBeFalsy();
+      expect(res.text !== '').toBeTruthy();
+      done();
+    });
+});
+test('测试文件分类--video', done => {
+  request(app)
+    .get('/api/users/1/video')
+    .expect(200, function(err, res) {
+      // res.send();
+      expect(err).toBeFalsy();
+      expect(res.text !== '').toBeTruthy();
+      done();
+    });
+});
+test('测试文件分类--zip', done => {
+  request(app)
+    .get('/api/users/1/zip')
+    .expect(200, function(err, res) {
+      // res.send();
+      expect(err).toBeFalsy();
+      expect(res.text !== '').toBeTruthy();
+      done();
+    });
+});
+test('测试文件分类--other', done => {
+  request(app)
+    .get('/api/users/1/other')
+    .expect(200, function(err, res) {
+      // res.send();
+      expect(err).toBeFalsy();
+      expect(res.text !== '').toBeTruthy();
+      done();
+    });
+});
+test('测试文件分类--unchecked', done => {
+  request(app)
+    .get('/api/users/1/unchecked')
+    .expect(200, function(err, res) {
+      // res.send();
+      expect(err).toBeFalsy();
+      expect(res.text !== '').toBeTruthy();
+      done();
+    });
+});
 
 beforeAll(function(done) {
   var con = mysql.createConnection({

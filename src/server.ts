@@ -3,7 +3,7 @@ import * as Express from 'express';
 import * as nunjucks from 'nunjucks';
 import * as path from 'path';
 import api_admin from './routes/api/admin';
-import files from './routes/api/file';
+import file from './routes/api/file';
 import users from './routes/api/users';
 import admin from './routes/url/admin';
 import user from './routes/url/user';
@@ -40,7 +40,7 @@ export class Server {
     app.use('/user', user);
     app.use('/admin', admin);
     app.use('/api/admin', api_admin);
-    app.use('/files', files);
+    app.use('/api/files', file);
     app.use('/api/users', users);
   }
 }

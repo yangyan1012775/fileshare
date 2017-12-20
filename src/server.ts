@@ -2,10 +2,10 @@ import * as bodyParser from 'body-parser';
 import * as Express from 'express';
 import * as nunjucks from 'nunjucks';
 import * as path from 'path';
-import api_admin from './routes/api/admin';
-import files from './routes/api/file';
+import apiAdmin from './routes/api/admin';
+// import files from './routes/api/file';
 import hot from './routes/api/hot';
-import users from './routes/api/users';
+// import apiUser from './routes/api/user';
 import admin from './routes/url/admin';
 import hots from './routes/url/hots';
 import main from './routes/url/main';
@@ -42,11 +42,9 @@ export class Server {
   public initRouters(app: Express) {
     app.use('/user', user);
     app.use('/admin', admin);
-    app.use('/api/admins', api_admin);
-    app.use('/files', files);
-    app.use('/api/users', users);
+    app.use('/api/admins', apiAdmin);
+    // app.use('/files', files);
+    // app.use('/api/users', apiUser);
     app.use('/', main);
-    app.use('/hots', hots);
-    app.use('/api/hot', hot);
   }
 }

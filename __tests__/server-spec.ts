@@ -129,15 +129,7 @@ test('测试管理员 login', done => {
       done();
     });
 });
-test('测试管理员 sites api', done => {
-  request(app)
-    .get('/api/admins/sites')
-    .expect(200, function(err, res) {
-      expect(err).toBeFalsy();
-      console.log(res.text);
-      // expect(res.body[0].registers === 2).toBeTruthy();
-      done();
-    });
+test('测试管理员 sites data', done => {
   var con = mysql.createConnection({
     host: process.env.MYSQL_HOST,
     user: process.env.MYSQL_USERNAME,
@@ -153,6 +145,18 @@ test('测试管理员 sites api', done => {
       done();
     }
   );
+});
+test('测试管理员 sites api', done => {
+  request(app)
+    .get('/api/admins/sites')
+    .expect(200, function(err, res) {
+      expect(err).toBeFalsy();
+      console.log('测试管理员 sites api');
+      console.log(res.text);
+      console.log(res.body[0].registers);
+      expect(res.body[0].registers === 2).toBeTruthy();
+      done();
+    });
 });
 test('url-register', done => {
   request(app)

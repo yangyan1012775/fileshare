@@ -30,6 +30,7 @@ export class User {
         }),
       );
     });
+    con.end();
     if (results.length === 0) {
       return false;
     }
@@ -59,6 +60,7 @@ export class User {
         }),
       );
     });
+    con.end();
     return result.insertId;
   }
 }

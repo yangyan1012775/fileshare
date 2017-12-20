@@ -35,4 +35,9 @@ router.post('/', (req: any, res: any) => {
   });
 });
 
+router.get('/', async (req: any, res: any) => {
+  const userfiles = new File(req, res);
+  await userfiles.getFiles(req, res);
+});
+
 export default router;

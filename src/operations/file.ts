@@ -88,4 +88,10 @@ export class File {
       }
     });
   }
+  public async getFiles(req: any, res: any) {
+    const con = await db('cloud');
+    const sql = 'select * from file where type = \'' + req.query.type + '\';';
+    const result = await query(sql, con);
+    res.json(result);
+  }
 }

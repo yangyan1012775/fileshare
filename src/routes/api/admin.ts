@@ -15,6 +15,8 @@ router.post('/', (req: any, res: any) => {
 
 // 获取所有用户信息
 router.get('/users', (req: any, res: any) => {
+  // const admin1 = new Admin(req, res);
+  // admin1.getUsers(req, res);
   const admin1 = new Admin(req, res);
   admin1.getUsers(req, res);
 });

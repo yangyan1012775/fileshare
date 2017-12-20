@@ -3,9 +3,9 @@ import * as Express from 'express';
 import * as nunjucks from 'nunjucks';
 import * as path from 'path';
 import apiAdmin from './routes/api/admin';
-// import files from './routes/api/file';
+import files from './routes/api/file';
 import hot from './routes/api/hot';
-// import apiUser from './routes/api/user';
+import apiUser from './routes/api/user';
 import admin from './routes/url/admin';
 import hots from './routes/url/hots';
 import main from './routes/url/main';
@@ -43,8 +43,8 @@ export class Server {
     app.use('/user', user);
     app.use('/admin', admin);
     app.use('/api/admins', apiAdmin);
-    // app.use('/files', files);
-    // app.use('/api/users', apiUser);
+    app.use('/api/files', files);
+    app.use('/api/users', apiUser);
     app.use('/', main);
   }
 }

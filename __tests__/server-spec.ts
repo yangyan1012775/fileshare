@@ -110,6 +110,15 @@ test('测试管理员 password modify', done => {
       done();
     });
 });
+test('测试管理员 logout', done => {
+  request(app)
+    .get('/admin/logout')
+    .expect(200, function(err, res) {
+      expect(err).toBeFalsy();
+      expect(res.text.includes('-管理员登录')).toBeTruthy();
+      done();
+    });
+});
 /* 管理员 api */
 test('测试管理员 login', done => {
   request(app)

@@ -3,8 +3,11 @@
 import * as crypto from 'crypto';
 import cbFunc from '../cb/cb';
 import basic from '../db/basic';
+import query from '../db/query';
 
 export class Admin {
+  public static permitFile: (fileId: string) => Promise<boolean>;
+  public static rejectFile: (fileId: string) => Promise<boolean>;
   private _req: any;
   private _res: any;
   constructor(req: any, res: any) {
@@ -79,3 +82,37 @@ export class Admin {
     });
   }
 }
+
+Admin.permitFile = async function permitFile(fileId: string): Promise<boolean> {
+    const con = await basic('cloud');
+    const sql = `select * from pending_file where id=${fileId}`;
+    const result = await query(sql, con);
+    const delSql = `delete from pending_file where id=${fileId}`;
+    await query(delSql, con);
+    console.log(result + '=================');
+    const addSql = `insert into file(id,filename,type,size,downloads,hash) values(${
+      result[0].id
+    },'${result[0].filename}','${result[0].type}',${result[0].size},${0},'${
+      result[0].hash
+    }')`;
+    await query(addSql, con);
+};
+
+Admin.rejectFile = async function permitFile(fileId: string): Promise<boolean> {
+  try {
+    const con = await basic('cloud');
+    const sql = `select * from file where id=${fileId}`;
+    const result = await query(sql, con);
+    const delSql = `delete from file where id=${fileId}`;
+    await query(delSql, con);
+    const addSql = `insert into pending_file(id,filename,type,size,hash) values(${
+      result[0].id
+    },'${result[0].filename}','${result[0].type}',${result[0].size},'${
+      result[0].hash
+    }')`;
+    await query(addSql, con);
+  } catch (err) {
+    return false;
+  }
+  return true;
+};

@@ -409,6 +409,31 @@ test('测试download----fail', done => {
     });
 });
 
+test('测试文件审核通过', done => {
+  request(app)
+    .post('/api/files')
+    .type('form')
+    .send({
+      action: 'permit',
+      id: '3',
+    })
+    .expect(200, function(err, res) {
+      expect(err).toBeFalsy();
+      done();
+    });
+});
+
+test('测试文件审核未通过', done => {
+  request(app)
+    .post('/api/files')
+    .type('form')
+    .send({ action: 'reject', id: '3' })
+    .expect(200, (err, res) => {
+      expect(err).toBeFalsy();
+      done();
+    });
+});
+
 beforeAll(function(done) {
   var con = mysql.createConnection({
     host: process.env.MYSQL_HOST,

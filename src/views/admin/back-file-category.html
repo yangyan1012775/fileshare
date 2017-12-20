@@ -97,22 +97,22 @@
                     <!-- 文件分类 -->
                     <div class="tab-pane active clearfix" id="guan">
                         <!-- 分类详情 -->
-                        <ul class="nav nav-tabs">
+                        <ul class="nav nav-tabs filetype">
                             <li class="active">
-                                <a href="#doc" data-toggle="tab">文档</a>
+                                <a href="#doc" data-toggle="tab" data-type='doc'>文档</a>
                             </li>
                             <li>
-                                <a href="#vid" data-toggle="tab">视频</a>
+                                <a href="#vid" data-toggle="tab" data-type='video'>视频</a>
                             </li>
                             <li>
-                                <a href="#Img" data-toggle="tab">图片</a>
+                                <a href="#Img" data-toggle="tab" data-type='image'>图片</a>
                             </li>
                             <li>
-                                <a href="#Zip" data-toggle="tab">压缩文件</a>
+                                <a href="#Zip" data-toggle="tab" data-type='zip'>压缩文件</a>
                             </li>
-                            <li>
-                                <a href="#Other" data-toggle="tab">其他文件</a>
-                            </li>
+                            <!-- <li>
+                                <a href="#Other" data-toggle="tab" data-type=''>其他文件</a>
+                            </li> -->
                         </ul>
                         <!-- 分类列表 -->
                         <div class="tab-content">
@@ -129,7 +129,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
+                                        <!-- <tr>
                                             <td>1</td>
                                             <td>
                                                 <a href="#">file</a>
@@ -141,7 +141,7 @@
                                                 <a href="#">删除</a> |
                                                 <a href="#">修改</a>
                                             </td>
-                                        </tr>
+                                        </tr> -->
                                     </tbody>
                                 </table>
                             </div>
@@ -158,7 +158,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
+                                        <!-- <tr>
                                             <td>1</td>
                                             <td>
                                                 <a href="#">file</a>
@@ -170,7 +170,7 @@
                                                 <a href="#">删除</a> |
                                                 <a href="#">修改</a>
                                             </td>
-                                        </tr>
+                                        </tr> -->
                                     </tbody>
                                 </table>
                             </div>
@@ -187,7 +187,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
+                                        <!-- <tr>
                                             <td>1</td>
                                             <td>
                                                 <a href="#">file</a>
@@ -199,7 +199,7 @@
                                                 <a href="#">删除</a> |
                                                 <a href="#">修改</a>
                                             </td>
-                                        </tr>
+                                        </tr> -->
                                     </tbody>
                                 </table>
                             </div>
@@ -216,7 +216,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
+                                        <!-- <tr>
                                             <td>1</td>
                                             <td>
                                                 <a href="#">file</a>
@@ -228,7 +228,7 @@
                                                 <a href="#">删除</a> |
                                                 <a href="#">修改</a>
                                             </td>
-                                        </tr>
+                                        </tr> -->
                                     </tbody>
                                 </table>
                             </div>
@@ -245,7 +245,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
+                                        <!-- <tr>
                                             <td>1</td>
                                             <td>
                                                 <a href="#">file</a>
@@ -257,7 +257,7 @@
                                                 <a href="#">删除</a> |
                                                 <a href="#">修改</a>
                                             </td>
-                                        </tr>
+                                        </tr> -->
                                     </tbody>
                                 </table>
                             </div>
@@ -316,6 +316,9 @@
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
         crossorigin="anonymous"></script>
+    <script src="/js/readUserFiles.js"></script>
+    <script>
+        getMessage('.filetype');
+    </script>
 </body>
-
 </html>

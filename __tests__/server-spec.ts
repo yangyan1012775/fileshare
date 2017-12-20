@@ -471,6 +471,34 @@ test('测试user-热门', done => {
     }
   );
 });
+test('测试file-热门', done => {
+  var con = mysql.createConnection({
+    host: process.env.MYSQL_HOST,
+    user: process.env.MYSQL_USERNAME,
+    password: process.env.MYSQL_PASSWORD,
+    database: 'cloud',
+  });
+  var data = [
+    ['t1', 'video', 3, 100, '111'],
+    ['t2', 'video', 3, 100, '120'],
+    ['t3', 'zip', 3, 90, '111'],
+    ['t4', 'zip', 3, 110, '120'],
+    ['t5', 'image', 3, 20, '111'],
+    ['t6', 'image', 3, 50, '120'],
+    ['t7', 'doc', 3, 70, '111'],
+    ['t8', 'doc', 3, 122, '120'],
+  ];
+  con.query(
+    'insert into `file` ( `filename`, `type`, `size`, `downloads`, `hash`) values ?',
+    [data],
+    function(err) {
+      expect(err).toBeFalsy();
+      console.log('insert success');
+      con.end();
+      done();
+    }
+  );
+});
 
 beforeAll(function(done) {
   var con = mysql.createConnection({

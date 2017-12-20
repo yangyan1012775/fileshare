@@ -30,7 +30,7 @@ $("#Msub").on("click", function () {
     Mpassword = $("#password").val();
     alert('------'+Musername+'------'+Mpassword);
     $.ajax({
-      url: "/admins",
+      url: "/api/admins",
       type: "post",
       data: {
         'action': 'login',

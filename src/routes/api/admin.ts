@@ -7,16 +7,12 @@ const router = Express.Router();
 router.post('/', (req: any, res: any) => {
   switch (req.body.action) {
     case 'login':
-      adminLogin(req, res);
+      const admin2 = new Admin(req, res);
+      admin2.adminLogin(req, res);
       break;
   }
 });
 
-// 管理员
-const adminLogin = (req: any, res: any) => {
-  const admin2 = new Admin(req, res);
-  admin2.adminLogin(req, res);
-};
 // 获取所有用户信息
 router.get('/users', (req: any, res: any) => {
   const admin1 = new Admin(req, res);

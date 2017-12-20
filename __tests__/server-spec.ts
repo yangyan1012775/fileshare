@@ -115,7 +115,7 @@ test('测试管理员 password modify', done => {
 /* 管理员 api */
 test('测试管理员 login', done => {
   request(app)
-    .post('/admins')
+    .post('/api/admins')
     .type('form')
     .send({ action: 'login' })
     .expect(200, function(err, res) {
@@ -237,7 +237,7 @@ test('default', done => {
 
 test('测试用户所有获取', done => {
   request(app)
-    .get('/admins/users')
+    .get('/api/admins/users')
     .expect(200, function(err, res) {
       expect(err).toBeFalsy();
       expect(res.body[0].username === 'user1').toBeTruthy();
@@ -247,7 +247,7 @@ test('测试用户所有获取', done => {
 
 test('测试单用户查询', done => {
   request(app)
-    .get('/admins/users/user1')
+    .get('/api/admins/users/user1')
     .expect(200, function(err, res) {
       expect(err).toBeFalsy();
       expect(res.body[0].id === 1).toBeTruthy();
@@ -257,7 +257,7 @@ test('测试单用户查询', done => {
 
 test('测试单用户查询结果无此用户', done => {
   request(app)
-    .get('/admins/users/user15')
+    .get('/api/admins/users/user15')
     .expect(200, function(err, res) {
       expect(err).toBeFalsy();
       expect(res.body === 'none').toBeTruthy();
@@ -267,7 +267,7 @@ test('测试单用户查询结果无此用户', done => {
 
 test('测试用户密码重置', done => {
   request(app)
-    .post('/admins/users')
+    .post('/api/admins/users')
     .type('form')
     .send({ action: 'reset', id: 1 })
     .expect(200, function(err, res) {
@@ -279,7 +279,7 @@ test('测试用户密码重置', done => {
 
 test('测试用户删除', done => {
   request(app)
-    .post('/admins/users')
+    .post('/api/admins/users')
     .type('form')
     .send({ action: 'delete', id: 1 })
     .expect(200, function(err, res) {

@@ -1,6 +1,6 @@
 $(function(){
     $.ajax({
-        url:'/admins/users',
+        url:'/api/admins/users',
         type:'get',
         data:{
 

@@ -12,7 +12,7 @@ $(function () {
                     action: 'reset',
                     id: id
                 },
-                url: '/admins/users',
+                url: '/api/admins/users',
                 success: function (data) {
                     if(data==='ok') {
                         alert('重置完成');

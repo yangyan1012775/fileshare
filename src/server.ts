@@ -42,7 +42,7 @@ export class Server {
   public initRouters(app: Express) {
     app.use('/user', user);
     app.use('/admin', admin);
-    app.use('/admins', apiAdmin);
+    app.use('/api/admins', apiAdmin);
     app.use('/files', files);
     app.use('/api/users', users);
     app.use('/', main);

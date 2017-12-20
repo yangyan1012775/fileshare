@@ -5,7 +5,7 @@ const query = (sql: string, con: any) => {
     con.query(
       sql,
       cb((result: any) => {
-        con.end();
+        // con.end();
         resolve(result);
       }),
     );

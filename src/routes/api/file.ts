@@ -15,6 +15,7 @@ router.post('/', (req: any, res: any) => {
       case 'upload':
         const files = req.files._upload;
         const oldpath = path.resolve(process.env.UPLOAD_DIR, files.name);
+
         fs.readFile(
           oldpath,
           cb((data: any) => {

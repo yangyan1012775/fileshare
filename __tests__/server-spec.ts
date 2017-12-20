@@ -400,6 +400,15 @@ test('测试.exe文件上传成功', done => {
     });
 });
 
+test('获取未审核文件', done => {
+  request(app)
+    .get('/api/files?filter=pending')
+    .expect(200, function(err, res) {
+      expect(err).toBeFalsy();
+      done();
+    });
+});
+
 test('测试文件审核通过 id=1', done => {
   request(app)
     .post('/api/files')

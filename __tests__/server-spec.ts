@@ -206,23 +206,23 @@ test('api-register', done => {
     });
 });
 
-// test('default', done => {
-//   request(app)
-//     .post('/api/users')
-//     .type('form')
-//     .send({
-//       action: 'sss',
-//       email: '111@163.com',
-//       password: 'qqq111qqq',
-//       confirm: 'qqq111qqq',
-//     })
-//     .expect(200, function(err, res) {
-//       expect(err).toBeFalsy();
-//       expect(res.text.includes('error')).toBeTruthy();
-//       console.log(res.text);
-//       done();
-//     });
-// });
+test('default', done => {
+  request(app)
+    .post('/api/users')
+    .type('form')
+    .send({
+      action: 'sss',
+      email: '111@163.com',
+      password: 'qqq111qqq',
+      confirm: 'qqq111qqq',
+    })
+    .expect(200, function(err, res) {
+      expect(err).toBeFalsy();
+      expect(res.text.includes('error')).toBeTruthy();
+      console.log(res.text);
+      done();
+    });
+});
 
 test('测试用户所有获取', done => {
   request(app)

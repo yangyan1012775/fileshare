@@ -527,7 +527,44 @@ test('测试user_file-热门', done => {
     }
   );
 });
-
+test('/hot/video读取测试', done => {
+  request(app)
+    .get('/api/files/hots?type=video')
+    .expect(200, function(err, res) {
+      console.log(err);
+      console.log(res.text);
+      expect(err).toBeFalsy();
+      expect(res.body.length >= 1).toBeTruthy();
+      done();
+    });
+});
+test('/hot/zip读取测试', done => {
+  request(app)
+    .get('/api/files/hots?type=zip')
+    .expect(200, function(err, res) {
+      expect(err).toBeFalsy();
+      expect(res.body.length >= 1).toBeTruthy();
+      done();
+    });
+});
+test('/hot/image读取测试', done => {
+  request(app)
+    .get('/api/files/hots?type=image')
+    .expect(200, function(err, res) {
+      expect(err).toBeFalsy();
+      expect(res.body.length >= 1).toBeTruthy();
+      done();
+    });
+});
+test('/hot/doc读取测试', done => {
+  request(app)
+    .get('/api/files/hots?type=doc')
+    .expect(200, function(err, res) {
+      expect(err).toBeFalsy();
+      expect(res.body.length >= 1).toBeTruthy();
+      done();
+    });
+});
 beforeAll(function(done) {
   var con = mysql.createConnection({
     host: process.env.MYSQL_HOST,

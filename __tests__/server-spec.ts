@@ -286,7 +286,7 @@ test('创建待审文件表', done => {
 
 test('测试.txt文件上传成功', done => {
   request(app)
-    .post('/files')
+    .post('/api/files')
     .type('form')
     .field('action', 'upload')
     .attach('_upload', '__tests__/fixtures/1.txt')
@@ -298,7 +298,7 @@ test('测试.txt文件上传成功', done => {
 });
 test('测试.jpg文件上传成功', done => {
   request(app)
-    .post('/files')
+    .post('/api/files')
     .type('form')
     .field('action', 'upload')
     .attach('_upload', '__tests__/fixtures/1.jpg')
@@ -310,7 +310,7 @@ test('测试.jpg文件上传成功', done => {
 });
 test('测试.avi文件上传成功', done => {
   request(app)
-    .post('/files')
+    .post('/api/files')
     .type('form')
     .field('action', 'upload')
     .attach('_upload', '__tests__/fixtures/1.avi')
@@ -322,7 +322,7 @@ test('测试.avi文件上传成功', done => {
 });
 test('测试.zip文件上传成功', done => {
   request(app)
-    .post('/files')
+    .post('/api/files')
     .type('form')
     .field('action', 'upload')
     .attach('_upload', '__tests__/fixtures/1.zip')
@@ -334,7 +334,7 @@ test('测试.zip文件上传成功', done => {
 });
 test('测试.md文件上传成功', done => {
   request(app)
-    .post('/files')
+    .post('/api/files')
     .type('form')
     .field('action', 'upload')
     .attach('_upload', '__tests__/fixtures/1.md')

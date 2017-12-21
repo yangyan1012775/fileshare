@@ -39,20 +39,21 @@
             </div>
             <div class="collapse navbar-collapse" id="admins">
                 <ul class="nav navbar-nav">
-                    <li><a href="back-user.html"><span class="glyphicon glyphicon-user"></span> 用户管理</a></li>
-                    <li><a href="back-content.html"><span class="glyphicon glyphicon-list-alt"></span> 文件管理</a></li>
-					<li class="active"><a href="back-count.html"><span class="glyphicon glyphicon-signal"></span> 网站数据统计</a></li>
+                    <li><a href="/admin/users"><span class="glyphicon glyphicon-user"></span> 用户管理</a></li>
+                    <li><a href="/admin/file/category"><span class="glyphicon glyphicon-list-alt"></span> 文件管理</a></li>
+					<li class="active"><a href="/admin/sites"><span class="glyphicon glyphicon-signal"></span> 网站数据统计</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="name">
-                            admin<span class="caret"></span>
+                            {{admin}}
+                            <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="manager-setting.html"><span class="glyphicon glyphicon-cog"></span> 个人设置</a></li>
+                            <li><a href="/admin/update"><span class="glyphicon glyphicon-cog"></span> 个人设置</a></li>
                         </ul>
                     </li>
-                    <li><a id="logout"><span class="glyphicon glyphicon-off"></span> 退出</a></li>
+                    <li><a id="logout" href="/admin/login"><span class="glyphicon glyphicon-off"></span> 退出</a></li>
                 </ul>
             </div>
 

@@ -32,4 +32,7 @@ router.get('/:id', (req: any, res: any) => {
   }
 });
 
+router.get('/:id/file/:fileid', (req: any, res: any) => {
+  res.render('user/filedetails');
+});
 export default router;

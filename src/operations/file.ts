@@ -109,4 +109,17 @@ export class File {
     con.end();
     res.json(result);
   }
+
+  public getFiledetails(req: any, res: any) {
+    db('cloud').then((con) => {
+      const sql = 'select * from file where id= \'' + req.body.fileId + '\'';
+      con.query(
+        sql,
+        cbFunc((result: any) => {
+          res.json(result);
+          con.end();
+        }),
+      );
+    });
+  }
 }

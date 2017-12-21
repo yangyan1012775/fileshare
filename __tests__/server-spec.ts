@@ -139,7 +139,24 @@ test('测试管理员 logout', done => {
     });
 });
 /* 管理员 api */
-
+test('测试数据库链接', done => {
+  var con = mysql.createConnection({
+    host: process.env.MYSQL_HOST,
+    user: process.env.MYSQL_USERNAME,
+    password: process.env.MYSQL_PASSWORD,
+    database: 'cloud',
+  });
+  // 创建admin数据
+  con.query(
+    "INSERT INTO admin(username, password) VALUES ('123','123')",
+    function(err) {
+      expect(err).toBeFalsy();
+      console.log('insert success');
+      con.end();
+      done();
+    }
+  );
+});
 test('测试管理员 login', done => {
   request(app)
     .post('/api/admins')
@@ -953,7 +970,7 @@ beforeAll(function(done) {
                       expect(err).toBeFalsy();
                       console.log('success file');
                       con.query(
-                        'create table admin (id int primary key auto_increment,username varchar(20)not null,password varchar(64)not null,created_at datetime not null);',
+                        'create table admin (id int primary key auto_increment,username varchar(20)not null,password varchar(64)not null);',
                         function(err) {
                           expect(err).toBeFalsy();
                           console.log('success admin');

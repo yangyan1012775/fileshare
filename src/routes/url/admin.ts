@@ -5,6 +5,11 @@ router.get('/login', (req: any, res: any) => {
   res.render('admin/login');
 });
 
+router.get('/logout', (req: any, res: any) => {
+  req.session.user = null;
+  res.render('admin/login');
+});
+
 router.get('/update', (req: any, res: any) => {
   res.render('admin/setting', { admin: req.session.user });
 });
@@ -13,6 +18,9 @@ router.get('/users', (req: any, res: any) => {
   res.render('admin/back-user');
 });
 
+router.get('/sites', (req: any, res: any) => {
+  res.render('admin/back-count');
+});
 /**
  * 文件分类
  */

@@ -76,7 +76,6 @@ export class File {
       process.env.UPLOAD_DIR,
       this.hash + '.' + this.filename.split('.')[1],
     );
-    console.log(currFile);
     fsexists(currFile).then((exist: any) => {
       if (exist) {
         const f = fs.createReadStream(currFile);

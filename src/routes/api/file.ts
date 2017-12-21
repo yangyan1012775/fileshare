@@ -34,12 +34,21 @@ router.post('/', (req: any, res: any) => {
         );
         break;
       case 'permit':
-        await Admin.permitFile(req.body.id);
-        res.json('审核通过');
+        const permitResult = await Admin.permitFile(req.body.id);
+        if (permitResult) {
+          res.json('审核通过');
+        } else {
+          res.status(500).json({ error: '操作失败' });
+        }
+
         break;
       case 'reject':
-        await Admin.rejectFile(req.body.id);
-        res.json('审核未通过');
+        const rejectResult = await Admin.rejectFile(req.body.id);
+        if (rejectResult) {
+          res.json('审核未通过');
+        } else {
+          res.status(500).json({ error: '操作失败' });
+        }
         break;
     }
   });
@@ -55,8 +64,9 @@ router.get('/', async (req: any, res: any, next: any) => {
 });
 
 router.get('/', async (req: any, res: any) => {
-  const userfiles = new File(req, res);
-  await userfiles.getFiles(req, res);
+  const file = new File('', '');
+  const sql = 'select * from file where type = \'' + req.query.type + '\';';
+  await file.getFiles(req, res, sql);
 });
 router.get('/hots', async (req: any, res: any) => {
   switch (req.query.type) {

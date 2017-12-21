@@ -120,6 +120,15 @@ test('测试管理员 password modify', done => {
       done();
     });
 });
+test('测试登录统计数据页面', done => {
+  request(app)
+    .get('/admin/sites')
+    .expect(200, function(err, res) {
+      expect(err).toBeFalsy();
+      expect(res.text.includes('网站数据统计')).toBeTruthy();
+      done();
+    });
+});
 test('测试管理员 logout', done => {
   request(app)
     .get('/admin/logout')
@@ -138,6 +147,35 @@ test('测试管理员 login', done => {
     .expect(200, function(err, res) {
       expect(err).toBeFalsy();
       expect(res.body === 'ok').toBeTruthy();
+      done();
+    });
+});
+test('测试管理员 sites data', done => {
+  var con = mysql.createConnection({
+    host: process.env.MYSQL_HOST,
+    user: process.env.MYSQL_USERNAME,
+    password: process.env.MYSQL_PASSWORD,
+    database: 'cloud',
+  });
+  con.query(
+    'INSERT INTO website_statistics(registers, downloads, uploads, visits, date) VALUES (2, 4, 5, 1, "2017-11-11")',
+    function(err) {
+      expect(err).toBeFalsy();
+      console.log('insert success');
+      con.end();
+      done();
+    }
+  );
+});
+test('测试管理员 sites api', done => {
+  request(app)
+    .get('/api/admins/sites')
+    .expect(200, function(err, res) {
+      expect(err).toBeFalsy();
+      console.log('测试管理员 sites api');
+      console.log(res.text);
+      console.log(res.body[0].registers);
+      expect(res.body[0].registers === 2).toBeTruthy();
       done();
     });
 });
@@ -488,6 +526,32 @@ test('获取未审核文件', done => {
     });
 });
 
+test('测试文件审核失败 id=不存在', done => {
+  request(app)
+    .post('/api/files')
+    .type('form')
+    .send({
+      action: 'permit',
+      id: '1000',
+    })
+    .expect(500, function(err, res) {
+      done();
+    });
+});
+
+test('测试文件未审核失败 id=不存在', done => {
+  request(app)
+    .post('/api/files')
+    .type('form')
+    .send({
+      action: 'reject',
+      id: '1000',
+    })
+    .expect(500, function(err, res) {
+      done();
+    });
+});
+
 test('测试文件审核通过 id=1', done => {
   request(app)
     .post('/api/files')
@@ -760,7 +824,7 @@ test('/hot/doc读取测试', done => {
 
 test('测试文件分类--allFiles', done => {
   request(app)
-    .get('/api/users/1/allFiles')
+    .get('/api/users/allFiles')
     .expect(200, function(err, res) {
       expect(err).toBeFalsy();
       expect(res.text !== '').toBeTruthy();
@@ -769,7 +833,7 @@ test('测试文件分类--allFiles', done => {
 });
 test('测试文件分类--image', done => {
   request(app)
-    .get('/api/users/1/image')
+    .get('/api/users/image')
     .expect(200, function(err, res) {
       // res.send();
       expect(err).toBeFalsy();
@@ -779,7 +843,7 @@ test('测试文件分类--image', done => {
 });
 test('测试文件分类--text', done => {
   request(app)
-    .get('/api/users/1/text')
+    .get('/api/users/text')
     .expect(200, function(err, res) {
       // res.send();
       expect(err).toBeFalsy();
@@ -789,7 +853,7 @@ test('测试文件分类--text', done => {
 });
 test('测试文件分类--video', done => {
   request(app)
-    .get('/api/users/1/video')
+    .get('/api/users/video')
     .expect(200, function(err, res) {
       // res.send();
       expect(err).toBeFalsy();
@@ -799,7 +863,7 @@ test('测试文件分类--video', done => {
 });
 test('测试文件分类--zip', done => {
   request(app)
-    .get('/api/users/1/zip')
+    .get('/api/users/zip')
     .expect(200, function(err, res) {
       // res.send();
       expect(err).toBeFalsy();
@@ -809,7 +873,7 @@ test('测试文件分类--zip', done => {
 });
 test('测试文件分类--other', done => {
   request(app)
-    .get('/api/users/1/other')
+    .get('/api/users/other')
     .expect(200, function(err, res) {
       // res.send();
       expect(err).toBeFalsy();
@@ -819,7 +883,7 @@ test('测试文件分类--other', done => {
 });
 test('测试文件分类--unchecked', done => {
   request(app)
-    .get('/api/users/1/unchecked')
+    .get('/api/users/unchecked')
     .expect(200, function(err, res) {
       // res.send();
       expect(err).toBeFalsy();

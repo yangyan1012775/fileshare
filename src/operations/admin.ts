@@ -32,6 +32,25 @@ export class Admin {
     res.json({ pages, Res: result });
   }
 
+  public getSites(req: any, res: any) {
+    console.log('get admin sites 2');
+
+    basic('cloud').then((con) => {
+      console.log('get admin sites 3');
+
+      const sql = 'select * from website_statistics';
+      con.query(
+        sql,
+        cbFunc((result: any) => {
+          console.log('get admin sites 4');
+          console.log(result);
+          res.json(result);
+          con.end();
+        }),
+      );
+    });
+  }
+
   public adminLogin(req: any, res: any) {
     basic('cloud').then((con) => {
       const sql =
@@ -90,25 +109,35 @@ Admin.permitFile = async function permitFile(fileId: string): Promise<boolean> {
   const con = await basic('cloud');
   const sql = `select * from pending_file where id=${fileId}`;
   const result = await Query(sql, con);
-  const delSql = `delete from pending_file where id=${fileId}`;
-  await Query(delSql, con);
-  const addSql = `insert into file(id,filename,type,size,downloads,hash) values(${
-    result[0].id
-  },'${result[0].filename}','${result[0].type}',${result[0].size},${0},'${
-    result[0].hash
-  }')`;
-  await Query(addSql, con);
-  return true;
+  if (result.length) {
+    const delSql = `delete from pending_file where id=${fileId}`;
+    await Query(delSql, con);
+    const addSql = `insert into file(id,filename,type,size,downloads,hash) values(${
+      result[0].id
+    },'${result[0].filename}','${result[0].type}',${result[0].size},${0},'${
+      result[0].hash
+    }')`;
+    await Query(addSql, con);
+    return true;
+  } else {
+    return false;
+  }
 };
 
 Admin.rejectFile = async function permitFile(fileId: string): Promise<boolean> {
   const con = await basic('cloud');
-  const delSql = `delete from pending_file where id=${fileId}`;
-  await Query(delSql, con);
-  return true;
+  const sql = `select * from pending_file where id=${fileId}`;
+  const result = await Query(sql, con);
+  if (result.length) {
+    const delSql = `delete from pending_file where id=${fileId}`;
+    await Query(delSql, con);
+    return true;
+  } else {
+    return false;
+  }
 };
 
-Admin.getPendingFiles = async function getPermitFiles() {
+Admin.getPendingFiles = async function getPermitFiles(): Promise<{}> {
   const con = await basic('cloud');
   const sql = `select * from pending_file`;
   const result = await Query(sql, con);

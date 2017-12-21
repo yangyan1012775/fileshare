@@ -5,7 +5,7 @@ function getMessage(filetype) {
     
     $.ajax({
         type: 'get',
-        url: '/api/files?type=doc',
+        url: '/api/files?type=all',
         success: function (data) {
             Render(data);
         },
@@ -14,7 +14,7 @@ function getMessage(filetype) {
             return;
         }
     });
-    for(var i=0;i<5;i++){
+    for(var i=0;i<6;i++){
         $(filetype).children().eq(i).on('click',function(){
             var type=$(this).children().attr("data-type");
             var url='/api/files?'+type;

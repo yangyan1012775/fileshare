@@ -70,14 +70,11 @@ export class File {
   }
   public async delete(id: any, req: any, res: any) {
     const con = await db('cloud');
-    let i = 0;
-    while (id[i]) {
-      let sql = 'delete from file where id = ' + id[i] + ';';
-      await query(sql, con);
-      sql = 'delete from user_file where file = ' + id[i] + ';';
-      await query(sql, con);
-      i++;
-    }
+    const i = 0;
+    let sql = 'delete from file where id in (' + id + ');';
+    await query(sql, con);
+    sql = 'delete from user_file where file in (' + id + ');';
+    await query(sql, con);
     con.end();
     res.json('delete suc');
   }

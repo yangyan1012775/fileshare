@@ -29,7 +29,7 @@ router.post('/', async (req: any, res: any) => {
       res.send('error');
   }
 });
-router.get('/name', async (req: any, res: any) => {
+router.get('/', async (req: any, res: any) => {
   const userId = req.session.userid || 0;
   const sql = 'select * from user where id=' + userId + ';';
   const file = new File('', '');

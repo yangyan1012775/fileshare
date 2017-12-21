@@ -47,8 +47,6 @@ export class Admin {
   }
 
   public adminLogin(req: any, res: any) {
-    console.log(req.body);
-    console.log('---------------------------');
     basic('cloud').then((con) => {
       const sql =
         'SELECT * FROM admin WHERE username = ' + req.body.username + ';';
@@ -56,7 +54,6 @@ export class Admin {
       con.query(
         sql,
         cbFunc((result: any) => {
-          console.log(result);
           if (result[0]) {
             if (result[0].password === req.body.password) {
               req.session.user = req.body.username;

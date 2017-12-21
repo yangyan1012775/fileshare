@@ -82,6 +82,16 @@ test('测试访问用户页面success', done => {
       done();
     });
 });
+
+test('测试文件详情页面', done => {
+  request(app)
+    .get('/user/1/file/1')
+    .expect(200, function(err, res) {
+      expect(err).toBeFalsy();
+      expect(res.text.includes('-文件详情页')).toBeTruthy();
+      done();
+    });
+});
 test('测试访问用户页面fail', done => {
   request(app)
     .get('/user/qqq')
@@ -383,6 +393,15 @@ test('测试单用户查询结果无此用户', done => {
     .expect(200, function(err, res) {
       expect(err).toBeFalsy();
       expect(res.body === 'none').toBeTruthy();
+      done();
+    });
+});
+
+test('测试单文件信息查询', done => {
+  request(app)
+    .post('/api/files/1')
+    .expect(200, function(err, res) {
+      expect(res.text !== 0).toBeTruthy();
       done();
     });
 });

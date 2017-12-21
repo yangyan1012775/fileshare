@@ -71,4 +71,8 @@ router.get('/hots', async (req: any, res: any) => {
   }
 });
 
+router.post('/:id', (req: any, res: any) => {
+  const filedetail = new File(req, res);
+  filedetail.getFiledetails(req, res);
+});
 export default router;

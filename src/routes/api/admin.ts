@@ -5,7 +5,7 @@ const router = Express.Router();
 
 /* 管理员 */
 
-router.post('/', async (req: any, res: any) => {
+router.post('/', (req: any, res: any) => {
   switch (req.body.action) {
     case 'login':
       const admin2 = new Admin(req, res);

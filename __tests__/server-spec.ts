@@ -161,10 +161,44 @@ test('测试管理员 login', done => {
   request(app)
     .post('/api/admins')
     .type('form')
-    .send({ action: 'login' })
+    .send({
+      action: 'login',
+      username: 123,
+      password: 123,
+    })
     .expect(200, function(err, res) {
       expect(err).toBeFalsy();
       expect(res.body === 'ok').toBeTruthy();
+      done();
+    });
+});
+test('测试管理员 login', done => {
+  request(app)
+    .post('/api/admins')
+    .type('form')
+    .send({
+      action: 'login',
+      username: 111,
+      password: 123,
+    })
+    .expect(200, function(err, res) {
+      expect(err).toBeFalsy();
+      expect(res.body === 'username none').toBeTruthy();
+      done();
+    });
+});
+test('测试管理员 login', done => {
+  request(app)
+    .post('/api/admins')
+    .type('form')
+    .send({
+      action: 'login',
+      username: 123,
+      password: 111,
+    })
+    .expect(200, function(err, res) {
+      expect(err).toBeFalsy();
+      expect(res.body === 'password none').toBeTruthy();
       done();
     });
 });

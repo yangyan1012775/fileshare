@@ -48,7 +48,8 @@ export class File {
     con.end();
     con = await db('cloud');
     value = '(\'' + result.insertId + '\', \'' + userid + '\',\'' + dateTime + '\')';
-    sql = 'insert into user_file(file, user, upload_at) values ' + value + ';';
+    sql =
+      'insert into user_file(file, user, uploaded_at) values ' + value + ';';
     await query(sql, con);
     con.end();
   }
@@ -68,7 +69,16 @@ export class File {
     await this.insert(type, file.size, req.session.userid || 0);
     res.json('上传成功');
   }
-
+  public async delete(id: any, req: any, res: any) {
+    const con = await db('cloud');
+    const i = 0;
+    let sql = 'delete from file where id in (' + id + ');';
+    await query(sql, con);
+    sql = 'delete from user_file where file in (' + id + ');';
+    await query(sql, con);
+    con.end();
+    res.json('delete suc');
+  }
   public download(res: any) {
     const fsexists = promisify(fs.exists);
     // ------------------等其他两组提交后再将file改成变量

@@ -516,7 +516,18 @@ test('测试.exe文件上传成功', done => {
       done();
     });
 });
-
+test('测试.png文件上传成功', done => {
+  request(app)
+    .post('/api/files')
+    .type('form')
+    .field('action', 'upload')
+    .attach('_upload', '__tests__/fixtures/1.png')
+    .expect(200, (err, res) => {
+      expect(err).toBeFalsy();
+      expect(res.body === '上传成功').toBeTruthy();
+      done();
+    });
+});
 test('获取未审核文件', done => {
   request(app)
     .get('/api/files?filter=pending')
@@ -630,6 +641,52 @@ test('测试文件审核未通过 id=6', done => {
       expect(err).toBeFalsy();
       done();
     });
+});
+test('测试文件审核通过 id=7', done => {
+  request(app)
+    .post('/api/files')
+    .type('form')
+    .send({
+      action: 'permit',
+      id: '7',
+    })
+    .expect(200, function(err, res) {
+      expect(err).toBeFalsy();
+      done();
+    });
+});
+test('测试文件删除 id=7', done => {
+  request(app)
+    .post('/api/files')
+    .type('form')
+    .field('action', 'delete')
+    .field('id[]', [7, 8])
+    .expect(200, (err, res) => {
+      expect(err).toBeFalsy();
+      expect(res.body === 'delete suc').toBeTruthy();
+      done();
+    });
+});
+test('insert file', done => {
+  let app = Express();
+  let server = new Server(app, 3000);
+  var con = mysql.createConnection({
+    host: process.env.MYSQL_HOST,
+    user: process.env.MYSQL_USERNAME,
+    password: process.env.MYSQL_PASSWORD,
+    database: 'cloud',
+  });
+  // 创建file
+
+  con.query(
+    "insert into file(filename, type, size, downloads,hash) values ('girl.JPG','image',40,2,'asgsagasgasdaasg');",
+    function(err) {
+      expect(err).toBeFalsy();
+      console.log('insert success');
+      con.end();
+      done();
+    }
+  );
 });
 
 test('测试获取分类文件', done => {
@@ -801,7 +858,7 @@ beforeAll(function(done) {
               expect(err).toBeFalsy();
               console.log('success pending_file');
               con.query(
-                'create table user_file (id int auto_increment,file int not null,user int not null,upload_at datetime not null,primary key(id));',
+                'create table user_file (id int auto_increment,file int not null,user int not null,uploaded_at datetime not null,primary key(id));',
                 function(err) {
                   expect(err).toBeFalsy();
                   console.log('success user_file');

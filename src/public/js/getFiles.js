@@ -1,6 +1,6 @@
 $(function(){
     $.ajax({
-        url:'/api/users/:id/allFiles',
+        url:'/api/users/allFiles',
         type:'get',
         success:function(data){
             console.log(data);
@@ -14,7 +14,7 @@ $(function(){
     
     $('.getPictures').on('click',function(){
         $.ajax({
-            url:'/api/users/:id/image',
+            url:'/api/users/image',
             type:'get',
             success:function(data){
                 console.log(data);
@@ -29,7 +29,7 @@ $(function(){
 
     $('.getText').on('click',function(){
         $.ajax({
-            url:'/api/users/:id/text',
+            url:'/api/users/doc',
             type:'get',
             success:function(data){
                 console.log(data);
@@ -44,7 +44,7 @@ $(function(){
 
     $('.getVideos').on('click',function(){
         $.ajax({
-            url:'/api/users/:id/video',
+            url:'/api/users/video',
             type:'get',
             success:function(data){
                 console.log(data);
@@ -59,7 +59,7 @@ $(function(){
 
     $('.getZip').on('click',function(){
         $.ajax({
-            url:'/api/users/:id/zip',
+            url:'/api/users/zip',
             type:'get',
             success:function(data){
                 console.log(data);
@@ -74,7 +74,7 @@ $(function(){
 
     $('.getOthers').on('click',function(){
         $.ajax({
-            url:'/api/users/:id/other',
+            url:'/api/users/other',
             type:'get',
             success:function(data){
                 console.log(data);
@@ -89,7 +89,7 @@ $(function(){
 
     $('.getUnchecked').on('click',function(){
         $.ajax({
-            url:'/api/users/:id/unchecked',
+            url:'/api/users/unchecked',
             type:'get',
             success:function(data){
                 console.log(data);

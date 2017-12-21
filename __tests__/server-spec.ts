@@ -460,6 +460,32 @@ test('获取未审核文件', done => {
     });
 });
 
+test('测试文件审核失败 id=不存在', done => {
+  request(app)
+    .post('/api/files')
+    .type('form')
+    .send({
+      action: 'permit',
+      id: '1000',
+    })
+    .expect(500, function(err, res) {
+      done();
+    });
+});
+
+test('测试文件未审核失败 id=不存在', done => {
+  request(app)
+    .post('/api/files')
+    .type('form')
+    .send({
+      action: 'reject',
+      id: '1000',
+    })
+    .expect(500, function(err, res) {
+      done();
+    });
+});
+
 test('测试文件审核通过 id=1', done => {
   request(app)
     .post('/api/files')

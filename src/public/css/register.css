@@ -37,3 +37,11 @@ form input{
 	background-color: lightskyblue;
 	border-radius: 5px;
 }
+
+#ts{
+    cursor: pointer;
+    display: block;
+    text-align: center;
+    margin-top: 10px;
+    color:#fff;
+}

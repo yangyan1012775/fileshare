@@ -8,6 +8,12 @@ const router = Express.Router();
 router.get('/download', (req: any, res: any) => {
   const id = path.normalize(req.query.id);
   queryFile(id).then((result) => {
+    if (!result) {
+      res.status(404);
+      res.send('file not exist');
+      res.end();
+      return;
+    }
     const down = new File(result.filename, result.hash);
     down.download(res);
   });
@@ -32,4 +38,7 @@ router.get('/:id', (req: any, res: any) => {
   }
 });
 
+router.get('/:id/file/:fileid', (req: any, res: any) => {
+  res.render('user/filedetails');
+});
 export default router;

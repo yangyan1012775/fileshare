@@ -1,7 +1,7 @@
 import * as Express from 'express';
 import * as multer from 'multer';
 import { error } from 'util';
-import { Files } from '../../operations/files';
+import { File } from '../../operations/file';
 import { User } from '../../operations/user';
 const user = new User();
 
@@ -22,6 +22,7 @@ router.post('/', async (req: any, res: any) => {
         res.send('false');
         return;
       }
+      req.session.userid = userInfo.id;
       res.json(userInfo);
       break;
     default:
@@ -30,33 +31,34 @@ router.post('/', async (req: any, res: any) => {
 });
 
 // 文件操作
-router.get('/:id/allFiles', (req: any, res: any) => {
-  const all = new Files(req, res);
-  all.getAllByUserId(req, res);
-});
-router.get('/:id/image', (req: any, res: any) => {
-  const image = new Files(req, res);
-  image.getImagesByUserId(req, res);
-});
-router.get('/:id/text', (req: any, res: any) => {
-  const text = new Files(req, res);
-  text.getTextByUserId(req, res);
-});
-router.get('/:id/video', (req: any, res: any) => {
-  const video = new Files(req, res);
-  video.getVideoByUserId(req, res);
-});
-router.get('/:id/zip', (req: any, res: any) => {
-  const zip = new Files(req, res);
-  zip.getZipByUserId(req, res);
-});
-router.get('/:id/other', (req: any, res: any) => {
-  const other = new Files(req, res);
-  other.getOtherByUserId(req, res);
-});
-router.get('/:id/unchecked', (req: any, res: any) => {
-  const unchecked = new Files(req, res);
-  unchecked.getUncheckedByUserId(req, res);
+router.get('/:type', async (req: any, res: any) => {
+  let sql: string;
+  const file = new File('', '');
+  const userId = req.session.userid || 0;
+  switch (req.params.type) {
+    case 'allFiles':
+      sql =
+        'select * from file join user_file on (file.id=user_file.file) where user_file.user=' +
+        userId +
+        ';';
+      await file.getFiles(req, res, sql);
+      break;
+    case 'unchecked':
+      sql =
+        'select * from pending_file join user_file on (pending_file.id=user_file.file) where user_file.user=' +
+        userId +
+        ';';
+      await file.getFiles(req, res, sql);
+      break;
+    default:
+      sql =
+        'select * from file join user_file on (file.id=user_file.file and file.type=\'' +
+        req.params.type +
+        '\') where user_file.user=' +
+        userId +
+        ';';
+      await file.getFiles(req, res, sql);
+  }
 });
 
 export default router;

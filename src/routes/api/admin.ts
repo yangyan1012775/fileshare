@@ -27,6 +27,12 @@ router.get('/users/:name', (req: any, res: any) => {
   admin4.searchUser(req, res);
 });
 
+// 获取统计信息
+router.get('/sites', (req: any, res: any) => {
+  const admin6 = new Admin(req, res);
+  admin6.getSites(req, res);
+});
+
 // 用户操作分区
 router.post('/users', (req: any, res: any) => {
   switch (req.body.action) {

@@ -84,7 +84,10 @@ export class File {
   public download(res: any) {
     const fsexists = promisify(fs.exists);
     // ------------------等其他两组提交后再将file改成变量
-    const currFile = path.resolve(process.env.UPLOAD_DIR, this.filename);
+    const currFile = path.resolve(
+      process.env.UPLOAD_DIR,
+      this.hash + '.' + this.filename.split('.')[1],
+    );
     fsexists(currFile).then((exist: any) => {
       if (exist) {
         const f = fs.createReadStream(currFile);
@@ -94,22 +97,18 @@ export class File {
           'Content-Type': 'application/force-download',
         });
         f.pipe(res);
-      } else {
-        res.set('Content-type', 'text/html');
-        res.send('file not exist!');
-        res.end();
       }
     });
   }
-  public async getFiles(req: any, res: any) {
+
+  public async getFiles(req: any, res: any, sql: string) {
     const con = await db('cloud');
-    const sql = 'select * from file where type = \'' + req.query.type + '\';';
     const result = await query(sql, con);
     con.end();
     res.json(result);
   }
 
-  public async getType(req: any, res: any, type) {
+  public async getType(req: any, res: any, type: string) {
     const con = await db('cloud');
     const sql =
       'select user.username,file.filename,file.size,file.downloads ' +
@@ -120,5 +119,18 @@ export class File {
     const result = await query(sql, con);
     con.end();
     res.json(result);
+  }
+
+  public getFiledetails(req: any, res: any) {
+    db('cloud').then((con) => {
+      const sql = 'select * from file where id= \'' + req.body.fileId + '\'';
+      con.query(
+        sql,
+        cbFunc((result: any) => {
+          res.json(result);
+          con.end();
+        }),
+      );
+    });
   }
 }

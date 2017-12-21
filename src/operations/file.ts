@@ -48,7 +48,8 @@ export class File {
     con.end();
     con = await db('cloud');
     value = '(\'' + result.insertId + '\', \'' + userid + '\',\'' + dateTime + '\')';
-    sql = 'insert into user_file(file, user, upload_at) values ' + value + ';';
+    sql =
+      'insert into user_file(file, user, uploaded_at) values ' + value + ';';
     await query(sql, con);
     con.end();
   }

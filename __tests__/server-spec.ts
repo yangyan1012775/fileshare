@@ -793,7 +793,7 @@ test('测试user_file-热门', done => {
     [8, 8, '2017-12-07 00:00:00'],
   ];
   con.query(
-    'INSERT INTO `user_file` (`user`, `file`, `upload_at`) values ?',
+    'INSERT INTO `user_file` (`user`, `file`, `uploaded_at`) values ?',
     [data],
     function(err) {
       expect(err).toBeFalsy();
@@ -942,7 +942,7 @@ beforeAll(function(done) {
               expect(err).toBeFalsy();
               console.log('success pending_file');
               con.query(
-                'create table user_file (id int auto_increment,file int not null,user int not null,upload_at datetime not null,primary key(id));',
+                'create table user_file (id int auto_increment,file int not null,user int not null,uploaded_at datetime not null,primary key(id));',
                 function(err) {
                   expect(err).toBeFalsy();
                   console.log('success user_file');

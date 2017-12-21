@@ -46,20 +46,27 @@ export class Admin {
   }
 
   public adminLogin(req: any, res: any) {
+    console.log(req.body);
+    console.log('---------------------------');
     basic('cloud').then((con) => {
       const sql =
-        'SELECT username,password FROM admin WHERE username = \'' +
-        req.body.username +
-        '\' AND password = \'' +
-        req.body.password +
-        '\';';
-      const data = [req.body.id];
+        'SELECT * FROM admin WHERE username = ' + req.body.username + ';';
+
       con.query(
         sql,
         cbFunc((result: any) => {
-          req.session.user = req.body.username;
-          res.json('ok');
-          con.end();
+          console.log(result);
+          if (result[0]) {
+            if (result[0].password === req.body.password) {
+              req.session.user = req.body.username;
+              res.json('ok');
+              con.end();
+            } else {
+              res.json('password none');
+            }
+          } else {
+            res.json('username none');
+          }
         }),
       );
     });

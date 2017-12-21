@@ -99,7 +99,7 @@ export class File {
   public async getType(req: any, res: any, type: string) {
     const con = await db('cloud');
     const sql =
-      'select user.username,file.filename,file.size,file.downloads ' +
+      'select user.username,file.filename,file.size,file.downloads,user_file.user,user_file.file ' +
       'from file left join user_file on user_file.file = file.id ' +
       'left join user on user.id = user_file.user where file.type = \'' +
       type +

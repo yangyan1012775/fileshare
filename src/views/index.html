@@ -18,7 +18,6 @@
             </button>
             <a class="navbar-brand" href="#">
                 <img alt="" src="img/cloud.png">
-                <span>云分享</span>
             </a>
         </div>
         <div class="navbar-collapse collapse">
@@ -100,55 +99,8 @@
 <a name="file"></a>
 <div class="container-fluid file">
     <h1>热门文件</h1>
-    <ul class="row">
-        <li class="col-md-3 col-sm-4 col-xs-6 text-center">
-            <img src="img/f1.jpg" alt="">
-            <p class="text-center">文件名：<span>倒霉熊</span></p>
-        </li>
-        <li class="col-md-3 col-sm-4 col-xs-6 text-center">
-            <img src="img/f1.jpg" alt="">
-            <p class="text-center">文件名：<span>倒霉蛋</span></p>
-        </li>
-        <li class="col-md-3 col-sm-4 col-xs-6 text-center">
-            <img src="img/f1.jpg" alt="">
-            <p class="text-center">文件名：<span>倒霉熊</span></p>
-        </li>
-        <li class="col-md-3 col-sm-4 col-xs-6 text-center">
-            <img src="img/f1.jpg" alt="">
-            <p class="text-center">文件名：<span>倒霉熊</span></p>
-        </li>
-        <li class="col-md-3 col-sm-4 col-xs-6 text-center">
-            <img src="img/f1.jpg" alt="">
-            <p class="text-center">文件名：<span>倒霉熊</span></p>
-        </li>
-        <li class="col-md-3 col-sm-4 col-xs-6 text-center">
-            <img src="img/f1.jpg" alt="">
-            <p class="text-center">文件名：<span>倒霉熊</span></p>
-        </li>
-        <li class="col-md-3 col-sm-4 col-xs-6 text-center">
-            <img src="img/f1.jpg" alt="">
-            <p class="text-center">文件名：<span>倒霉熊</span></p>
-        </li>
-        <li class="col-md-3 col-sm-4 col-xs-6 text-center">
-            <img src="img/f1.jpg" alt="">
-            <p class="text-center">文件名：<span>倒霉熊</span></p>
-        </li>
-        <li class="col-md-3 col-sm-4 col-xs-6 text-center">
-            <img src="img/f2.jpg" alt="">
-            <p class="text-center">文件名：<span>倒霉熊</span></p>
-        </li>
-        <li class="col-md-3 col-sm-4 col-xs-6 text-center">
-            <img src="img/f2.jpg" alt="">
-            <p class="text-center">文件名：<span>倒霉熊</span></p>
-        </li>
-        <li class="col-md-3 col-sm-4 col-xs-6 text-center">
-            <img src="img/f2.jpg" alt="">
-            <p class="text-center">文件名：<span>倒霉熊</span></p>
-        </li>
-        <li class="col-md-3 col-sm-4 col-xs-6 text-center">
-            <img src="img/f2.jpg" alt="">
-            <p class="text-center">文件名：<span>倒霉熊</span></p>
-        </li>
+    <ul class="row" id="tp">
+        
     </ul>
 </div>
 <a name="hot"></a>
@@ -209,9 +161,9 @@
                 if (data != 0) {
                     for (var i = 0; i < data.length; i++) {
                         var lis = $("<li><p></p></li>");
-                        lis.append("<span class='normal'>" + (i+1) + "</span>");
-                        lis.append("<span class='name'>" + data[i].filename + "</span>");
-                        lis.append("<span class='text-right peo'>" + data[i].downloads + "</span>");
+                        lis.append("<a href='/user/"+data[i].user+"/file/"+data[i].file+"'><span class='normal'>" + (i+1) + "<span></a>");
+                        lis.append("<a href='/user/"+data[i].user+"/file/"+data[i].file+"'><span class='name'>" + data[i].filename + "</span></a>");
+                        lis.append("<a href='/user/"+data[i].user+"/file/"+data[i].file+"'><span class='text-right peo'>" + data[i].downloads + "</span></a>");
                         $("#rmsp").append(lis);
                     }
                 }
@@ -224,9 +176,9 @@
                 if (data != 0) {
                     for (var i = 0; i < data.length; i++) {
                         var lis = $("<li><p></p></li>");
-                        lis.append("<span class='normal'>" + (i+1) + "</span>");
-                        lis.append("<span class='name'>" + data[i].filename + "</span>");
-                        lis.append("<span class='text-right peo'>" + data[i].downloads + "</span>");
+                        lis.append("<a href='/user/"+data[i].user+"/file/"+data[i].file+"'><span class='normal'>" + (i+1) + "<span></a>");
+                        lis.append("<a href='/user/"+data[i].user+"/file/"+data[i].file+"'><span class='name'>" + data[i].filename + "</span></a>");
+                        lis.append("<a href='/user/"+data[i].user+"/file/"+data[i].file+"'><span class='text-right peo'>" + data[i].downloads + "</span></a>");
                         $("#rmys").append(lis);
                     }
                 }
@@ -239,9 +191,9 @@
                 if (data != 0) {
                     for (var i = 0; i < data.length; i++) {
                         var lis = $("<li><p></p></li>");
-                        lis.append("<span class='normal'>" + (i+1) + "</span>");
-                        lis.append("<span class='name'>" + data[i].filename + "</span>");
-                        lis.append("<span class='text-right peo'>" + data[i].downloads + "</span>");
+                        lis.append("<a href='/user/"+data[i].user+"/file/"+data[i].file+"'><span class='normal'>" + (i+1) + "<span></a>");
+                        lis.append("<a href='/user/"+data[i].user+"/file/"+data[i].file+"'><span class='name'>" + data[i].filename + "</span></a>");
+                        lis.append("<a href='/user/"+data[i].user+"/file/"+data[i].file+"'><span class='text-right peo'>" + data[i].downloads + "</span></a>");
                         $("#rmtp").append(lis);
                     }
                 }
@@ -254,15 +206,72 @@
                 if (data != 0) {
                     for (var i = 0; i < data.length; i++) {
                         var lis = $("<li><p></p></li>");
-                        lis.append("<span class='normal'>" + (i+1) + "</span>");
-                        lis.append("<span class='name'>" + data[i].filename + "</span>");
-                        lis.append("<span class='text-right peo'>" + data[i].downloads + "</span>");
+                        lis.append("<a href='/user/"+data[i].user+"/file/"+data[i].file+"'><span class='normal'>" + (i+1) + "<span></a>");
+                        lis.append("<a href='/user/"+data[i].user+"/file/"+data[i].file+"'><span class='name'>" + data[i].filename + "</span></a>");
+                        lis.append("<a href='/user/"+data[i].user+"/file/"+data[i].file+"'><span class='text-right peo'>" + data[i].downloads + "</span></a>");
                         $("#rmwz").append(lis);
                     }
                 }
             }
         })
+    $.ajax({
+            url: '/api/files/hots?type=image',
+            type: "get",
+            success: function (data, status) {
+                if (data != 0) {
+                    for (var i = 0; i < data.length; i++) {
+                        var lis = $("<li class='col-md-3 col-sm-4 col-xs-6 text-center'></li>");
+                        lis.append("<a href='/user/"+data[i].user+"/file/"+data[i].file+"'><img src='img/pic.png'></a>");
+                        lis.append("<a href='/user/"+data[i].user+"/file/"+data[i].file+"'><p>文件名：<span>"+data[i].filename+"</span></p></a>");
+                        $("#tp").append(lis);
+                    }
+                }
+            }
+        })
 
+    $.ajax({
+            url: '/api/files/hots?type=video',
+            type: "get",
+            success: function (data, status) {
+                if (data != 0) {
+                    for (var i = 0; i < data.length; i++) {
+                        var lis = $("<li class='col-md-3 col-sm-4 col-xs-6 text-center'></li>");
+                        lis.append("<a href='/user/"+data[i].user+"/file/"+data[i].file+"'><img src='img/videos.png'></a>");
+                        lis.append("<a href='/user/"+data[i].user+"/file/"+data[i].file+"'><p>文件名：<span>"+data[i].filename+"</span></p></a>");
+                        $("#tp").append(lis);
+                    }
+                }
+            }
+        })
+  	$.ajax({
+            url: '/api/files/hots?type=zip',
+            type: "get",
+            success: function (data, status) {
+                if (data != 0) {
+                    for (var i = 0; i < data.length; i++) {
+                        var lis = $("<li class='col-md-3 col-sm-4 col-xs-6 text-center'></li>");
+                        lis.append("<a href='/user/"+data[i].user+"/file/"+data[i].file+"'><img src='img/zip.png'></a>");
+                        lis.append("<a href='/user/"+data[i].user+"/file/"+data[i].file+"'><p>文件名：<span>"+data[i].filename+"</span></p></a>");
+                        $("#tp").append(lis);
+                    }
+                }
+            }
+        })
+	$.ajax({
+            url: '/api/files/hots?type=doc',
+            type: "get",
+            success: function (data, status) {
+                if (data != 0) {
+                    for (var i = 0; i < data.length; i++) {
+                        var lis = $("<li class='col-md-3 col-sm-4 col-xs-6 text-center'></li>");
+                        lis.append("<a href='/user/"+data[i].user+"/file/"+data[i].file+"'><img src='img/article.png'></a>");
+                        lis.append("<a href='/user/"+data[i].user+"/file/"+data[i].file+"'><p>文件名：<span>"+data[i].filename+"</span></p></a>");
+                        $("#tp").append(lis);
+                    }
+                }
+            }
+        })
+	
 </script>
 <script src="js/index.js"></script>
 

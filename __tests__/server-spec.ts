@@ -116,6 +116,9 @@ test('测试登录统计数据页面', done => {
     .expect(200, function(err, res) {
       expect(err).toBeFalsy();
       expect(res.text.includes('网站数据统计')).toBeTruthy();
+      done();
+    });
+});
 test('测试管理员 logout', done => {
   request(app)
     .get('/admin/logout')
@@ -223,15 +226,15 @@ test('测试数据库链接', done => {
     database: 'cloud',
   });
   // 创建user数据
-  // con.query(
-  //   "INSERT INTO user(username, password, email, created_at) VALUES ('user1','123','user1.qq','2017-10-20')",
-  //   function(err) {
-  //     expect(err).toBeFalsy();
-  //     console.log('insert success');
-  //     con.end();
-  //     done();
-  //   }
-  // );
+  con.query(
+    "INSERT INTO user(username, password, email, created_at) VALUES ('user1','123','user1.qq','2017-10-20')",
+    function(err) {
+      expect(err).toBeFalsy();
+      console.log('insert success');
+      con.end();
+      done();
+    }
+  );
 });
 
 test('visit error urls', done => {

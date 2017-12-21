@@ -688,7 +688,17 @@ test('insert file', done => {
     }
   );
 });
-
+test('测试获取所有', done => {
+  request(app)
+    .get('/api/files?type=all')
+    .expect(200, function(err, res) {
+      expect(err).toBeFalsy();
+      console.log(err);
+      console.log(res.body);
+      expect(res.body).toBeTruthy();
+      done();
+    });
+});
 test('测试获取分类文件', done => {
   request(app)
     .get('/api/files?type=image')

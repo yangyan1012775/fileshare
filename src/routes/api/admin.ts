@@ -29,8 +29,6 @@ router.get('/users/:name', (req: any, res: any) => {
 
 // 获取统计信息
 router.get('/sites', (req: any, res: any) => {
-  console.log('get admin sites');
-
   const admin6 = new Admin(req, res);
   admin6.getSites(req, res);
 });

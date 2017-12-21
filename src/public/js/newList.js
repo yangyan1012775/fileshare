@@ -6,7 +6,7 @@ function newList(data,parent){
         var newId = $('<th class="col-1 col-xl-1 col-sm-1 border-bottom-0">'+data[i].file+'</th>');
         var newFilename = $('<th class="col-4 col-xl-4 col-sm-4 border-bottom-0">'+data[i].filename+'</th>');
         var newFilesize = $('<th class="col-2 col-xl-3 col-sm-3 border-bottom-0">'+ data[i].size+'</th>');
-        var newFileUpload = $('<th class="col-4 col-xl-3 col-sm-3 border-bottom-0">'+data[i].uploaded_at+'</th>');
+        var newFileUpload = $('<th class="col-4 col-xl-3 col-sm-3 border-bottom-0">'+data[i].upload_at+'</th>');
         
         newTr.append(newbtn);
         newTr.append(newId);

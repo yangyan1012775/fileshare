@@ -49,10 +49,7 @@ router.get('/:type', async (req: any, res: any) => {
       await file.getFiles(req, res, sql);
       break;
     case 'unchecked':
-      sql =
-        'select * from pending_file join user_file on (pending_file.id=user_file.file) where user_file.user=' +
-        userId +
-        ';';
+      sql = 'select * from pending_file where user=' + userId + ';';
       await file.getFiles(req, res, sql);
       break;
     default:

@@ -76,6 +76,7 @@ export class File {
       process.env.UPLOAD_DIR,
       this.hash + '.' + this.filename.split('.')[1],
     );
+    console.log(currFile);
     fsexists(currFile).then((exist: any) => {
       if (exist) {
         const f = fs.createReadStream(currFile);
@@ -85,10 +86,6 @@ export class File {
           'Content-Type': 'application/force-download',
         });
         f.pipe(res);
-      } else {
-        res.set('Content-type', 'text/html');
-        res.send('file not exist');
-        res.end();
       }
     });
   }

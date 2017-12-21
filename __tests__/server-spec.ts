@@ -644,10 +644,20 @@ test('测试获取分类文件', done => {
     });
 });
 
-test('测试download----', done => {
+test('测试download----success', done => {
   request(app)
     .get('/user/download?id=1')
     .expect(200, function(err, res) {
+      expect(err).toBeFalsy();
+      done();
+    });
+});
+
+test('测试download----fail', done => {
+  request(app)
+    .get('/user/download?id=9')
+    .expect(404, function(err, res) {
+      expect(err).toBeFalsy();
       done();
     });
 });

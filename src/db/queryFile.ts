@@ -10,6 +10,7 @@ const queryFile = (id: any) => {
       con.query(
         sql,
         cbFunc((result: any) => {
+          console.log(result);
           resolve(result[0]);
         }),
       );

@@ -87,8 +87,8 @@ $(function () {
         }
       })
     } else {
-      alert('输入错误，重新填写');
-      location.href = ("/user/login");
+      $("#ts").css("diaplay","block");
+      // alert('输入错误，重新填写');
       return;
     }
   });

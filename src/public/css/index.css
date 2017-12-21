@@ -64,13 +64,15 @@ h1,.bg h2{
     width: 100%;
 }
 .file ul{
+    height: 620px;
     padding: 20px 50px 0 50px;
+    overflow:hidden;
 }
 .file ul li{
     text-align: center;
+    height: 150px;
 }
 .file ul li img{
-    width: 84%;
     height: 120px;
 }
 .file ul li img:hover{

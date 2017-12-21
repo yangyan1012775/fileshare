@@ -1,5 +1,6 @@
 $(function () {
-  var fileId = window.location.href.substr(window.location.href.length - 1, 1)
+  var index = window.location.href.lastIndexOf("\/"); 
+  var fileId = window.location.href.substring(index + 1, window.location.href.length);
   $.ajax({
     url: "/api/files/:id",    //请求的url地址
     dataType: "json",   //返回格式为json

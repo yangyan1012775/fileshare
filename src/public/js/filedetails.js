@@ -1,7 +1,6 @@
 $(function () {
-  var fileId = window.location.href.substr(window.location.href.length - 1, 1)
-  console.log(fileId);
-  //window.localStorage.getItem('fileId',fileId);
+  var index = window.location.href.lastIndexOf("\/"); 
+  var fileId = window.location.href.substring(index + 1, window.location.href.length);
   $.ajax({
     url: "/api/files/:id",    //请求的url地址
     dataType: "json",   //返回格式为json
@@ -10,8 +9,6 @@ $(function () {
     type: "post",   //请求方式
     success: function (data) {
       //请求成功时处理
-      console.log(data);
-      //newfiledetails(data,'.details');
       var newName = $('<td>' + data[0].filename + '</td>');
       var newType = $('<td>' + data[0].type + '</td>');
       var newSize = $('<td>' + data[0].size + '</td>');
@@ -28,18 +25,3 @@ $(function () {
     window.location.href = "/user/download?id=" + fileId;
   });
 });
-
-// $(function () {
-//   $('.download').on('click', function () {
-  //   $.ajax({
-  //     url: '/user/:id',
-  //     type: 'get',
-  //     success: function (data) {
-  //       console.log('hello');
-  //     },
-  //     error: function (err) {
-  //       alert('数据库查询失败');
-  //     }
-  //   });
-//   });
-// })

@@ -759,6 +759,15 @@ test('/hot/doc读取测试', done => {
     });
 });
 
+test('测试获取用户名', done => {
+  request(app)
+    .get('/api/users/')
+    .expect(200, function(err, res) {
+      expect(err).toBeFalsy();
+      expect(res.text !== '').toBeTruthy();
+      done();
+    });
+});
 test('测试文件分类--allFiles', done => {
   request(app)
     .get('/api/users/allFiles')

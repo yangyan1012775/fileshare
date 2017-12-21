@@ -32,6 +32,25 @@ export class Admin {
     res.json({ pages, Res: result });
   }
 
+  public getSites(req: any, res: any) {
+    console.log('get admin sites 2');
+
+    basic('cloud').then((con) => {
+      console.log('get admin sites 3');
+
+      const sql = 'select * from website_statistics';
+      con.query(
+        sql,
+        cbFunc((result: any) => {
+          console.log('get admin sites 4');
+          console.log(result);
+          res.json(result);
+          con.end();
+        }),
+      );
+    });
+  }
+
   public adminLogin(req: any, res: any) {
     basic('cloud').then((con) => {
       const sql =

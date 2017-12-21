@@ -35,7 +35,20 @@
 //获取登录的用户名
 $(function () {
     console.log(localStorage.getItem("username"));
-    $('#user').html("<i class=\"fa fa-user-o\" aria-hidden=\"true\"></i>\n" + localStorage.getItem("username"));
+    $.ajax({
+        url:'/api/users/name',
+        type:'get',
+        success:function(data){
+            console.log('data');
+            console.log(data);
+            $('#user').html("<i class=\"fa fa-user-o\" aria-hidden=\"true\"></i>\n" + data[0].username);
+        },
+        error:function(err){
+            alert('数据库查询失败');
+        }
+
+    });
+    
 })
 //---设置高度
 $(function () {

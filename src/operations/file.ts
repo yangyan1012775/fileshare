@@ -68,7 +68,19 @@ export class File {
     await this.insert(type, file.size, req.session.userid || 0);
     res.json('上传成功');
   }
-
+  public async delete(id: any, req: any, res: any) {
+    const con = await db('cloud');
+    let i = 0;
+    while (id[i]) {
+      let sql = 'delete from file where id = ' + id[i] + ';';
+      await query(sql, con);
+      sql = 'delete from user_file where file = ' + id[i] + ';';
+      await query(sql, con);
+      i++;
+    }
+    con.end();
+    res.json('delete suc');
+  }
   public download(res: any) {
     const fsexists = promisify(fs.exists);
     // ------------------等其他两组提交后再将file改成变量

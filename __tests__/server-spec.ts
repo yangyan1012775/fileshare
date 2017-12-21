@@ -459,7 +459,18 @@ test('测试.exe文件上传成功', done => {
       done();
     });
 });
-
+test('测试.png文件上传成功', done => {
+  request(app)
+    .post('/api/files')
+    .type('form')
+    .field('action', 'upload')
+    .attach('_upload', '__tests__/fixtures/1.png')
+    .expect(200, (err, res) => {
+      expect(err).toBeFalsy();
+      expect(res.body === '上传成功').toBeTruthy();
+      done();
+    });
+});
 test('获取未审核文件', done => {
   request(app)
     .get('/api/files?filter=pending')
@@ -548,7 +559,31 @@ test('测试文件审核未通过 id=6', done => {
       done();
     });
 });
-
+test('测试文件审核通过 id=7', done => {
+  request(app)
+    .post('/api/files')
+    .type('form')
+    .send({
+      action: 'permit',
+      id: '7',
+    })
+    .expect(200, function(err, res) {
+      expect(err).toBeFalsy();
+      done();
+    });
+});
+test('测试文件删除 id=7', done => {
+  request(app)
+    .post('/api/files')
+    .type('form')
+    .field('action', 'delete')
+    .field('id[]', [7, 8])
+    .expect(200, (err, res) => {
+      expect(err).toBeFalsy();
+      expect(res.body === 'delete suc').toBeTruthy();
+      done();
+    });
+});
 test('insert file', done => {
   let app = Express();
   let server = new Server(app, 3000);

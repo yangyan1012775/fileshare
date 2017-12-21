@@ -77,9 +77,9 @@ $(function () {
           location.href = ("/user/login");
         },
         success: function (data) {
-
+          console.log(data);
           if (data == "false") {
-            alert('服务器访问错误！');
+            alert('账号密码不匹配！');
             location.href = ("/user/login");
           } else {
             location.href = ("/user/" + data.id);
@@ -87,7 +87,6 @@ $(function () {
         }
       })
     } else {
-
       return;
     }
   });

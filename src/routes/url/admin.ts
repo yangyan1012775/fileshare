@@ -5,6 +5,11 @@ router.get('/login', (req: any, res: any) => {
   res.render('admin/login');
 });
 
+router.get('/logout', (req: any, res: any) => {
+  req.session.user = null;
+  res.render('admin/login');
+});
+
 router.get('/update', (req: any, res: any) => {
   res.render('admin/setting', { admin: req.session.user });
 });

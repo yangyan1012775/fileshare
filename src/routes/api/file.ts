@@ -4,6 +4,7 @@ import * as fs from 'fs';
 import * as multer from 'multer';
 import * as path from 'path';
 import cb from '../../cb/cb';
+import queryFile from '../../db/queryFile';
 import { Admin } from '../../operations/admin';
 import { File } from '../../operations/file';
 const router = Express.Router();
@@ -32,6 +33,11 @@ router.post('/', (req: any, res: any) => {
             file.upload(req.files._upload, req, res);
           }),
         );
+        break;
+      case 'delete':
+        const fileId = req.body.id;
+        const deletefile = new File('', '');
+        deletefile.delete(fileId, req, res);
         break;
       case 'permit':
         const permitResult = await Admin.permitFile(req.body.id);

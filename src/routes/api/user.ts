@@ -33,6 +33,7 @@ router.post('/', async (req: any, res: any) => {
 router.get('/:type', async (req: any, res: any) => {
   let sql: string;
   const file = new File('', '');
+  console.log(req.session.userid);
   const userId = req.session.userid || 0;
   switch (req.params.type) {
     case 'allFiles':

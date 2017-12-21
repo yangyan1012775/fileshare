@@ -48,7 +48,8 @@ export class File {
     con.end();
     con = await db('cloud');
     value = '(\'' + result.insertId + '\', \'' + userid + '\',\'' + dateTime + '\')';
-    sql = 'insert into user_file(file, user, upload_at) values ' + value + ';';
+    sql =
+      'insert into user_file(file, user, uploaded_at) values ' + value + ';';
     await query(sql, con);
     con.end();
   }
@@ -68,11 +69,23 @@ export class File {
     await this.insert(type, file.size, req.session.userid || 0);
     res.json('上传成功');
   }
-
+  public async delete(id: any, req: any, res: any) {
+    const con = await db('cloud');
+    const i = 0;
+    let sql = 'delete from file where id in (' + id + ');';
+    await query(sql, con);
+    sql = 'delete from user_file where file in (' + id + ');';
+    await query(sql, con);
+    con.end();
+    res.json('delete suc');
+  }
   public download(res: any) {
     const fsexists = promisify(fs.exists);
     // ------------------等其他两组提交后再将file改成变量
-    const currFile = path.resolve(process.env.UPLOAD_DIR, this.filename);
+    const currFile = path.resolve(
+      process.env.UPLOAD_DIR,
+      this.hash + '.' + this.filename.split('.')[1],
+    );
     fsexists(currFile).then((exist: any) => {
       if (exist) {
         const f = fs.createReadStream(currFile);
@@ -82,22 +95,18 @@ export class File {
           'Content-Type': 'application/force-download',
         });
         f.pipe(res);
-      } else {
-        res.set('Content-type', 'text/html');
-        res.send('file not exist!');
-        res.end();
       }
     });
   }
-  public async getFiles(req: any, res: any) {
+
+  public async getFiles(req: any, res: any, sql: string) {
     const con = await db('cloud');
-    const sql = 'select * from file where type = \'' + req.query.type + '\';';
     const result = await query(sql, con);
     con.end();
     res.json(result);
   }
 
-  public async getType(req: any, res: any, type) {
+  public async getType(req: any, res: any, type: string) {
     const con = await db('cloud');
     const sql =
       'select user.username,file.filename,file.size,file.downloads ' +
@@ -108,5 +117,18 @@ export class File {
     const result = await query(sql, con);
     con.end();
     res.json(result);
+  }
+
+  public getFiledetails(req: any, res: any) {
+    db('cloud').then((con) => {
+      const sql = 'select * from file where id= \'' + req.body.fileId + '\'';
+      con.query(
+        sql,
+        cbFunc((result: any) => {
+          res.json(result);
+          con.end();
+        }),
+      );
+    });
   }
 }

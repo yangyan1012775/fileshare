@@ -82,6 +82,16 @@ test('测试访问用户页面success', done => {
       done();
     });
 });
+
+test('测试文件详情页面', done => {
+  request(app)
+    .get('/user/1/file/1')
+    .expect(200, function(err, res) {
+      expect(err).toBeFalsy();
+      expect(res.text.includes('-文件详情页')).toBeTruthy();
+      done();
+    });
+});
 test('测试访问用户页面fail', done => {
   request(app)
     .get('/user/qqq')
@@ -452,6 +462,15 @@ test('测试单用户查询结果无此用户', done => {
     });
 });
 
+test('测试单文件信息查询', done => {
+  request(app)
+    .post('/api/files/1')
+    .expect(200, function(err, res) {
+      expect(res.text !== 0).toBeTruthy();
+      done();
+    });
+});
+
 test('测试用户密码重置', done => {
   request(app)
     .post('/api/admins/users')
@@ -562,12 +581,49 @@ test('测试.exe文件上传成功', done => {
       done();
     });
 });
-
+test('测试.png文件上传成功', done => {
+  request(app)
+    .post('/api/files')
+    .type('form')
+    .field('action', 'upload')
+    .attach('_upload', '__tests__/fixtures/1.png')
+    .expect(200, (err, res) => {
+      expect(err).toBeFalsy();
+      expect(res.body === '上传成功').toBeTruthy();
+      done();
+    });
+});
 test('获取未审核文件', done => {
   request(app)
     .get('/api/files?filter=pending')
     .expect(200, function(err, res) {
       expect(err).toBeFalsy();
+      done();
+    });
+});
+
+test('测试文件审核失败 id=不存在', done => {
+  request(app)
+    .post('/api/files')
+    .type('form')
+    .send({
+      action: 'permit',
+      id: '1000',
+    })
+    .expect(500, function(err, res) {
+      done();
+    });
+});
+
+test('测试文件未审核失败 id=不存在', done => {
+  request(app)
+    .post('/api/files')
+    .type('form')
+    .send({
+      action: 'reject',
+      id: '1000',
+    })
+    .expect(500, function(err, res) {
       done();
     });
 });
@@ -651,7 +707,31 @@ test('测试文件审核未通过 id=6', done => {
       done();
     });
 });
-
+test('测试文件审核通过 id=7', done => {
+  request(app)
+    .post('/api/files')
+    .type('form')
+    .send({
+      action: 'permit',
+      id: '7',
+    })
+    .expect(200, function(err, res) {
+      expect(err).toBeFalsy();
+      done();
+    });
+});
+test('测试文件删除 id=7', done => {
+  request(app)
+    .post('/api/files')
+    .type('form')
+    .field('action', 'delete')
+    .field('id[]', [7, 8])
+    .expect(200, (err, res) => {
+      expect(err).toBeFalsy();
+      expect(res.body === 'delete suc').toBeTruthy();
+      done();
+    });
+});
 test('insert file', done => {
   let app = Express();
   let server = new Server(app, 3000);
@@ -686,39 +766,24 @@ test('测试获取分类文件', done => {
     });
 });
 
-test('测试download----', done => {
+test('测试download----success', done => {
   request(app)
     .get('/user/download?id=1')
     .expect(200, function(err, res) {
+      expect(err).toBeFalsy();
       done();
     });
 });
 
 test('测试download----fail', done => {
-  var con = mysql.createConnection({
-    host: process.env.MYSQL_HOST,
-    user: process.env.MYSQL_USERNAME,
-    password: process.env.MYSQL_PASSWORD,
-    database: 'cloud',
-  });
-  con.query(
-    "insert into file(filename, type, size, downloads,hash) values ('girlTest.JPG','image',40,2,'asgsagasgasdaasg');",
-    function(err) {
-      expect(err).toBeFalsy();
-      console.log('insert success');
-      con.end();
-      done();
-    }
-  );
   request(app)
-    .get('/user/download?id=2')
-    .expect(200, function(err, res) {
+    .get('/user/download?id=9')
+    .expect(404, function(err, res) {
       expect(err).toBeFalsy();
-      // console.log(err);
-      expect(res.text.includes('not')).toBeTruthy();
       done();
     });
 });
+
 test('测试user-热门', done => {
   var con = mysql.createConnection({
     host: process.env.MYSQL_HOST,
@@ -793,7 +858,7 @@ test('测试user_file-热门', done => {
     [8, 8, '2017-12-07 00:00:00'],
   ];
   con.query(
-    'INSERT INTO `user_file` (`user`, `file`, `upload_at`) values ?',
+    'INSERT INTO `user_file` (`user`, `file`, `uploaded_at`) values ?',
     [data],
     function(err) {
       expect(err).toBeFalsy();
@@ -844,7 +909,7 @@ test('/hot/doc读取测试', done => {
 
 test('测试文件分类--allFiles', done => {
   request(app)
-    .get('/api/users/1/allFiles')
+    .get('/api/users/allFiles')
     .expect(200, function(err, res) {
       expect(err).toBeFalsy();
       expect(res.text !== '').toBeTruthy();
@@ -853,7 +918,7 @@ test('测试文件分类--allFiles', done => {
 });
 test('测试文件分类--image', done => {
   request(app)
-    .get('/api/users/1/image')
+    .get('/api/users/image')
     .expect(200, function(err, res) {
       // res.send();
       expect(err).toBeFalsy();
@@ -863,7 +928,7 @@ test('测试文件分类--image', done => {
 });
 test('测试文件分类--text', done => {
   request(app)
-    .get('/api/users/1/text')
+    .get('/api/users/text')
     .expect(200, function(err, res) {
       // res.send();
       expect(err).toBeFalsy();
@@ -873,7 +938,7 @@ test('测试文件分类--text', done => {
 });
 test('测试文件分类--video', done => {
   request(app)
-    .get('/api/users/1/video')
+    .get('/api/users/video')
     .expect(200, function(err, res) {
       // res.send();
       expect(err).toBeFalsy();
@@ -883,7 +948,7 @@ test('测试文件分类--video', done => {
 });
 test('测试文件分类--zip', done => {
   request(app)
-    .get('/api/users/1/zip')
+    .get('/api/users/zip')
     .expect(200, function(err, res) {
       // res.send();
       expect(err).toBeFalsy();
@@ -893,7 +958,7 @@ test('测试文件分类--zip', done => {
 });
 test('测试文件分类--other', done => {
   request(app)
-    .get('/api/users/1/other')
+    .get('/api/users/other')
     .expect(200, function(err, res) {
       // res.send();
       expect(err).toBeFalsy();
@@ -903,7 +968,7 @@ test('测试文件分类--other', done => {
 });
 test('测试文件分类--unchecked', done => {
   request(app)
-    .get('/api/users/1/unchecked')
+    .get('/api/users/unchecked')
     .expect(200, function(err, res) {
       // res.send();
       expect(err).toBeFalsy();
@@ -942,7 +1007,7 @@ beforeAll(function(done) {
               expect(err).toBeFalsy();
               console.log('success pending_file');
               con.query(
-                'create table user_file (id int auto_increment,file int not null,user int not null,upload_at datetime not null,primary key(id));',
+                'create table user_file (id int auto_increment,file int not null,user int not null,uploaded_at datetime not null,primary key(id));',
                 function(err) {
                   expect(err).toBeFalsy();
                   console.log('success user_file');

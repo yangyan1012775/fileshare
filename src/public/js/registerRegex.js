@@ -63,6 +63,10 @@ $(function () {
         }
     });
 
+    $('#ts').on("click",function(){
+        location.href = ("/user/login");
+    });
+
 
 
     $('#sub').on('click', function () {

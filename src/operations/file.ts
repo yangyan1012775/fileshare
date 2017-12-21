@@ -85,9 +85,14 @@ export class File {
           'Content-Type': 'application/force-download',
         });
         f.pipe(res);
+      } else {
+        res.set('Content-type', 'text/html');
+        res.send('file not exist');
+        res.end();
       }
     });
   }
+
   public async getFiles(req: any, res: any, sql: string) {
     const con = await db('cloud');
     const result = await query(sql, con);

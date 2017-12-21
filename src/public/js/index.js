@@ -4,7 +4,7 @@ $(window).scroll(function () {
         $(".til").css({
             "background": "#fdfdfd"
         });
-        $(".til img").attr("src", "assets/img/cloud_.png");
+        $(".til img").attr("src", "img/cloud_.png");
         $(".til span").css({
             "color": "#8a8a8a"
         });
@@ -20,7 +20,7 @@ $(window).scroll(function () {
         $(".til").css({
             "background": "transparent"
         });
-        $(".til img").attr("src", "assets/img/cloud.png");
+        $(".til img").attr("src", "img/cloud.png");
         $(".til span").css({
             "color": "#fff"
         });

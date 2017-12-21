@@ -89,7 +89,7 @@ export class File {
       }
     });
   }
-  public static async getFiles(req: any, res: any, sql: string) {
+  public async getFiles(req: any, res: any, sql: string) {
     const con = await db('cloud');
     const result = await query(sql, con);
     con.end();
@@ -108,5 +108,4 @@ export class File {
     con.end();
     res.json(result);
   }
-
 }

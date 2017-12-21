@@ -32,30 +32,32 @@ router.post('/', async (req: any, res: any) => {
 // 文件操作
 router.get('/:type', async (req: any, res: any) => {
   let sql: string;
-  var userId=req.session.userid||0;
+  const file = new File('', '');
+  const userId = req.session.userid || 0;
   switch (req.params.type) {
     case 'allFiles':
       sql =
         'select * from file join user_file on (file.id=user_file.file) where user_file.user=' +
         userId +
         ';';
-      await File.getFiles(req, res, sql);
+      await file.getFiles(req, res, sql);
       break;
     case 'unchecked':
       sql =
         'select * from pending_file join user_file on (pending_file.id=user_file.file) where user_file.user=' +
         userId +
         ';';
-      await File.getFiles(req, res, sql);
+      await file.getFiles(req, res, sql);
       break;
     default:
       sql =
-        'select * from file join user_file on (file.id=user_file.file and file.type=\'' + req.params.type + '\') where user_file.user=' +
+        'select * from file join user_file on (file.id=user_file.file and file.type=\'' +
+        req.params.type +
+        '\') where user_file.user=' +
         userId +
         ';';
-      await File.getFiles(req, res, sql);
+      await file.getFiles(req, res, sql);
   }
-
 });
 
 export default router;

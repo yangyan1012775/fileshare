@@ -129,6 +129,25 @@ test('测试管理员 logout', done => {
     });
 });
 /* 管理员 api */
+// test('测试管理员登录', done => {
+//   var con = mysql.createConnection({
+//     host: process.env.MYSQL_HOST,
+//     user: process.env.MYSQL_USERNAME,
+//     password: process.env.MYSQL_PASSWORD,
+//     database: 'cloud',
+//   });
+//   // 创建admin数据
+//   con.query(
+//     "INSERT INTO admin(username, password) VALUES ('123','123')",
+//     function(err) {
+//       expect(err).toBeFalsy();
+//       console.log('insert success');
+//       con.end();
+//       done();
+//     }
+//   );
+// });
+
 test('测试管理员 login', done => {
   request(app)
     .post('/api/admins')
@@ -140,6 +159,52 @@ test('测试管理员 login', done => {
       done();
     });
 });
+// test('admin-login 密码不正确', done => {
+//   request(app)
+//     .post('/api/admins')
+//     .type('form')
+//     .send({
+//       action: 'login',
+//       username: '123',
+//       password: '123123',
+//     })
+//     .expect(200, function(err, res) {
+//       expect(err).toBeFalsy();
+//       expect(res.text.includes('false')).toBeTruthy();
+//       console.log(res.text);
+//       done();
+//     });
+// });
+// test('admin-login 用户名不存在', done => {
+//   request(app)
+//     .post('/api/admins')
+//     .type('form')
+//     .send({
+//       action: 'login',
+//       password: '123123',
+//     })
+//     .expect(200, function(err, res) {
+//       expect(err).toBeFalsy();
+//       expect(res.text.includes('false')).toBeTruthy();
+//       console.log(res.text);
+//       done();
+//     });
+// });
+// test('default', done => {
+//   request(app)
+//     .post('/api/admins')
+//     .type('form')
+//     .send({
+//       action: 'sss',
+//       password: '123123',
+//     })
+//     .expect(200, function(err, res) {
+//       expect(err).toBeFalsy();
+//       expect(res.text.includes('error')).toBeTruthy();
+//       console.log(res.text);
+//       done();
+//     });
+// });
 test('测试管理员 sites data', done => {
   var con = mysql.createConnection({
     host: process.env.MYSQL_HOST,

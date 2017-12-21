@@ -119,11 +119,8 @@ Admin.permitFile = async function permitFile(fileId: string): Promise<boolean> {
       result[0].hash
     }')`;
     const insertResult = await Query(addSql, con);
-    // console.log(insertResult);
-    // console.log(result[0].user);
     const date = new Date();
     const dateTime = moment(date).format('YYYY-MM-DD HH:mm:ss');
-    // console.log(dateTime);
     const value =
       '(' +
       insertResult.insertId +
@@ -134,9 +131,8 @@ Admin.permitFile = async function permitFile(fileId: string): Promise<boolean> {
       '\')';
     const sql1 =
       'insert into user_file(file, user, uploaded_at) values ' + value + ';';
-    console.log(sql1);
     await Query(sql1, con);
-    // con.end();
+    con.end();
     return true;
   } else {
     return false;

@@ -15,17 +15,17 @@ router.get('/update', (req: any, res: any) => {
 });
 
 router.get('/users', (req: any, res: any) => {
-  res.render('admin/back-user');
+  res.render('admin/back-user', { admin: req.session.user });
 });
 
 router.get('/sites', (req: any, res: any) => {
-  res.render('admin/back-count');
+  res.render('admin/back-count', { admin: req.session.user });
 });
 /**
  * 文件分类
  */
 router.get('/file/category', (req: any, res: any) => {
-  res.render('admin/back-file-category');
+  res.render('admin/back-file-category', { admin: req.session.user });
 });
 
 export default router;

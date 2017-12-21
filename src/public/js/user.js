@@ -34,8 +34,21 @@
 });
 //获取登录的用户名
 $(function () {
-    console.log(localStorage.getItem("username"));
-    $('#user').html("<i class=\"fa fa-user-o\" aria-hidden=\"true\"></i>\n" + localStorage.getItem("username"));
+    $.ajax({
+        url:'/api/users/',
+        type:'get',
+        success:function(data){
+            if(data.length!==0){
+                $('#user').html("<i class=\"fa fa-user-o\" aria-hidden=\"true\"></i>\n" + data[0].username);
+            }else{
+                $('#user').html("<i class=\"fa fa-user-o\" aria-hidden=\"true\"></i>\n" + null);
+            }
+        },
+        error:function(err){
+            alert('数据库查询失败');
+        }
+    });
+    
 })
 //---设置高度
 $(function () {

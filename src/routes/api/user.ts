@@ -22,6 +22,7 @@ router.post('/', async (req: any, res: any) => {
         res.send('false');
         return;
       }
+      req.session.userid = userInfo.id;
       res.json(userInfo);
       break;
     default:

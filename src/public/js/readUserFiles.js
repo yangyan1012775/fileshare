@@ -58,7 +58,7 @@ function getMessage(filetype) {
         for (var i = start; i < end; i++) {
             html += '<tr><td>' + data[i].id + '</td><td><a href="#">' + data[i].filename + '</a></td><td>' + data[i].type + '</td><td>' + data[i].size + '</td><td>' + data[i].downloads + '</td><td><a class="deleteF" href="#">删除</a></td></tr>';
         }
-        $('.table').children('tbody').html(html);
+        $('#cate .table').children('tbody').html(html);
         $('.pagination.p-c').html('');
         p += '<li class="previous"><a href="#">&laquo;</a></li>';
         for (var j = 0; j < pages; j++) {

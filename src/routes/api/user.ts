@@ -29,7 +29,12 @@ router.post('/', async (req: any, res: any) => {
       res.send('error');
   }
 });
-
+router.get('/', async (req: any, res: any) => {
+  const userId = req.session.userid || 0;
+  const sql = 'select * from user where id=' + userId + ';';
+  const file = new File('', '');
+  await file.getFiles(req, res, sql);
+});
 // 文件操作
 router.get('/:type', async (req: any, res: any) => {
   let sql: string;

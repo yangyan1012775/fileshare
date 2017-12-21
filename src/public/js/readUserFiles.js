@@ -5,7 +5,7 @@ function getMessage(filetype) {
     
     $.ajax({
         type: 'get',
-        url: '/api/files?type=doc',
+        url: '/api/files?type=all',
         success: function (data) {
             Render(data);
         },
@@ -14,7 +14,7 @@ function getMessage(filetype) {
             return;
         }
     });
-    for(var i=0;i<5;i++){
+    for(var i=0;i<6;i++){
         $(filetype).children().eq(i).on('click',function(){
             var type=$(this).children().attr("data-type");
             var url='/api/files?'+type;
@@ -56,7 +56,7 @@ function getMessage(filetype) {
         pages = Math.max(Math.ceil(data.length / perpage), 1);
 
         for (var i = start; i < end; i++) {
-            html += '<tr><td>' + data[i].id + '</td><td><a href="#">' + data[i].filename + '</a></td><td>' + data[i].type + '</td><td>' + data[i].size + '</td><td>' + data[i].downloads + '</td><td><a class="deleteF" href="#">删除</a></td></tr>';
+            html += '<tr><td>' + data[i].id + '</td><td><a href="#">' + data[i].filename + '</a></td><td>' + data[i].type + '</td><td>' + data[i].size + '</td><td>' + data[i].downloads + '</td><td><a class="deleteF" href="#" data-id="'+data[i].id+'">删除</a></td></tr>';
         }
         $('#cate .table').children('tbody').html(html);
         $('.pagination.p-c').html('');
@@ -81,5 +81,30 @@ function getMessage(filetype) {
         }
 
         Pages(data);
+
+            $(".deleteF").on("click", function () {
+              var fileid = [];
+              var data = new FormData();
+              data.append('action','delete');
+              data.append('id',parseInt($(this).attr("data-id")));
+              console.log(data);
+              $.ajax({
+                data: data,
+                url: '/api/files',
+                type: "post",
+                contentType: false,    //不可缺
+                processData: false,    //不可缺
+                error: function (err) {
+                  console.log("this is error");
+                  console.log(err);
+                },
+                success: function (data) {
+                  if (data === 'delete suc') {
+                    location.reload();
+                  }
+                }
+              });
+            });
+          
     }
 }   

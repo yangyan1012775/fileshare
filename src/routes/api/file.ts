@@ -71,9 +71,15 @@ router.get('/', async (req: any, res: any, next: any) => {
 
 router.get('/', async (req: any, res: any) => {
   const file = new File('', '');
-  const sql = 'select * from file where type = \'' + req.query.type + '\';';
+  let sql = null;
+  if (req.query.type === 'all') {
+    sql = 'select * from file';
+  } else {
+    sql = 'select * from file where type = \'' + req.query.type + '\';';
+  }
   await file.getFiles(req, res, sql);
 });
+
 router.get('/hots', async (req: any, res: any) => {
   switch (req.query.type) {
     case 'video':

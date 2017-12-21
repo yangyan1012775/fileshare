@@ -55,7 +55,7 @@ $(function () {
   });
 
   $('#sub').on('click', function () {
-
+    var flag = 0;
     for (var i = 0; i < check.length; i++) {
       if (check[i] == true) {
         flag++;
@@ -77,7 +77,7 @@ $(function () {
           location.href = ("/user/login");
         },
         success: function (data) {
-          
+
           if (data == "false") {
             alert('服务器访问错误！');
             location.href = ("/user/login");
@@ -87,8 +87,7 @@ $(function () {
         }
       })
     } else {
-      $("#ts").css("diaplay","block");
-      // alert('输入错误，重新填写');
+
       return;
     }
   });

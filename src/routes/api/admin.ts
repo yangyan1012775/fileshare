@@ -1,5 +1,6 @@
 import * as Express from 'express';
 import { Admin } from '../../operations/admin';
+const admin = new Admin();
 const router = Express.Router();
 
 /* 管理员 */

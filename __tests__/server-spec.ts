@@ -139,15 +139,66 @@ test('测试管理员 logout', done => {
     });
 });
 /* 管理员 api */
-
+test('测试数据库链接', done => {
+  var con = mysql.createConnection({
+    host: process.env.MYSQL_HOST,
+    user: process.env.MYSQL_USERNAME,
+    password: process.env.MYSQL_PASSWORD,
+    database: 'cloud',
+  });
+  // 创建admin数据
+  con.query(
+    "INSERT INTO admin(username, password) VALUES ('123','123')",
+    function(err) {
+      expect(err).toBeFalsy();
+      console.log('insert success');
+      con.end();
+      done();
+    }
+  );
+});
 test('测试管理员 login', done => {
   request(app)
     .post('/api/admins')
     .type('form')
-    .send({ action: 'login' })
+    .send({
+      action: 'login',
+      username: 123,
+      password: 123,
+    })
     .expect(200, function(err, res) {
       expect(err).toBeFalsy();
       expect(res.body === 'ok').toBeTruthy();
+      done();
+    });
+});
+test('测试管理员 login', done => {
+  request(app)
+    .post('/api/admins')
+    .type('form')
+    .send({
+      action: 'login',
+      username: 111,
+      password: 123,
+    })
+    .expect(200, function(err, res) {
+      expect(err).toBeFalsy();
+      expect(res.body === 'username none').toBeTruthy();
+      done();
+    });
+});
+test('测试管理员 login', done => {
+  request(app)
+    .post('/api/admins')
+    .type('form')
+    .send({
+      action: 'login',
+      username: 123,
+      password: 111,
+    })
+    .expect(200, function(err, res) {
+      expect(err).toBeFalsy();
+      expect(res.body === 'password none').toBeTruthy();
       done();
     });
 });
@@ -873,7 +924,7 @@ beforeAll(function(done) {
           expect(err).toBeFalsy();
           console.log('success user');
           con.query(
-            'create table pending_file (id int auto_increment,filename varchar(255) not null,type varchar(20) not null,size int not null,hash varchar(64) not null,primary key(id));',
+            'create table pending_file (id int auto_increment,user int not null,filename varchar(255) not null,type varchar(20) not null,size int not null,hash varchar(64) not null,primary key(id));',
             function(err) {
               expect(err).toBeFalsy();
               console.log('success pending_file');
@@ -888,7 +939,7 @@ beforeAll(function(done) {
                       expect(err).toBeFalsy();
                       console.log('success file');
                       con.query(
-                        'create table admin (id int primary key auto_increment,username varchar(20)not null,password varchar(64)not null,created_at datetime not null);',
+                        'create table admin (id int primary key auto_increment,username varchar(20)not null,password varchar(64)not null);',
                         function(err) {
                           expect(err).toBeFalsy();
                           console.log('success admin');

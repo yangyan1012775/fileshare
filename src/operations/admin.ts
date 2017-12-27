@@ -1,6 +1,7 @@
 // 引用basic
 // 引用cb
 import * as crypto from 'crypto';
+import * as moment from 'moment';
 import cbFunc from '../cb/cb';
 import basic from '../db/basic';
 import Query from '../db/query';
@@ -48,18 +49,22 @@ export class Admin {
   public adminLogin(req: any, res: any) {
     basic('cloud').then((con) => {
       const sql =
-        'SELECT username,password FROM admin WHERE username = \'' +
-        req.body.username +
-        '\' AND password = \'' +
-        req.body.password +
-        '\';';
-      const data = [req.body.id];
+        'SELECT * FROM admin WHERE username = ' + req.body.username + ';';
+
       con.query(
         sql,
         cbFunc((result: any) => {
-          req.session.user = req.body.username;
-          res.json('ok');
-          con.end();
+          if (result[0]) {
+            if (result[0].password === req.body.password) {
+              req.session.user = req.body.username;
+              res.json('ok');
+              con.end();
+            } else {
+              res.json('password none');
+            }
+          } else {
+            res.json('username none');
+          }
         }),
       );
     });
@@ -106,12 +111,25 @@ Admin.permitFile = async function permitFile(fileId: string): Promise<boolean> {
   if (result.length) {
     const delSql = `delete from pending_file where id=${fileId}`;
     await Query(delSql, con);
-    const addSql = `insert into file(id,filename,type,size,downloads,hash) values(${
-      result[0].id
-    },'${result[0].filename}','${result[0].type}',${result[0].size},${0},'${
+    const addSql = `insert into file(filename,type,size,downloads,hash) values(
+      '${result[0].filename}','${result[0].type}',${result[0].size},${0},'${
       result[0].hash
     }')`;
-    await Query(addSql, con);
+    const insertResult = await Query(addSql, con);
+    const date = new Date();
+    const dateTime = moment(date).format('YYYY-MM-DD HH:mm:ss');
+    const value =
+      '(' +
+      insertResult.insertId +
+      ',' +
+      result[0].user +
+      ',\'' +
+      dateTime +
+      '\')';
+    const sql1 =
+      'insert into user_file(file, user, uploaded_at) values ' + value + ';';
+    await Query(sql1, con);
+    con.end();
     return true;
   } else {
     return false;
